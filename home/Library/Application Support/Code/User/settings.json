@@ -1,0 +1,38 @@
+{
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+
+  "editor.formatOnSave": true,
+  "files.trimTrailingWhitespace": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": true,
+
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "git.confirmSync": false,
+
+  "editor.hover.enabled": false,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "terminal.integrated.tabs.enabled": false,
+
+  "files.associations": {
+    "*.mdx": "markdown",
+    "*.snap": "javascript"
+  },
+  "[markdown]": {
+    "editor.wordWrap": "off"
+  },
+  "extensions.ignoreRecommendations": true,
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "projectManager.git.baseFolders": ["~/Documents"],
+
+  "workbench.panel.defaultLocation": "right",
+  "workbench.editor.untitled.hint": "hidden",
+  "workbench.layoutControl.enabled": false
+}
