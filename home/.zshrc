@@ -8,6 +8,7 @@ ENABLE_CORRECTION="true"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+unset ZDOTDIR
 
 # Lazy NVM loader - only load nvm when it's needed
 
@@ -23,13 +24,13 @@ function lazy_nvm {
   unalias npx
 
   if [ -d "${HOME}/.nvm" ]; then
+    ZDOTDIR="$ZSH/cache"
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    unset ZDOTDIR
   fi
 }
-
-unset ZDOTDIR
 
 # Project directory
 PROJDIR=~/proj
