@@ -19,7 +19,7 @@ unset ZDOTDIR
 PROJDIR=~/proj
 
 # Alias and Functions
-source ~/dotfiles/customAlias.zsh
+source ~/dotfiles/customs.zsh
 
 # Source device specific configs
 [ -s "$HOME/.zshlocal" ] && source $HOME/.zshlocal

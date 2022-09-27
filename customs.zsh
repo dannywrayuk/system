@@ -1,5 +1,5 @@
 # help      List all custom commands
-alias help="cat ~/dotfiles/customAlias.zsh | sed -nr 's/^# (.*)|^#/\1/p'"
+alias help="cat ~/dotfiles/customs.zsh | sed -nr 's/^# (.*)|^#/\1/p'"
 
 # rsz       Re-source .zshrc
 alias rsz="source ~/.zshrc"
