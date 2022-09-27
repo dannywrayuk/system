@@ -30,7 +30,7 @@
   "extensions.ignoreRecommendations": true,
 
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "projectManager.git.baseFolders": ["~/Documents"],
+  "projectManager.git.baseFolders": ["~/proj"],
 
   "workbench.panel.defaultLocation": "right",
   "workbench.editor.untitled.hint": "hidden",
