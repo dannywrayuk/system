@@ -33,10 +33,13 @@ function lazy_nvm {
 }
 
 # Project directory
-PROJDIR=~/proj
+export PROJDIR=~/proj
+
+# Dotfiles directory
+export DOTFILES=~/dotfiles
 
 # Alias and Functions
-source ~/dotfiles/customs.zsh
+source $DOTFILES/customs.zsh
 
 # Source device specific configs
 [ -s "$HOME/.zshlocal" ] && source $HOME/.zshlocal
