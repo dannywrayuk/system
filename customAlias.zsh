@@ -19,4 +19,9 @@ alias proj="cd $PROJDIR"
 # docs      Go to Documents
 alias docs="cd ~/Documents"
 
+# kop       Kill process running on port $1
+function kop(){
+        lsof -f -i tcp:$1 | xargs kill
+}
+
 

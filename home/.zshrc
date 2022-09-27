@@ -1,5 +1,5 @@
 export PATH=/opt/homebrew/bin:$PATH
-export ZSH="/Users/danny/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 ZDOTDIR="$ZSH/cache"
 HISTFILE="$ZDOTDIR/.zsh_history"
 
