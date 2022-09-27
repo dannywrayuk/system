@@ -4,8 +4,15 @@ alias help="cat ~/dotfiles/customAlias.zsh | sed -nr 's/^# (.*)|^#/\1/p'"
 # rsz       Re-source .zshrc
 alias rsz="source ~/.zshrc"
 
-# dotup     Update dotfiles
-alias dotu=""
+# dotup     Update dotfiles from remote
+function dotup(){
+    git checkout -b local-changes
+    git fetch origin master:master
+    git stash
+    git checkout master
+    git stash pop
+    git branch -d local-changes
+}
 
 # dotedit   Edit dotfiles
 alias dotedit="code ~/dotfiles"
