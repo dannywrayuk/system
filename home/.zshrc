@@ -10,10 +10,11 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Lazy NVM loader - only load nvm when it's needed
-alias nvm "lazy_nvm; nvm"
-alias npm "lazy_nvm; npm"
-alias node "lazy_nvm; node"
-alias npx "lazy_nvm; npx"
+
+alias nvm="lazy_nvm; nvm"
+alias npm="lazy_nvm; npm"
+alias node="lazy_nvm; node"
+alias npx="lazy_nvm; npx"
 
 function lazy_nvm {
   unalias nvm
