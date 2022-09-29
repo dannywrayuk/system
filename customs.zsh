@@ -23,5 +23,3 @@ alias docs="cd ~/Documents"
 function kop(){
         lsof -f -i tcp:$1 | xargs kill
 }
-
-
