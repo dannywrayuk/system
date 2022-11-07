@@ -21,5 +21,5 @@ alias docs="cd ~/Documents"
 
 # kop       Kill process running on port $1
 function kop(){
-        lsof -f -i tcp:$1 | xargs kill
+        lsof -i:$1 && echo \\nkilling $(lsof -t -i:$1) && lsof -t -i:$1 | xargs kill -9
 }

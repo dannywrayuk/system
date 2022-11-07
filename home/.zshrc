@@ -16,12 +16,14 @@ alias nvm="lazy_nvm; nvm"
 alias npm="lazy_nvm; npm"
 alias node="lazy_nvm; node"
 alias npx="lazy_nvm; npx"
+alias yarn="lazy_nvm; yarn"
 
 function lazy_nvm {
   unalias nvm
   unalias npm
   unalias node
   unalias npx
+  unalias yarn
 
   if [ -d "${HOME}/.nvm" ]; then
     ZDOTDIR="$ZSH/cache"
