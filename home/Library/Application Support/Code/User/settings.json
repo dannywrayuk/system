@@ -11,6 +11,7 @@
 
   "editor.cursorBlinking": "smooth",
   "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorStyle": "block",
 
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
@@ -31,7 +32,9 @@
 
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "projectManager.git.baseFolders": ["~/proj"],
+  "cSpell.userWords": ["dannywrayuk"],
 
+  "window.commandCenter": true,
   "workbench.panel.defaultLocation": "right",
   "workbench.editor.untitled.hint": "hidden",
   "workbench.layoutControl.enabled": false
