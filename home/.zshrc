@@ -27,10 +27,12 @@ function lazy_nvm {
 
   if [ -d "${HOME}/.nvm" ]; then
     ZDOTDIR="$ZSH/cache"
+    BREW_LOCATION="$(brew --prefix)/opt"
     export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    [ -s "$BREW_LOCATION/nvm/nvm.sh" ] && \. "$BREW_LOCATION/nvm/nvm.sh" # This loads nvm
+    [ -s "$BREW_LOCATION/nvm/etc/bash_completion.d/nvm" ] && \. "$BREW_LOCATION/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
     unset ZDOTDIR
+    unset BREW_LOCATION
   fi
 }
 
@@ -45,3 +47,4 @@ source $DOTFILES/customs.zsh
 
 # Source device specific configs
 [ -s "$HOME/.zshlocal" ] && source $HOME/.zshlocal
+
