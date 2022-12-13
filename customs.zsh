@@ -26,3 +26,15 @@ alias lofi="open https://www.youtube.com/watch\?v\=jfKfPfyJRdk"
 function kop(){
         lsof -i:$1 && echo \\nkilling $(lsof -t -i:$1) && lsof -t -i:$1 | xargs kill -9
 }
+
+# clam      Toggle mac clamshell mode
+function clam(){
+if [[ $1 = "on" ]]
+then
+    sudo pmset -a disablesleep 1
+    echo "Clamshell mode enabled, sleep is off"
+else
+    sudo pmset -a disablesleep 0
+    echo "Clamshell mode disabled, sleep is on"
+fi
+}
