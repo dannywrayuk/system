@@ -22,6 +22,9 @@ alias docs="cd ~/Documents"
 # lofi      Open lofi hiphop beats
 alias lofi="open https://www.youtube.com/watch\?v\=jfKfPfyJRdk"
 
+# invm      Manually initialise nvm
+alias invm="lazy_nvm;"
+
 # kop       Kill process running on port $1
 function kop(){
         lsof -i:$1 && echo \\nkilling $(lsof -t -i:$1) && lsof -t -i:$1 | xargs kill -9
