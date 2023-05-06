@@ -10,7 +10,7 @@
   "editor.guides.bracketPairs": true,
 
   "editor.cursorBlinking": "smooth",
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "block",
 
   "explorer.confirmDelete": false,
@@ -33,9 +33,16 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "projectManager.git.baseFolders": ["~/proj"],
   "cSpell.userWords": ["dannywrayuk"],
+  "redhat.telemetry.enabled": false,
 
   "window.commandCenter": true,
   "workbench.panel.defaultLocation": "right",
   "workbench.editor.untitled.hint": "hidden",
-  "workbench.layoutControl.enabled": false
+  "workbench.layoutControl.enabled": false,
+  "workbench.startupEditor": "none",
+  "workbench.colorCustomizations": {
+    "editor.background": "#181818"
+  },
+  "workbench.settings.editor": "json",
+  "editor.smoothScrolling": true
 }

@@ -41,3 +41,13 @@ else
     echo "Clamshell mode disabled, sleep is on"
 fi
 }
+
+# wksp      Open a vscode workspace
+function wksp(){
+if [[ -z $1 ]]
+then
+    ls $PROJDIR/workspaces | sed -e 's/\.code-workspace$//'
+else
+    code $PROJDIR/workspaces/$1.code-workspace
+fi
+}

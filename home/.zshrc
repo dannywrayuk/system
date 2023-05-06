@@ -4,7 +4,6 @@ ZDOTDIR="$ZSH/cache"
 HISTFILE="$ZDOTDIR/.zsh_history"
 
 ZSH_THEME="robbyrussell" # https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ENABLE_CORRECTION="true"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
