@@ -9,6 +9,7 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
 
+  "editor.smoothScrolling": true,
   "editor.cursorBlinking": "smooth",
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.cursorStyle": "block",
@@ -32,10 +33,18 @@
 
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "projectManager.git.baseFolders": ["~/proj"],
-  "cSpell.userWords": ["dannywrayuk"],
   "redhat.telemetry.enabled": false,
+  "cSpell.customDictionaries": {
+    "myWords": {
+      "name": "dannywrayuk",
+      "path": "~/.dictionary",
+      "addWords": true
+    }
+  },
 
   "window.commandCenter": true,
+
+  "workbench.settings.editor": "json",
   "workbench.panel.defaultLocation": "right",
   "workbench.editor.untitled.hint": "hidden",
   "workbench.layoutControl.enabled": false,
@@ -43,6 +52,6 @@
   "workbench.colorCustomizations": {
     "editor.background": "#181818"
   },
-  "workbench.settings.editor": "json",
-  "editor.smoothScrolling": true
+
+  "git.openRepositoryInParentFolders": "never"
 }
