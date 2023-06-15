@@ -3,11 +3,16 @@
   "editor.fontLigatures": true,
 
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.sortImports": true
+  },
+
   "files.trimTrailingWhitespace": true,
   "diffEditor.ignoreTrimWhitespace": false,
 
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
+  "editor.linkedEditing": true,
 
   "editor.smoothScrolling": true,
   "editor.cursorBlinking": "smooth",
