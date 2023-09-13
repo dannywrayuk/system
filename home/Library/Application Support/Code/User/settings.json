@@ -44,6 +44,11 @@
       "name": "dannywrayuk",
       "path": "~/.dictionary",
       "addWords": true
+    },
+    "localWords": {
+      "name": "local",
+      "path": "~/.dictionary-local",
+      "addWords": true
     }
   },
 

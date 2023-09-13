@@ -30,6 +30,17 @@ function kop(){
         lsof -i:$1 && echo \\nkilling $(lsof -t -i:$1) && lsof -t -i:$1 | xargs kill -9
 }
 
+function previewContent(){
+    if [[ -d $1 ]]; then
+        echo "DIRECTORY\n---\n" $(ls -1 $1)
+    elif [[ -f $1 ]]; then
+        echo "FILE\n---\n" $(cat $1)
+    else
+        echo "$1 doesn't exist"
+        exit 1
+    fi
+}
+
 # clam      Toggle mac clamshell mode
 function clam(){
 if [[ $1 = "on" ]]
