@@ -13,8 +13,8 @@ alias dotln="$DOTFILES/install.sh"
 # clone     Clone repo into project directory
 alias clone="git -C $PROJDIR clone"
 
-# proj      Go to project directory
-alias proj="cd $PROJDIR"
+# proj      Go to a project
+alias proj="cd $PROJDIR/\$(ls $PROJDIR | fzf)"
 
 # docs      Go to Documents
 alias docs="cd ~/Documents"
@@ -22,35 +22,19 @@ alias docs="cd ~/Documents"
 # lofi      Open lofi hiphop beats
 alias lofi="open https://www.youtube.com/watch\?v\=jfKfPfyJRdk"
 
-# invm      Manually initialise nvm
-alias invm="lazy_nvm;"
-
 # kop       Kill process running on port $1
 function kop(){
         lsof -i:$1 && echo \\nkilling $(lsof -t -i:$1) && lsof -t -i:$1 | xargs kill -9
 }
 
-function previewContent(){
-    if [[ -d $1 ]]; then
-        echo "DIRECTORY\n---\n" $(ls -1 $1)
-    elif [[ -f $1 ]]; then
-        echo "FILE\n---\n" $(cat $1)
-    else
-        echo "$1 doesn't exist"
-        exit 1
+# op        Open a child directory
+function op(){
+    DEPTH=${1:-"4"}
+    DIR=$(fd --type d --max-depth $DEPTH  | fzf)
+    if [[ ! -z $DIR ]]
+    then
+        cd $DIR
     fi
-}
-
-# clam      Toggle mac clamshell mode
-function clam(){
-if [[ $1 = "on" ]]
-then
-    sudo pmset -a disablesleep 1
-    echo "Clamshell mode enabled, sleep is off"
-else
-    sudo pmset -a disablesleep 0
-    echo "Clamshell mode disabled, sleep is on"
-fi
 }
 
 # wksp      Open a vscode workspace

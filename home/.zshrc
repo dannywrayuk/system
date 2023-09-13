@@ -21,6 +21,10 @@ export DOTFILES=~/dotfiles
 # Alias and Functions
 source $DOTFILES/customs.zsh
 
+# neovim
+export XDG_CONFIG_HOME=~/
+alias vim="nvim"
+
 # Source device specific configs
 [ -s "$HOME/.zshlocal" ] && source $HOME/.zshlocal
 
