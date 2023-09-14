@@ -34,6 +34,9 @@
   "[markdown]": {
     "editor.wordWrap": "off"
   },
+  "workbench.editorAssociations": {
+    "*.md": "vscode.markdown.preview.editor"
+  },
   "extensions.ignoreRecommendations": true,
 
   "editor.defaultFormatter": "esbenp.prettier-vscode",
