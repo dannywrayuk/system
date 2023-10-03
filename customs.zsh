@@ -22,6 +22,9 @@ alias docs="cd ~/Documents"
 # lofi      Open lofi hiphop beats
 alias lofi="open https://www.youtube.com/watch\?v\=jfKfPfyJRdk"
 
+# nuke      Clear all untracked files (interactive)
+alias nuke="git clean -xdfi"
+
 # kop       Kill process running on port $1
 function kop(){
         lsof -i:$1 && echo \\nkilling $(lsof -t -i:$1) && lsof -t -i:$1 | xargs kill -9
