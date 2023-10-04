@@ -28,7 +28,7 @@ alias nuke="git clean -xdfi"
 # ggmr      Git get default branch (with remote)
 alias ggdr="git branch -rl | grep 'origin/HEAD' | cut -d '>' -f 2 | tr -d ' '"
 
-# ggmr      Git get default branch
+# ggm      Git get default branch
 alias ggd="git branch -rl | grep 'origin/HEAD' | cut -d '>' -f 2 | tr -d ' ' | sed 's/origin\///' "
 
 # grm      Git rebase main from origin
