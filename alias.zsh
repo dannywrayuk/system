@@ -33,11 +33,11 @@ alias ggd="git branch -rl | grep 'origin/HEAD' | cut -d '>' -f 2 | tr -d ' ' | s
 
 # grm      Git rebase main from origin
 unalias grm
-alias grm="git fetch && git rebase -i $(ggdr)"
+alias grm="git fetch && git rebase -i \$(ggdr)"
 
 # gcm      Git checkout default brnach
 unalias gcm
-alias gcm="git checkout $(ggd)"
+alias gcm="git checkout \$(ggd)"
 
 # kop       Kill process running on port $1
 function kop(){
