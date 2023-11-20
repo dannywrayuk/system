@@ -13,6 +13,7 @@
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
   "editor.linkedEditing": true,
+  "editor.lightbulb.enabled": false,
 
   "editor.smoothScrolling": true,
   "editor.cursorBlinking": "smooth",
@@ -67,5 +68,6 @@
 
   "git.openRepositoryInParentFolders": "never",
   "workbench.editor.empty.hint": "hidden",
-  "terminal.integrated.tabs.enabled": false
+  "terminal.integrated.tabs.enabled": false,
+  "diffEditor.useInlineViewWhenSpaceIsLimited": false
 }
