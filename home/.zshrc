@@ -1,5 +1,6 @@
 export PATH=/opt/homebrew/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
+export XDG_CONFIG_HOME=~/.config
 ZDOTDIR="$ZSH/cache"
 HISTFILE="$ZDOTDIR/.zsh_history"
 
@@ -18,13 +19,11 @@ export PROJDIR=~/proj
 # Dotfiles directory
 export DOTFILES=~/dotfiles
 
-# Alias and Functions
-source $DOTFILES/customs.zsh
+# Source Alias
+source $DOTFILES/alias.zsh
 
-# neovim
-export XDG_CONFIG_HOME=~/
-alias vim="nvim"
+# Source Scripts
+source $DOTFILES/scripts/bind-scripts.zsh
 
 # Source device specific configs
 [ -s "$HOME/.zshlocal" ] && source $HOME/.zshlocal
-

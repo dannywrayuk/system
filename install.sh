@@ -6,3 +6,5 @@ LINK=${FILE/$DOTFILES\/home/~}
  if [[ "$OVERWRITE" =~ [yY] ]]; then rm "$LINK"; fi
  ln -s "$FILE" "$LINK"
 done
+
+ln -s $DOTFILES/nvim ~/.config/

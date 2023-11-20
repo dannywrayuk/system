@@ -44,22 +44,5 @@ function kop(){
         lsof -i:$1 && echo \\nkilling $(lsof -t -i:$1) && lsof -t -i:$1 | xargs kill -9
 }
 
-# op        Open a child directory
-function op(){
-    DEPTH=${1:-"4"}
-    DIR=$(fd --type d --max-depth $DEPTH  | fzf)
-    if [[ ! -z $DIR ]]
-    then
-        cd $DIR
-    fi
-}
+alias vim="nvim"
 
-# wksp      Open a vscode workspace
-function wksp(){
-if [[ -z $1 ]]
-then
-    ls $PROJDIR/workspaces | sed -e 's/\.code-workspace$//'
-else
-    code $PROJDIR/workspaces/$1.code-workspace
-fi
-}

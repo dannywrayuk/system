@@ -1,5 +1,5 @@
 {
-  "editor.fontFamily": "Fira Code",
+  "editor.fontFamily": "FiraCode Nerd Font Mono",
   "editor.fontLigatures": true,
 
   "editor.formatOnSave": true,
@@ -25,7 +25,6 @@
 
   "editor.hover.enabled": false,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "terminal.integrated.tabs.enabled": false,
 
   "files.associations": {
     "*.mdx": "markdown",
@@ -66,5 +65,7 @@
     "editor.background": "#181818"
   },
 
-  "git.openRepositoryInParentFolders": "never"
+  "git.openRepositoryInParentFolders": "never",
+  "workbench.editor.empty.hint": "hidden",
+  "terminal.integrated.tabs.enabled": false
 }
