@@ -118,6 +118,7 @@ require("neo-tree").setup({
             ["K"] = "prevSibling",
             ["<C-j>"] = "lastSibling",
             ["<C-k>"] = "firstSibling",
+            ["<C-h>"] = "toggle_hidden",
         }
     },
     hide_root_node = true,

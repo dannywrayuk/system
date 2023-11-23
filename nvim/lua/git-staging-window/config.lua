@@ -7,6 +7,8 @@ M = {
         toggleAll = "<S-tab>",
         addAll = "A",
         restoreAll = "R",
+        discardAll = "D",
+        discardCurrent = "d",
     },
     highlights = {
         custom = {
@@ -42,17 +44,15 @@ M = {
         symbolMap = {
             ["??"] = "U"
         }
-    }
+    },
+    updateConfig = function (updates)
+        mergeTables(M, updates)
+    end,
+    createHighlights = function ()
+        for k, v in pairs(M.highlights.custom) do
+            vim.api.nvim_set_hl(0, k, v)
+        end
+    end,
 }
-
-M.updateConfig = function (updates)
-    mergeTables(M, updates)
-end
-
-M.createHighlights = function ()
-    for k, v in pairs(M.highlights.custom) do
-        vim.api.nvim_set_hl(0, k, v)
-    end
-end
 
 return M

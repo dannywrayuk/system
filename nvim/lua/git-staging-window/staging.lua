@@ -10,12 +10,12 @@ M.toggleCurrent = function()
     local change = getChangeOnLine(row)
     if change == nil then return end
     if change.staged then
-        local _, _, error = getCommandOutput({"git", "restore", "-S", change.file.fullPath})
+        local _, _, error = getCommandOutput({"git", "restore", "-S", ":/" ..  change.file.fullPath})
         if error[1] ~= nil then
             print(error[1])
         end
     else
-        local _, _, error = getCommandOutput({"git", "add", change.file.fullPath})
+        local _, _, error = getCommandOutput({"git", "add", ":/" .. change.file.fullPath})
         if error[1] ~= nil then
             print(error[1])
         end
@@ -47,7 +47,7 @@ end
 
 
 M.addAll = function ()
-    local _, _, error = getCommandOutput({"git", "add", "."})
+    local _, _, error = getCommandOutput({"git", "add", ":."})
     if error[1] ~= nil then
         print(error[1])
     end
@@ -55,11 +55,38 @@ M.addAll = function ()
 end
 
 M.restoreAll = function ()
-    local _, _, error = getCommandOutput({"git", "restore", "-S", "."})
+    local _, _, error = getCommandOutput({"git", "restore", "-S", ":."})
     if error[1] ~= nil then
         print(error[1])
     end
 
+end
+
+M.discardCurrent = function()
+    local lineNumbers = vim.api.nvim_win_get_cursor(0)
+    local row = lineNumbers[1]
+    local change = getChangeOnLine(row)
+    if change == nil then return end
+    if change.staged == false then
+        if change.status == "??"  then
+            local _, _, error = getCommandOutput({"git", "clean", "-f", ":/" ..  change.file.fullPath})
+            if error[1] ~= nil then
+                print(error[1])
+            end
+        else
+            local _, _, error = getCommandOutput({"git", "restore", ":/" ..  change.file.fullPath})
+            if error[1] ~= nil then
+                print(error[1])
+            end
+        end
+    end
+end
+
+M.discardAll = function()
+    local _, _, error1 = getCommandOutput({"git", "stash", "-u", "--keep-index"})
+    if error1[1] ~= nil then
+        print(error1[1])
+    end
 end
 
 return M
