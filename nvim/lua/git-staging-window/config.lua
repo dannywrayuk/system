@@ -38,11 +38,11 @@ M = {
     gitStatus = {
         highlightMap = {
             ["A"] = "added",
-            ["??"] = "added",
+            ["?"] = "added",
             ["D"] = "deleted",
         },
         symbolMap = {
-            ["??"] = "U"
+            ["?"] = "U"
         }
     },
     updateConfig = function (updates)

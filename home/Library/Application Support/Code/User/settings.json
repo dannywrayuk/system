@@ -69,5 +69,6 @@
   "git.openRepositoryInParentFolders": "never",
   "workbench.editor.empty.hint": "hidden",
   "terminal.integrated.tabs.enabled": false,
-  "diffEditor.useInlineViewWhenSpaceIsLimited": false
+  "diffEditor.useInlineViewWhenSpaceIsLimited": false,
+  "[typescript]": {}
 }

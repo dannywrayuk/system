@@ -97,6 +97,8 @@ local lastSibling = function(state)
     renderer.focus_node(state, siblings[#siblings])
 end
 
+vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { link = "NeoTreeGitAdded" })
+
 require("neo-tree").setup({
     commands = {
         goToParent = goToParent,
@@ -146,7 +148,7 @@ require("neo-tree").setup({
             symbols = {
                 added = "A",
                 modified = "M",
-                conflict = "",
+                conflict = "!",
                 unstaged = "",
                 staged = "",
                 renamed = "R",

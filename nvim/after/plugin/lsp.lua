@@ -4,21 +4,32 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
   'tsserver',
-  'rust_analyzer',
   'lua_ls',
 })
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
 
-
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+
+local ifVisible = function(action)
+    return function(fallback)
+        if cmp.visible() then
+            action()
+        end
+        fallback()
+    end
+end
+
 local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+  ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+  ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+  ['<C-l>'] = cmp.mapping.confirm({ select = true }),
+  ['<C-Space>'] = cmp.mapping.complete(),
+  ['<Up>'] = ifVisible(cmp.close),
+  ['<Down>'] = ifVisible(cmp.close),
+  ['<Left>'] = ifVisible(cmp.close),
+  ['<Right>'] = ifVisible(cmp.close),
 })
 
 cmp_mappings['<Tab>'] = nil
@@ -35,16 +46,23 @@ lsp.set_preferences({
 
 lsp.on_attach(function(_, bufnr)
   local opts = {buffer = bufnr, remap = false}
+  -- Go to definition|
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+
+  -- Symbol information 
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+
+  -- Show full diagnostic message
   vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+
+  -- Show Code actions
   vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+
+  -- Find references
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+
+  -- Rename symbol
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
 lsp.setup()

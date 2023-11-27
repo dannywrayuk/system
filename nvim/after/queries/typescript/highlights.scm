@@ -1,3 +1,0 @@
-;; extends
-
-"export" @keyword.export 
