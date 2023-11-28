@@ -1,3 +1,8 @@
+-- set termguicolors to enable highlight groups
+vim.opt.termguicolors = true
+
+vim.g.mapleader = " "
+
 -- fat boi
 vim.opt.guicursor = ""
 
@@ -31,8 +36,8 @@ vim.opt.updatetime = 50
 -- dont show the default mode thing
 vim.opt.showmode = false
 
--- dont add comment on newlines 
+-- dont add comment on newlines
 vim.cmd([[autocmd BufEnter * set formatoptions-=cro]])
 
--- always split to the right 
+-- always split to the right
 vim.opt.splitright = true

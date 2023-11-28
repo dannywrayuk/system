@@ -1,1 +1,2 @@
-require("dannywrayuk")
+require("dannywrayuk.core")
+require("dannywrayuk.lazy")
