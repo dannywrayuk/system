@@ -1,0 +1,134 @@
+return {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+    },
+    config = function()
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
+      require("luasnip.loaders.from_vscode").lazy_load()
+
+      local function get_lsp_completion_context(completion, source)
+        local ok, source_name = pcall(function() return source.source.client.config.name end)
+        if not ok then return nil end
+        if source_name == "tsserver" then
+          return completion.detail
+        end
+      end
+
+      local SYMBOL_MAP = {
+        Text = "󰦨",
+        Method = "󰆧",
+        Function = "󰆧",
+        Constructor = "󰆧",
+        Field = "",
+        Variable = "",
+        Class = "",
+        Interface = "",
+        Module = "󰅩",
+        Property = "",
+        Unit = "",
+        Value = "",
+        Enum = "",
+        Keyword = "",
+        Snippet = "",
+        Color = "",
+        File = "",
+        Reference = "",
+        Folder = "",
+        EnumMember = "",
+        Constant = "",
+        Struct = "",
+        Event = "",
+        Operator = "",
+        TypeParameter = "",
+      }
+
+    local function border(hl_name)
+        return {
+          { "╭", hl_name },
+          { "─", hl_name },
+          { "╮", hl_name },
+          { "│", hl_name },
+          { "╯", hl_name },
+          { "─", hl_name },
+          { "╰", hl_name },
+          { "│", hl_name },
+        }
+      end
+
+      local ifVisible = function(action)
+        return function(fallback)
+            if cmp.visible() then
+                action()
+            end
+            fallback()
+        end
+      end
+
+      cmp.setup({
+        completion = {
+          completeopt = "menu,menuone",
+        },
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+            ['<C-k>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+            ['<C-j>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+            ['<C-l>'] = cmp.mapping.confirm({ select = true }),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<Up>'] = ifVisible(cmp.close),
+            ['<Down>'] = ifVisible(cmp.close),
+            ['<Left>'] = ifVisible(cmp.close),
+            ['<Right>'] = ifVisible(cmp.close),
+        }),
+        ---@diagnostic disable-next-line: undefined-field
+        sources = cmp.config.sources({
+            { name = "luasnip" },
+            { name = "nvim_lsp" },
+            { name = "nvim_lua" },
+            { name = "buffer" },
+            { name = "path" },
+        }),
+        formatting = {
+            fields = { "kind", "abbr", "menu" },
+            format = function(entry, item)
+              local completion_context = get_lsp_completion_context(entry.completion_item, entry.source)
+              item.kind = SYMBOL_MAP[item.kind] or "󰢤"
+              if #item.abbr < 25 then
+                  item.abbr = string.format("%-25s", item.abbr)
+              end
+              if completion_context ~= nil and completion_context ~= "" then
+                item.menu = completion_context
+              end
+              return item
+            end,
+        },
+        performance = {
+          max_view_entries = 10,
+        },
+        window = {
+          completion = {
+            side_padding = 1,
+            winhighlight = "Normal:Normal,CursorLine:PmenuSel,Search:None",
+            scrollbar = false,
+            border = border "FloatBorder",
+          },
+        documentation = {
+            border = border("FloatBorder"),
+            winhighlight = "Normal:Normal",
+          },
+        },
+      })
+    end,
+  }
