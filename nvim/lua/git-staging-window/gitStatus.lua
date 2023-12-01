@@ -18,7 +18,7 @@ local getChanges = function ()
         changes = emptyChanges
         return changes
     end
-    local gitOutput, _, error = getCommandOutput({ "git", "status", "-z", "--", ":/" })
+    local gitOutput, _, error = getCommandOutput({ "git", "status", "-uall", "-z", "--", ":/" })
     if error[1] ~= nil then
         print(error[1])
         changes = emptyChanges
