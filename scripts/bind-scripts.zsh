@@ -7,4 +7,4 @@ alias op=". $DOTFILES/scripts/navigator"
 bindkey -s ^o "op\n"
 
 # open neovim here
-bindkey -s ^n "nvim .\n"
+bindkey -s ^n "nvim\n"
