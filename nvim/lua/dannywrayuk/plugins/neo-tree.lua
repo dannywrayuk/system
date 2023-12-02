@@ -128,6 +128,7 @@ return {
                     ["<C-j>"] = "lastSibling",
                     ["<C-k>"] = "firstSibling",
                     ["<C-h>"] = "toggle_hidden",
+                    ["Esc"] = "close_window",
                 }
             },
             hide_root_node = true,
@@ -171,8 +172,11 @@ return {
             },
         })
 
-        vim.keymap.set("n", "<leader>t", function()
-            require("neo-tree.command").execute({toggle = true})
+        vim.keymap.set("n", "<leader>tt", function()
+            require("neo-tree.command").execute({ position = "float"})
+        end)
+        vim.keymap.set("n", "<leader>th", function()
+            require("neo-tree.command").execute({ position = "left"})
         end)
     end
 }
