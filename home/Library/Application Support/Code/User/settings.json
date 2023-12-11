@@ -59,7 +59,6 @@
 
   "workbench.settings.editor": "json",
   "workbench.panel.defaultLocation": "right",
-  "workbench.editor.untitled.hint": "hidden",
   "workbench.layoutControl.enabled": false,
   "workbench.startupEditor": "none",
   "workbench.colorCustomizations": {
