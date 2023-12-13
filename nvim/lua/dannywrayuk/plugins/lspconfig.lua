@@ -8,7 +8,7 @@ return {
 		local lspconfig = require("lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local capabilities = cmp_nvim_lsp.default_capabilities()
-		local lspKeymaps = require("dannywrayuk.core.lspKeymaps")
+		local lspKeymaps = require("dannywrayuk.core.lsp.keymaps")
 		local on_attach = function(_, buffnr)
 			lspKeymaps.on_attach(buffnr)
 		end

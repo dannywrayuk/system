@@ -4,7 +4,7 @@ return {
 	config = function()
 		local tstools = require("typescript-tools")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		local lspKeymaps = require("dannywrayuk.core.lspKeymaps")
+		local lspKeymaps = require("dannywrayuk.core.lsp.keymaps")
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 		tstools.setup({
 			on_attach = function(_, buffnr)

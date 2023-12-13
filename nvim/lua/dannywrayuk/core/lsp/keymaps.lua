@@ -1,4 +1,4 @@
-local opts =  { noremap = true, silent = true }
+local opts = { noremap = true, silent = true }
 local on_attach = function(buffnr)
 	opts.buffer = buffnr
 
