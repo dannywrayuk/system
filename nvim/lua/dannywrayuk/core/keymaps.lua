@@ -40,3 +40,10 @@ inoremap(shift_option_j, "<Esc>:t .<CR>==gi")
 inoremap(shift_option_k, "<Esc>:t .-1<CR>==gi")
 vnoremap(shift_option_j, ":t '<-1<CR>gv=gv")
 vnoremap(shift_option_k, ":t '><CR>gv=gv")
+
+-- match current
+nnoremap("∂", "*Ngn")
+
+-- comment toggle
+vim.keymap.set("n", "<leader>/", "<Plug>CommentaryLine", { silent = true, noremap = false })
+vim.keymap.set("v", "<leader>/", "<Plug>Commentary gv", { silent = true, noremap = false })

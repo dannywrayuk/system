@@ -12,6 +12,8 @@ return {
 		local fsc = require("neo-tree.sources.filesystem.commands")
 		local cc = require("neo-tree.sources.common.commands")
 
+		vim.g.neoTreePosition = "float"
+
 		-- disable netrw
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
@@ -104,6 +106,16 @@ return {
 			renderer.focus_node(state, siblings[#siblings])
 		end
 
+		local toggleWindowPosition = function(state)
+			cc.close_window(state)
+			if vim.g.neoTreePosition == "float" then
+				vim.g.neoTreePosition = "left"
+			else
+				vim.g.neoTreePosition = "float"
+			end
+			require("neo-tree.command").execute({ position = vim.g.neoTreePosition })
+		end
+
 		vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { link = "NeoTreeGitAdded" })
 
 		neotree.setup({
@@ -116,24 +128,27 @@ return {
 				prevSibling = prevSibling,
 				firstSibling = firstSibling,
 				lastSibling = lastSibling,
+				toggleWindowPosition = toggleWindowPosition,
 			},
 			window = {
 				mappings = {
 					["h"] = "goToParent",
 					["H"] = "goToParentAndClose",
-					["l"] = "openOrExpand",
-					["L"] = "openAndCloseTree",
+					["L"] = "openOrExpand",
+					["l"] = "openAndCloseTree",
 					["J"] = "nextSibling",
 					["K"] = "prevSibling",
 					["<C-j>"] = "lastSibling",
 					["<C-k>"] = "firstSibling",
 					["<C-h>"] = "toggle_hidden",
 					["Esc"] = "close_window",
+					["<C-t>"] = "toggleWindowPosition",
+                    ["t"] = "none"
 				},
 			},
 			hide_root_node = true,
 			retain_hidden_root_indent = true,
-            popup_border_style = "rounded",
+			popup_border_style = "rounded",
 			use_popups_for_input = false,
 			filesystem = {
 				filtered_items = {
@@ -173,11 +188,9 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>tt", function()
-			require("neo-tree.command").execute({ position = "float" })
-		end)
-		vim.keymap.set("n", "<leader>th", function()
-			require("neo-tree.command").execute({ position = "left" })
+		vim.keymap.set("n", "<leader>t", function()
+			require("neo-tree.command").execute({ position = vim.g.neoTreePosition })
 		end)
 	end,
 }
+
