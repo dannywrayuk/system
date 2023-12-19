@@ -41,3 +41,23 @@ vim.cmd([[autocmd BufEnter * set formatoptions-=cro]])
 
 -- always split to the right
 vim.opt.splitright = true
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+
+-- default to vertical splits
+local verticalTypes = {
+	help = true,
+	qf = true,
+}
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	group = vim.api.nvim_create_augroup("move_window_right", {}),
+	callback = function()
+		local moveVertical = verticalTypes[vim.o.filetype] or false
+		if moveVertical then
+			vim.cmd.wincmd("L")
+		end
+	end,
+})

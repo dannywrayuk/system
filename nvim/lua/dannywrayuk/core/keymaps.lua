@@ -1,49 +1,74 @@
-local nnoremap = function(key, map)
-	vim.keymap.set("n", key, map, { silent = true })
-end
-
-local inoremap = function(key, map)
-	vim.keymap.set("i", key, map, { silent = true })
-end
-
-local vnoremap = function(key, map)
-	vim.keymap.set("v", key, map, { silent = true })
-end
+local keymap = require("dannywrayuk.util.keymap")
+local option = require("dannywrayuk.util.option-keys")
 
 -- remap for uk keyboard lol
-inoremap("£", "#")
+keymap.set("i", "£", "#")
 
 -- change window
-nnoremap("<leader>w", "<C-w>")
+keymap.set("n", "<leader>w", "<C-w>")
 
 -- last window
-nnoremap("<leader>s", "<C-^>")
+keymap.set("n", "<leader>s", "<C-^>")
 
 -- moving lines
-local option_j = "∆"
-local option_k = "˚"
-
-nnoremap(option_j, ":m .+1<CR>==")
-nnoremap(option_k, ":m .-2<CR>==")
-inoremap(option_j, "<Esc>:m .+1<CR>==gi")
-inoremap(option_k, "<Esc>:m .-2<CR>==gi")
-vnoremap(option_j, ":m '>+1<CR>gv=gv")
-vnoremap(option_k, ":m '<-2<CR>gv=gv")
+keymap.set("n", option.j, ":m .+1<CR>==")
+keymap.set("n", option.k, ":m .-2<CR>==")
+keymap.set("i", option.j, "<Esc>:m .+1<CR>==gi")
+keymap.set("i", option.k, "<Esc>:m .-2<CR>==gi")
+keymap.set("v", option.j, ":m '>+1<CR>gv=gv")
+keymap.set("v", option.k, ":m '<-2<CR>gv=gv")
 
 -- duplicate lines
-local shift_option_j = "Ô"
-local shift_option_k = ""
-
-nnoremap(shift_option_k, ":t .-1<CR>")
-nnoremap(shift_option_j, ":t .<CR>")
-inoremap(shift_option_j, "<Esc>:t .<CR>==gi")
-inoremap(shift_option_k, "<Esc>:t .-1<CR>==gi")
-vnoremap(shift_option_j, ":t '<-1<CR>gv=gv")
-vnoremap(shift_option_k, ":t '><CR>gv=gv")
+keymap.set("n", option.shift.j, ":t .<CR>")
+keymap.set("n", option.shift.k, ":t .-1<CR>")
+keymap.set("i", option.shift.j, "<Esc>:t .<CR>==gi")
+keymap.set("i", option.shift.k, "<Esc>:t .-1<CR>==gi")
+keymap.set("v", option.shift.j, ":t '<-1<CR>gv=gv")
+keymap.set("v", option.shift.k, ":t '><CR>gv=gv")
 
 -- match current
-nnoremap("∂", "*Ngn")
+keymap.set({ "n", "v" }, option.d, function()
+	vim.cmd([[:norm *Ngny]])
+	local selection = vim.fn.getreg("0")
+	vim.ui.input({ prompt = "", default = selection }, function(i)
+		if i == nil then
+			return
+		end
+		vim.cmd(":norm gnc" .. i)
+	end)
+end)
 
 -- comment toggle
-vim.keymap.set("n", "<leader>/", "<Plug>CommentaryLine", { silent = true, noremap = false })
-vim.keymap.set("v", "<leader>/", "<Plug>Commentary gv", { silent = true, noremap = false })
+keymap.set("n", option["/"], ":Commentary<CR>")
+keymap.set("v", option["/"], ":Commentary<CR> gv")
+keymap.set("i", option["/"], "<C-o>:Commentary<CR><C-o>$")
+
+-- center while moving
+keymap.set("n", "<C-d>", "<C-d>zz")
+keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- yank to system clipboard
+keymap.set({ "n", "v" }, option.s .. "y", [["+y]])
+
+-- paste last yanked
+keymap.set({ "n", "v" }, option.s .. "p", [["0p]])
+
+local languageLogs = {
+	javascript = 'console.log("<message>")',
+	javascriptreact = 'console.log("<message>")',
+	typescript = 'console.log("<message>")',
+	typescriptreact = 'console.log("<message>")',
+	lua = 'print("<message>")',
+}
+keymap.set("n", "<leader>cm", function()
+	local log = languageLogs[vim.o.filetype]
+	if log then
+		local lineNumbers = vim.api.nvim_win_get_cursor(0)
+		local row = lineNumbers[1]
+		local filename = string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd(), "")
+		local logString = string.gsub(log, "<message>", "⚠️\t" .. row + 1 .. "\t" .. filename)
+		vim.cmd(":norm o" .. logString)
+	else
+		print("no log format for: " .. vim.o.filetype)
+	end
+end)
