@@ -119,7 +119,7 @@ return {
 				end,
 			},
 			performance = {
-				max_view_entries = 10,
+				max_view_entries = 20,
 			},
 			window = {
 				completion = {
