@@ -7,4 +7,5 @@ LINK=${FILE/$DOTFILES\/home/~}
  ln -s "$FILE" "$LINK"
 done
 
-ln -s $DOTFILES/nvim ~/.config/
+ln -s $DOTFILES/nvim ~/.config
+ln -s $DOTFILES/.hammerspoon ~
