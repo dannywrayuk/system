@@ -15,6 +15,6 @@ local switchWindow = function(names)
 end
 
 hs.hotkey.bind({"ctrl"}, "1", switchWindow({"Chrome"}))
-hs.hotkey.bind({"ctrl"}, "2", switchWindow({"Microsoft Teams"}))
+hs.hotkey.bind({"ctrl"}, "2", switchWindow({"Obsidian"}))
 hs.hotkey.bind({"ctrl"}, "3", switchWindow({"iTerm2", "Code"}))
-hs.hotkey.bind({"ctrl"}, "4", switchWindow({"Wumbo"}))
+hs.hotkey.bind({"ctrl"}, "4", switchWindow({"Microsoft Teams"}))

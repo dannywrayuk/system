@@ -141,9 +141,9 @@ return {
 					["<C-j>"] = "lastSibling",
 					["<C-k>"] = "firstSibling",
 					["<C-h>"] = "toggle_hidden",
-					["Esc"] = "close_window",
-					["<C-t>"] = "toggleWindowPosition",
-                    ["t"] = "none"
+					["<esc>"] = "close_window",
+					["T"] = "toggleWindowPosition",
+					["t"] = "none",
 				},
 			},
 			hide_root_node = true,
@@ -188,9 +188,9 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>t", function()
-			require("neo-tree.command").execute({ position = vim.g.neoTreePosition })
-		end)
+		local keymap = require("dannywrayuk.util.keymap")
+		keymap.set("n", "<leader>t", function()
+			require("neo-tree.command").execute({ position = vim.g.neoTreePosition, reveal = true })
+		end, { desc = "Open Neotree" })
 	end,
 }
-
