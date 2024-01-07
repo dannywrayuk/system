@@ -53,21 +53,48 @@ keymap.set({ "n", "v" }, option.s .. "y", [["+y]])
 -- paste last yanked
 keymap.set({ "n", "v" }, option.s .. "p", [["0p]])
 
+-- log
 local languageLogs = {
-	javascript = 'console.log("<message>")',
-	javascriptreact = 'console.log("<message>")',
-	typescript = 'console.log("<message>")',
-	typescriptreact = 'console.log("<message>")',
-	lua = 'print("<message>")',
+	javascript = "console.log()",
+	javascriptreact = "console.log()",
+	typescript = "console.log()",
+	typescriptreact = "console.log()",
+	lua = "print()",
 }
-keymap.set("n", "<leader>cm", function()
+keymap.set("n", option.l, function()
 	local log = languageLogs[vim.o.filetype]
 	if log then
+		vim.cmd(":norm a" .. log .. "<esc>h")
+	else
+		print("no log format for: " .. vim.o.filetype)
+	end
+end)
+
+-- degug log
+local languageDebugLogs = {
+	javascript = function()
+		return "console.log(new Error().stack)"
+	end,
+	javascriptreact = function()
+		return "console.log(new Error().stack)"
+	end,
+	typescript = function()
+		return "console.log(new Error().stack)"
+	end,
+	typescriptreact = function()
+		return "console.log(new Error().stack)"
+	end,
+	lua = function()
 		local lineNumbers = vim.api.nvim_win_get_cursor(0)
 		local row = lineNumbers[1]
 		local filename = string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd(), "")
-		local logString = string.gsub(log, "<message>", "⚠️\t" .. row + 1 .. "\t" .. filename)
-		vim.cmd(":norm o" .. logString)
+		return "print(" .. "⚠️\t" .. row + 1 .. "\t" .. filename .. ")"
+	end,
+}
+keymap.set("n", "<leader>dl", function()
+	local log = languageDebugLogs[vim.o.filetype]
+	if log then
+		vim.cmd(":norm o" .. log())
 	else
 		print("no log format for: " .. vim.o.filetype)
 	end
