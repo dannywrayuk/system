@@ -61,10 +61,11 @@ local languageLogs = {
 	typescriptreact = "console.log()",
 	lua = "print()",
 }
-keymap.set("n", option.l, function()
+keymap.set({"n", "i"}, option.l, function()
 	local log = languageLogs[vim.o.filetype]
 	if log then
-		vim.cmd(":norm a" .. log .. "<esc>h")
+        vim.cmd(":norm a".. log)
+        vim.cmd(":startinsert")
 	else
 		print("no log format for: " .. vim.o.filetype)
 	end
@@ -88,7 +89,7 @@ local languageDebugLogs = {
 		local lineNumbers = vim.api.nvim_win_get_cursor(0)
 		local row = lineNumbers[1]
 		local filename = string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd(), "")
-		return "print(" .. "⚠️\t" .. row + 1 .. "\t" .. filename .. ")"
+		return "print('" .. "⚠️\t" .. row + 1 .. "\t" .. filename .. "')"
 	end,
 }
 keymap.set("n", "<leader>dl", function()
