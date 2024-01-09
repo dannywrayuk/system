@@ -28,18 +28,20 @@ return {
 		})
 		keymap.set("n", "<leader>ft", builtin.builtin, { desc = "Telescope: Open list of all builtin lists" })
 		keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Open list of all files in PWD" })
+		keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope: Search all files using grep string" })
+		keymap.set("n", "<leader>fc", builtin.grep_string, { desc = "Telescope: Search all files using curent word" })
 		keymap.set("n", "<leader>fr", function()
 			builtin.buffers({ sort_mru = true, ignore_current_buffer = true, initial_mode = "normal" })
 		end, { desc = "Telescope: Open list of recent buffers" })
 		keymap.set(
 			"n",
-			"<leader>fb",
+			"<leader>fgb",
 			builtin.git_branches,
 			{ desc = "Telescope: Open list of git branches in current repo" }
 		)
 		keymap.set(
 			"n",
-			"<leader>fc",
+			"<leader>fgc",
 			builtin.git_commits,
 			{ desc = "Telescope: Open list of all commits on the current branch" }
 		)

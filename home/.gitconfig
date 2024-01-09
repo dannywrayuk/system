@@ -2,12 +2,8 @@
 	email = 48837241+dannywrayuk@users.noreply.github.com
 	name = Danny Wray
 [core]
-	editor = code --wait
+	editor = nvim
 	autocrlf = input
-[diff]
-	tool = default-difftool
-[difftool "default-difftool"]
-	cmd = code --wait --diff $LOCAL $REMOTE
 [push]
 	autoSetupRemote = true
 [credential]
