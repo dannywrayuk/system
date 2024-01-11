@@ -69,7 +69,7 @@ keymap.set({"n", "i"}, option.l, function()
 	else
 		print("no log format for: " .. vim.o.filetype)
 	end
-end)
+end, { desc = "Add log statement at cursor"})
 
 -- degug log
 local languageDebugLogs = {
@@ -92,11 +92,11 @@ local languageDebugLogs = {
 		return "print('" .. "⚠️\t" .. row + 1 .. "\t" .. filename .. "')"
 	end,
 }
-keymap.set("n", "<leader>dl", function()
+keymap.set("n", "<leader>lg", function()
 	local log = languageDebugLogs[vim.o.filetype]
 	if log then
 		vim.cmd(":norm o" .. log())
 	else
 		print("no log format for: " .. vim.o.filetype)
 	end
-end)
+end, { desc = "Add a debug log statement on current line"})

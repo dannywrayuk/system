@@ -85,6 +85,8 @@ return {
 				[types.lsp.CompletionItemKind.Method] = 0,
 				[types.lsp.CompletionItemKind.Field] = 0,
 				[types.lsp.CompletionItemKind.Text] = 0,
+				[types.lsp.CompletionItemKind.Property] = 0,
+				[types.lsp.CompletionItemKind.Constant] = 0,
 				[types.lsp.CompletionItemKind.Snippet] = 100,
 				[types.lsp.CompletionItemKind.Keyword] = 100,
 			})[kind] or 50
