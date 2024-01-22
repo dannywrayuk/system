@@ -21,8 +21,8 @@ keymap.set("v", option.k, ":m '<-2<CR>gv=gv")
 -- duplicate lines
 keymap.set("n", option.shift.j, ":t .<CR>")
 keymap.set("n", option.shift.k, ":t .-1<CR>")
-keymap.set("i", option.shift.j, "<Esc>:t .<CR>==gi")
-keymap.set("i", option.shift.k, "<Esc>:t .-1<CR>==gi")
+keymap.set("i", option.shift.j, "<Esc>:t .-1<CR>==gi")
+keymap.set("i", option.shift.k, "<Esc>:t .<CR>==gi")
 keymap.set("v", option.shift.j, ":t '<-1<CR>gv=gv")
 keymap.set("v", option.shift.k, ":t '><CR>gv=gv")
 
