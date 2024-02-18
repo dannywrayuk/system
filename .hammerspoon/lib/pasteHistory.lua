@@ -14,11 +14,10 @@ local onPastebordChange = function()
 	local content = hs.pasteboard.getContents()
 	if content ~= nil then
 		local pasteboardHistoryFile = io.open(s.pasteboardHistoryFileName, "a")
-		-- if pasteboardHistoryFile == nil then
-		-- 	print("Could not find pasteboardHistoryFile, using console as backup:")
-		-- 	print(content)
-		-- 	return
-		-- end
+		if pasteboardHistoryFile == nil then
+			print("Error opening pasteboardHistoryFile")
+			return
+		end
 		pasteboardHistoryFile:write(s.historyEntryFormat(content))
 		pasteboardHistoryFile:close()
 	end
@@ -38,6 +37,10 @@ end
 
 M.clearHistory = function()
 	local pasteboardHistoryFile = io.open(s.pasteboardHistoryFileName, "w")
+	if pasteboardHistoryFile == nil then
+		print("Error opening pasteboardHistoryFile")
+		return
+	end
 	pasteboardHistoryFile:write(s.historyEntryFormat("Paste History was cleared"))
 	pasteboardHistoryFile:close()
 end
