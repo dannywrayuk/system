@@ -75,11 +75,7 @@ local commitAndPush = function()
 		if input == nil then
 			return
 		end
-		local trimmed = input:gsub("%s+", "")
-		if trimmed == "" then
-			return
-		end
-		vim.cmd('Git commit -m "' .. trimmed .. '" --quiet')
+		vim.cmd('Git commit -m "' .. input .. '" --quiet')
 		vim.cmd("Git push --quiet")
 	end)
 end
