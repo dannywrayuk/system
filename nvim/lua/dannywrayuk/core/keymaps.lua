@@ -70,12 +70,13 @@ keymap.set({ "n", "i" }, option.l, function()
 	end
 end, { desc = "Add log statement at cursor" })
 
+-- git commands
 local commitAndPush = function()
 	vim.ui.input({ prompt = "Commit Message" }, function(input)
 		if input == nil then
 			return
 		end
-		vim.cmd('Git commit -m "' .. input .. '" --quiet')
+		vim.cmd('Git commit --quiet  -m "' .. input .. '"')
 		vim.cmd("Git push --quiet")
 	end)
 end
