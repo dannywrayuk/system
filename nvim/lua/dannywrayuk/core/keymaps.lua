@@ -79,14 +79,14 @@ local commitAndPush = function()
 		if trimmed == "" then
 			return
 		end
-		vim.cmd('Git commit -m "' .. trimmed .. '"')
-		vim.cmd("Git push")
+		vim.cmd('Git commit -m "' .. trimmed .. '" --quiet')
+		vim.cmd("Git push --quiet")
 	end)
 end
 
 keymap.set("n", "<leader>gp", commitAndPush, { desc = "Commit and Push staged changes" })
 
-keymap.set("n", "<leader>ga", function ()
-    vim.cmd('Git add --all')
-    commitAndPush()
+keymap.set("n", "<leader>ga", function()
+	vim.cmd("Git add --all")
+	commitAndPush()
 end, { desc = "Commit and Push all changes" })
