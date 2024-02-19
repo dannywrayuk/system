@@ -45,4 +45,8 @@ M.clearHistory = function()
 	pasteboardHistoryFile:close()
 end
 
+M.showHistory = function()
+    hs.execute("open " .. s.pasteboardHistoryFileName)
+end
+
 return M

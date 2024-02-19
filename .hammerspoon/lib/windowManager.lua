@@ -3,7 +3,6 @@ local M = {}
 M.fillScreen = function()
 	local currentWindow = hs.window.frontmostWindow()
 	currentWindow:maximize(0)
-	print(hs.inspect(currentWindow))
 end
 
 M.fillLeftFraction = function()

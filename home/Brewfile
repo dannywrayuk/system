@@ -1,0 +1,20 @@
+tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
+tap "microsoft/git"
+tap "oven-sh/bun"
+
+
+brew "fd"
+brew "fnm"
+brew "fzf"
+brew "awscli"
+brew "jq"
+brew "neovim"
+brew "ripgrep"
+brew "tmux"
+brew "oven-sh/bun/bun"
+
+cask "font-fira-code-nerd-font"
+cask "hammerspoon"
+cask "iterm2"
+

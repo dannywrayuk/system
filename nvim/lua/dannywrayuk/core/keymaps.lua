@@ -39,9 +39,8 @@ keymap.set({ "n", "v" }, option.d, function()
 end)
 
 -- comment toggle
-keymap.set("n", option["/"], ":Commentary<CR>")
-keymap.set("v", option["/"], ":Commentary<CR> gv")
-keymap.set("i", option["/"], "<C-o>:Commentary<CR><C-o>$")
+keymap.set("n", "<leader>?", ":Commentary<CR>")
+keymap.set("v", "<leader>?", ":Commentary<CR> gv")
 
 -- center while moving
 keymap.set("n", "<C-d>", "<C-d>zz")
@@ -61,42 +60,33 @@ local languageLogs = {
 	typescriptreact = "console.log()",
 	lua = "print()",
 }
-keymap.set({"n", "i"}, option.l, function()
+keymap.set({ "n", "i" }, option.l, function()
 	local log = languageLogs[vim.o.filetype]
 	if log then
-        vim.cmd(":norm a".. log)
-        vim.cmd(":startinsert")
+		vim.cmd(":norm a" .. log)
+		vim.cmd(":startinsert")
 	else
 		print("no log format for: " .. vim.o.filetype)
 	end
-end, { desc = "Add log statement at cursor"})
+end, { desc = "Add log statement at cursor" })
 
--- degug log
-local languageDebugLogs = {
-	javascript = function()
-		return "console.log(new Error().stack)"
-	end,
-	javascriptreact = function()
-		return "console.log(new Error().stack)"
-	end,
-	typescript = function()
-		return "console.log(new Error().stack)"
-	end,
-	typescriptreact = function()
-		return "console.log(new Error().stack)"
-	end,
-	lua = function()
-		local lineNumbers = vim.api.nvim_win_get_cursor(0)
-		local row = lineNumbers[1]
-		local filename = string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd(), "")
-		return "print('" .. "⚠️\t" .. row + 1 .. "\t" .. filename .. "')"
-	end,
-}
-keymap.set("n", "<leader>lg", function()
-	local log = languageDebugLogs[vim.o.filetype]
-	if log then
-		vim.cmd(":norm o" .. log())
-	else
-		print("no log format for: " .. vim.o.filetype)
-	end
-end, { desc = "Add a debug log statement on current line"})
+local commitAndPush = function()
+	vim.ui.input({ prompt = "Commit Message" }, function(input)
+		if input == nil then
+			return
+		end
+		local trimmed = input:gsub("%s+", "")
+		if trimmed == "" then
+			return
+		end
+		vim.cmd('Git commit -m "' .. trimmed .. '"')
+		vim.cmd("Git push")
+	end)
+end
+
+keymap.set("n", "<leader>gp", commitAndPush, { desc = "Commit and Push staged changes" })
+
+keymap.set("n", "<leader>ga", function ()
+    vim.cmd('Git add --all')
+    commitAndPush()
+end, { desc = "Commit and Push all changes" })
