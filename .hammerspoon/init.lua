@@ -2,6 +2,7 @@ local switchWindow = require("lib.switchWindow")
 local pasteHistory = require("lib.pasteHistory")
 local windowManager = require("lib.windowManager")
 local scrollWheelfix = require("lib.scrollWheelFix")
+local sleepToggle = require("lib.sleepToggle")
 
 scrollWheelfix:start()
 
@@ -28,3 +29,4 @@ hs.hotkey.bind({ "ctrl", "alt" }, "K", windowManager.center)
 hs.hotkey.bind({ "ctrl", "alt" }, "down", windowManager.toggleScreen)
 hs.hotkey.bind({ "ctrl", "alt" }, "J", windowManager.toggleScreen)
 
+hs.hotkey.bind({ "ctrl", "alt" }, "S", sleepToggle.toggle)
