@@ -1,6 +1,9 @@
 local M = {}
 
 local sign = function(num)
+	if num == 0 then
+		return 0
+	end
 	if num < 0 then
 		return -1
 	end

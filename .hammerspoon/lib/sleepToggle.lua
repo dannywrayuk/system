@@ -7,6 +7,7 @@ M.toggle = function()
 	if input == "Enable" then
 		if menuBar ~= nil then
 			menuBar:delete()
+			menuBar = nil
 		end
 		os.execute("sudo pmset -a disablesleep 0")
 	else
