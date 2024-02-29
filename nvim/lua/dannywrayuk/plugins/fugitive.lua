@@ -14,9 +14,8 @@ return {
 			pattern = "fugitive",
 			group = fugitive_augroup,
 			callback = function()
-				keymap.set("n", "gp", function()
-					vim.cmd("G push")
-				end, { desc = "Push commits", buffer = true })
+				keymap.set("n", "S", ":G add --all <CR>", { desc = "Stage all", buffer = true })
+				keymap.set("n", "gp", ":G push <CR>", { desc = "Push commits", buffer = true })
 			end,
 		})
 	end,
