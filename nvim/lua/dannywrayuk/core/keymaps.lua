@@ -71,6 +71,12 @@ keymap.set({ "n", "i" }, option.l, function()
 end, { desc = "Add log statement at cursor" })
 
 -- git commands
+keymap.set("n", "<leader>gg", function()
+	vim.cmd("Git")
+	vim.cmd("wincmd H")
+	vim.cmd("wincmd 50|")
+end)
+
 local commitAndPush = function()
 	vim.ui.input({ prompt = "Commit Message" }, function(input)
 		if input == nil then

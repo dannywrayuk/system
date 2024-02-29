@@ -79,7 +79,7 @@ return {
 				lualine_a = { "mode" },
 				lualine_b = { "branch", "diff", "diagnostics" },
 				lualine_c = { { "filename", path = 1 } },
-                lualine_x = {},
+				lualine_x = {},
 				lualine_y = { "filetype" },
 				lualine_z = { "location" },
 			},
@@ -94,7 +94,7 @@ return {
 			tabline = {},
 			winbar = {},
 			inactive_winbar = {},
-			extensions = { "neo-tree" },
+			extensions = { "neo-tree", "fugitive" },
 		})
 	end,
 }
