@@ -71,13 +71,8 @@ keymap.set({ "n", "i" }, option.l, function()
 end, { desc = "Add log statement at cursor" })
 
 -- git commands
-keymap.set("n", "<leader>gg", function()
-	vim.cmd("Git")
-	vim.cmd("wincmd H")
-	vim.cmd("wincmd 50|")
-end)
 
-local commitAndPush = function()
+keymap.set("n", "<leader>gp", function()
 	vim.ui.input({ prompt = "Commit Message" }, function(input)
 		if input == nil then
 			return
@@ -85,11 +80,15 @@ local commitAndPush = function()
 		vim.cmd('Git commit --quiet  -m "' .. input .. '"')
 		vim.cmd("Git push --quiet")
 	end)
-end
-
-keymap.set("n", "<leader>gp", commitAndPush, { desc = "Commit and Push staged changes" })
+end, { desc = "Commit and Push staged changes" })
 
 keymap.set("n", "<leader>ga", function()
-	vim.cmd("Git add --all")
-	commitAndPush()
+	vim.ui.input({ prompt = "Commit Message" }, function(input)
+		if input == nil then
+			return
+		end
+		vim.cmd("Git add --all")
+		vim.cmd('Git commit --quiet  -m "' .. input .. '"')
+		vim.cmd("Git push --quiet")
+	end)
 end, { desc = "Commit and Push all changes" })
