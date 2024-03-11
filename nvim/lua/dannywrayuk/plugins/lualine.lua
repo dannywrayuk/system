@@ -58,22 +58,11 @@ return {
 
 		lualine.setup({
 			options = {
-				icons_enabled = true,
 				theme = theme,
 				component_separators = separators.component.line,
 				section_separators = separators.section.round,
-				disabled_filetypes = {
-					statusline = {},
-					winbar = {},
-				},
-				ignore_focus = {},
-				always_divide_middle = true,
-				globalstatus = false,
-				refresh = {
-					statusline = 1000,
-					tabline = 1000,
-					winbar = 1000,
-				},
+                disabled_filetypes = { statusline = { "alpha" } },
+				globalstatus = true,
 			},
 			sections = {
 				lualine_a = { "mode" },
