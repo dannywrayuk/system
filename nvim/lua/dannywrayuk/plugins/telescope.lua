@@ -6,9 +6,23 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	config = function()
+		local keymap = require("dannywrayuk.util.keymap")
+		local option = require("dannywrayuk.util.option-keys")
 		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
-		local keymap = require("dannywrayuk.util.keymap")
+		local actions = require("telescope.actions")
+		local layout = require("telescope.actions.layout")
+		local transform_mod = require("telescope.actions.mt").transform_mod
+
+		local myActions = {}
+
+		myActions.addToQuickFix = function(buf)
+			actions.send_selected_to_qflist(buf)
+			builtin.quickfix()
+		end
+
+		myActions = transform_mod(myActions)
+
 		telescope.setup({
 			defaults = {
 				results_title = false,
@@ -18,7 +32,16 @@ return {
 				},
 				mappings = {
 					i = {
-						["<C-p>"] = require("telescope.actions.layout").toggle_preview,
+						["<C-p>"] = layout.toggle_preview,
+						["<C-q>"] = myActions.addToQuickFix,
+						[option.a] = actions.select_all,
+						[option.t] = actions.toggle_all,
+					},
+					n = {
+						["<C-p>"] = layout.toggle_preview,
+						["<C-q>"] = myActions.addToQuickFix,
+						[option.a] = actions.select_all,
+						[option.t] = actions.toggle_all,
 					},
 				},
 				preview = {
