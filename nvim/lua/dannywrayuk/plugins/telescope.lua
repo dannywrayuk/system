@@ -11,13 +11,18 @@ return {
 		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
 		local actions = require("telescope.actions")
+		local action_state = require("telescope.actions.state")
 		local layout = require("telescope.actions.layout")
 		local transform_mod = require("telescope.actions.mt").transform_mod
 
 		local myActions = {}
 
 		myActions.addToQuickFix = function(buf)
-			actions.send_selected_to_qflist(buf)
+			if 0 == #action_state.get_current_picker(buf):get_multi_selection() then
+				actions.send_to_qflist(buf)
+			else
+				actions.send_selected_to_qflist(buf)
+			end
 			builtin.quickfix()
 		end
 
