@@ -26,8 +26,6 @@ return {
 				async = false,
 				timeout_ms = 1000,
 			})
-			-- When the formatter runs, update linting errors
-			require("lint").try_lint()
 		end, { desc = "Format file" })
 	end,
 }

@@ -6,7 +6,7 @@ local sleepToggle = require("lib.sleepToggle")
 
 scrollWheelfix:start()
 
-hs.hotkey.bind({ "ctrl" }, "1", switchWindow({ "Chrome" }))
+hs.hotkey.bind({ "ctrl" }, "1", switchWindow({ "Firefox", "Chrome" }))
 hs.hotkey.bind({ "ctrl" }, "2", switchWindow({ "Obsidian" }))
 hs.hotkey.bind({ "ctrl" }, "3", switchWindow({ "iTerm2" }))
 hs.hotkey.bind({ "ctrl" }, "4", switchWindow({ "Microsoft Teams" }))

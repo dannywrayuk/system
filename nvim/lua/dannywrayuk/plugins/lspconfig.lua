@@ -35,6 +35,10 @@ return {
 			on_attach = on_attach,
 		})
 
+		lspconfig.eslint.setup({
+			capabilities = capabilities,
+		})
+
 		lspconfig.graphql.setup({
 			capabilities = capabilities,
 			on_attach = on_attach,

@@ -12,7 +12,12 @@ return {
 			pattern = "fugitive",
 			group = fugitive_augroup,
 			callback = function()
-				keymap.set("n", "<leader>z", ':echo "Fugitive already open"<CR>', { desc = "Fugitive dedupe", buffer = true })
+				keymap.set(
+					"n",
+					"<leader>z",
+					':echo "Fugitive already open"<CR>',
+					{ desc = "Fugitive dedupe", buffer = true }
+				)
 				keymap.set("n", "S", ":G add --all <CR>", { desc = "Stage all", buffer = true })
 				keymap.set("n", "gp", ":G push <CR>", { desc = "Push commits", buffer = true })
 				keymap.set(
@@ -25,7 +30,9 @@ return {
 					group = fugitive_augroup,
 					pattern = "<buffer>",
 					callback = function(tb)
-						vim.api.nvim_buf_delete(tb.buf, {})
+						-- if not a fugitive window
+						-- vim.api.nvim_buf_delete(tb. buf, {})
+						print(vim.fn.expand("%:p"))
 					end,
 				})
 			end,

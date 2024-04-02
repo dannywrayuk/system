@@ -25,6 +25,7 @@ return {
 				"cssls",
 				"lua_ls",
 				"graphql",
+				"eslint",
 			},
 			automatic_installation = true,
 		})
@@ -32,7 +33,6 @@ return {
 		mason_tool_installer.setup({
 			ensure_installed = {
 				"prettier",
-				"eslint_d",
 				"stylua",
 			},
 		})
