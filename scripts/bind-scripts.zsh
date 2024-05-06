@@ -8,3 +8,5 @@ bindkey -s ^o "op\n"
 
 # open neovim here
 bindkey -s ^n "nvim\n"
+
+alias v="$DOTFILES/scripts/list-info"

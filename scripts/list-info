@@ -1,0 +1,43 @@
+withFallback () {
+    command_output=$($1 2>/dev/null)
+    if [ -z "$command_output" ]; then
+        variable="$2"
+    else
+        variable="$command_output"
+    fi
+    echo "$variable"
+}
+
+formatVersion () {
+    version=$(echo "$1" | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+'| head -1)
+    if [ -z "$version" ]; then
+        echo "$1"
+    else
+        echo "$version"
+    fi
+}
+
+formatOutput () {
+    if [ -z "$2" ]; then
+        versionCommand="$1 -v"
+    else
+        versionCommand="$2"
+    fi
+    version=$(withFallback "$versionCommand" "Error")
+    formattedVersion=$(formatVersion "$version")
+    echo "$1\t$formattedVersion"
+}
+
+
+formatOutput "node"
+formatOutput "npm"
+formatOutput "yarn"
+formatOutput "bun"
+formatOutput "pnpm"
+formatOutput "fnm" "fnm --version"
+formatOutput "brew"
+formatOutput "git"
+formatOutput "nvim"
+formatOutput "aws" "aws --version"
+
+
