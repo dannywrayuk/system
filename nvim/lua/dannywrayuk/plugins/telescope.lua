@@ -55,6 +55,7 @@ return {
 			},
 		})
 		keymap.set("n", "<leader>ft", builtin.builtin, { desc = "Telescope: Open list of all builtin lists" })
+		keymap.set("n", "<leader>f;", builtin.resume, { desc = "Telescope: Open last telescope" })
 		keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope: Open Quickfix" })
 		keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Open list of all files in PWD" })
 		keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Telescope: Open list of all recently opened files" })

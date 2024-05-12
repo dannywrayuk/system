@@ -11,4 +11,6 @@
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 [pull]
-	rebase = true
+    rebase = true
+[advice]
+    statusHints = false
