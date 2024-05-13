@@ -1,4 +1,8 @@
-# Environment Variables
+# Environment Variables and Options
+
+
+# Load zsh plugins
+autoload -U add-zsh-hook vcs_info
 
 # Add homebrew to path
 export PATH=/opt/homebrew/bin:$PATH
@@ -25,9 +29,21 @@ setopt no_list_beep
 set bell-style none
 
 # Set Prompt Line
+add-zsh-hook precmd vcs_info
+zstyle ':vcs_info:git:*' formats '(%b)'
 setopt prompt_subst
-export PROMPT="%F{green}➜%f "
-export RPROMPT='%F{8}%1~ %*%f'
+export PROMPT='%F{green}➜%f '
+export RPROMPT='%F{8}${vcs_info_msg_0_} %1~ %*%f'
+
+# Iterm title to PWD
+DISABLE_AUTO_TITLE="true"
+
+iterm_tab_title() {
+    echo -ne "\e]0;$(dirs)\a"
+}
+add-zsh-hook precmd iterm_tab_title
+
+
 
 # Automatically enter directories
 setopt auto_cd
@@ -145,7 +161,6 @@ alias lofi="open https://www.youtube.com/watch\?v\=jfKfPfyJRdk"
 
 # Tmux Sessionizer
 alias tmux-sessionizer="$DOTFILES/terminal/scripts/tmux-sessionizer"
-bindkey -s ^p "tmux-sessionizer\n"
 
 # Navigator
 alias op=". $DOTFILES/terminal/scripts/navigator"

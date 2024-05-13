@@ -9,7 +9,7 @@ withFallback () {
 }
 
 formatVersion () {
-    version=$(echo "$1" | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+'| head -1)
+    version=$(echo "$1" | grep -o -E '[0-9]+\.[0-9]+(\.[0-9]+)?'| head -1)
     if [ -z "$version" ]; then
         echo "$1"
     else
@@ -35,9 +35,10 @@ formatOutput "yarn"
 formatOutput "bun"
 formatOutput "pnpm"
 formatOutput "fnm" "fnm --version"
-formatOutput "brew"
-formatOutput "git"
 formatOutput "nvim"
+formatOutput "brew"
+formatOutput "tmux" "tmux -V"
+formatOutput "git"
 formatOutput "aws" "aws --version"
 
 
