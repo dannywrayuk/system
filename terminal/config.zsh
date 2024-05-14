@@ -174,10 +174,10 @@ function kop(){
 }
 
 # Display paste history
-alias ph="cat ~/.pasteboardHistory | fzf --tac"
+alias ph="vim +$ ~/.pasteboardHistory"
 
 # Display command history
-alias ch="history 0 | fzf --tac"
+alias ch="vim +$ ~/.config/.zsh_history"
 
 
 
