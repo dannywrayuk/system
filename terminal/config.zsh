@@ -173,6 +173,12 @@ function kop(){
     lsof -i:$1 && echo \\nkilling $(lsof -t -i:$1) && lsof -t -i:$1 | xargs kill -9
 }
 
+# Display paste history
+alias ph="cat ~/.pasteboardHistory | fzf --tac"
+
+# Display command history
+alias ch="history 0 | fzf --tac"
+
 
 
 # Application Config
