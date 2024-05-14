@@ -69,6 +69,9 @@ alias rsz="source ~/.zshrc"
 # List application versions
 alias v="$DOTFILES/terminal/scripts/list-info"
 
+# Quit terminal
+alias :q="exit"
+
 
 # Git
 
@@ -135,7 +138,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-
 
 # Go to a project
 alias proj="cd $PROJDIR/\$(ls $PROJDIR | fzf)"
