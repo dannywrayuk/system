@@ -84,8 +84,10 @@ keymap.set("n", "<leader>ga", function()
 		if input == nil then
 			return
 		end
+		print("Git Push")
 		vim.cmd("Git add --all")
 		vim.cmd('Git commit --quiet  -m "' .. input .. '"')
 		vim.cmd("Git push --quiet")
+		print("Done.")
 	end)
 end, { desc = "Commit and Push all changes" })
