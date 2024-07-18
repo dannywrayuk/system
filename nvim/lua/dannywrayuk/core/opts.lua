@@ -18,7 +18,7 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 -- word wrap
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 -- search highlight
 vim.opt.hlsearch = false
@@ -35,6 +35,9 @@ vim.opt.updatetime = 50
 
 -- dont show the default mode thing
 vim.opt.showmode = false
+
+-- add column for linelength
+-- vim.opt.colorcolumn = "80"
 
 -- dont add comment on newlines
 vim.cmd([[autocmd BufEnter * set formatoptions-=cro]])

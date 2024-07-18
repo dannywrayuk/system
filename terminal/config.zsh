@@ -10,9 +10,6 @@ export PATH=/opt/homebrew/bin:$PATH
 # Config location
 export XDG_CONFIG_HOME=~/.config
 
-# Terminal history file location
-export HISTFILE="$XDG_CONFIG_HOME/.zsh_history"
-
 # Project directory
 export PROJDIR=~/proj
 
@@ -43,7 +40,16 @@ iterm_tab_title() {
 }
 add-zsh-hook precmd iterm_tab_title
 
-
+# Handle history correctly
+HISTFILE="$XDG_CONFIG_HOME/.zsh_history"
+HISTSIZE=5000
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
 # Automatically enter directories
 setopt auto_cd
@@ -52,10 +58,10 @@ setopt auto_cd
 alias ls="ls -G"
 
 # Use completion menu
-# autoload -Uz compinit
-# compinit
-# zstyle ':completion:*' menu select
-
+# autoload -Uz compinit && compinit
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# zstyle ':completion:*' menu no
 
 
 # Alias
