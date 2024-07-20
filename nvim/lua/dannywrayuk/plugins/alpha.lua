@@ -3,13 +3,6 @@ return {
 	config = function()
 		local alpha = require("alpha")
 		local alphaTheme = require("alpha.themes.dashboard")
-		local buttons ={
-			alphaTheme.button( "e", "  > New file" , ":NewfilePrompt<CR>"),
-			alphaTheme.button( "f", "  > Find file", ":Telescope find_files<CR>"),
-			alphaTheme.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
-			alphaTheme.button( "t", "  > Tree" , ":Neotree position=float<CR>"),
-			alphaTheme.button( "q", "  > Quit", ":qa<CR>"),
-		}
 
 		local windowHeight = vim.api.nvim_win_get_height(0)
 		local image = {
@@ -36,7 +29,7 @@ return {
 			"⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠄⣔⣼⣦⣤⣰⣶⣿⣿⣿⣿⣄⢄⡌⠻⣿⣿⣿⣿⣦⣌⣉⣁⡐⠒⣒⣒⣒⣒⡲⠶⠓⣫⣥⣶⣽⣶⣶⣿⣿⣿⠿⠛⠛⠛⠛⠛⠛⠛⠻",
 			"⠈⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣿⣿⣿⢟⣛⣿⡜⣫⣝⣿⣿⣿⣽⣟⣦⣨⣉⣙⣛⣛⣛⣛⣛⣿⣭⣭⣭⣶⣶⣦⣶⣮⣭⣿⣏⣭⣽⣿⣷⣶⣾⣿⣿⡷⣶⣶⣶⣿⣷",
 		}
-		local offsetSize = math.floor((windowHeight - (3 * #buttons + #image))/ 2)
+		local offsetSize = math.floor((windowHeight - #image) / 2)
 		if offsetSize < 0 then
 			alphaTheme.section.header.val = image
 		else
@@ -51,7 +44,7 @@ return {
 		end
 
 		alphaTheme.section.header.opts.hl = "AlphaHeader"
-		alphaTheme.section.buttons.val = buttons
+		alphaTheme.section.buttons.val = {}
 		alpha.setup(alphaTheme.config)
 	end,
 }

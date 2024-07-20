@@ -24,6 +24,14 @@ return {
 		vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
 		vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
 
+		local moveCursorDown = function()
+			vim.cmd("norm! j")
+		end
+
+		local moveCursorUp = function()
+			vim.cmd("norm! k")
+		end
+
 		local goToParent = function(state)
 			local node = state.tree:get_node()
 			renderer.focus_node(state, node:get_parent_id())
@@ -129,21 +137,32 @@ return {
 				firstSibling = firstSibling,
 				lastSibling = lastSibling,
 				toggleWindowPosition = toggleWindowPosition,
+				moveCursorDown = moveCursorDown,
+				moveCursorUp = moveCursorUp,
 			},
 			window = {
 				mappings = {
-					["h"] = "goToParent",
-					["H"] = "goToParentAndClose",
-					["L"] = "openOrExpand",
-					["l"] = "openAndCloseTree",
-					["J"] = "nextSibling",
-					["K"] = "prevSibling",
-					["<C-j>"] = "lastSibling",
-					["<C-k>"] = "firstSibling",
-					["<C-h>"] = "toggle_hidden",
+					["n"] = "goToParent",
+					["N"] = "goToParentAndClose",
+					["O"] = "openOrExpand",
+					["o"] = "openAndCloseTree",
+					["E"] = "nextSibling",
+					["I"] = "prevSibling",
+					["<C-e>"] = "lastSibling",
+					["<C-i>"] = "firstSibling",
+					["<C-n>"] = "toggle_hidden",
 					["<esc>"] = "close_window",
 					["T"] = "toggleWindowPosition",
 					["t"] = "none",
+					["e"] = "moveCursorDown",
+					["i"] = "moveCursorUp",
+					["oc"] = "none",
+					["od"] = "none",
+					["og"] = "none",
+					["om"] = "none",
+					["on"] = "none",
+					["os"] = "none",
+					["ot"] = "none",
 				},
 			},
 			hide_root_node = true,

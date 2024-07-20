@@ -70,15 +70,6 @@ return {
 			}
 		end
 
-		local ifVisible = function(action)
-			return function(fallback)
-				if cmp.visible() then
-					action()
-				end
-				fallback()
-			end
-		end
-
 		local kindPriority = function(kind)
 			return ({
 				[types.lsp.CompletionItemKind.Variable] = 0,
@@ -109,14 +100,18 @@ return {
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
-				["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-				["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-				["<C-l>"] = cmp.mapping.confirm({ select = true }),
-				["<C-Space>"] = cmp.mapping.complete(),
-				["<Up>"] = ifVisible(cmp.close),
-				["<Down>"] = ifVisible(cmp.close),
-				["<Left>"] = ifVisible(cmp.close),
-				["<Right>"] = ifVisible(cmp.close),
+				["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+				["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+				["<Right>"] = cmp.mapping.confirm({ select = true }),
+				["<Left>"] = function()
+					if cmp.visible() then
+						cmp.close()
+					else
+						cmp.complete()
+					end
+				end,
+				["<C-i>"] = cmp.mapping.scroll_docs(-1),
+				["<C-e>"] = cmp.mapping.scroll_docs(1),
 			}),
 			sources = cmp.config.sources({
 				{ name = "luasnip" },
