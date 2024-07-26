@@ -23,18 +23,9 @@ return {
 				keymap.set(
 					"n",
 					"<leader>t",
-					":bd | Neotree float reveal<CR>",
+					":bd | Neotree float reveal reveal_force_cwd<CR>",
 					{ desc = "Close fugitive before opening neotree", buffer = true }
 				)
-				vim.api.nvim_create_autocmd({ "BufLeave" }, {
-					group = fugitive_augroup,
-					pattern = "<buffer>",
-					callback = function(tb)
-						-- if not a fugitive window
-						-- vim.api.nvim_buf_delete(tb. buf, {})
-						print(vim.fn.expand("%:p"))
-					end,
-				})
 			end,
 		})
 	end,
