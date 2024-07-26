@@ -209,7 +209,11 @@ return {
 
 		local keymap = require("dannywrayuk.util.keymap")
 		keymap.set("n", "<leader>t", function()
-			require("neo-tree.command").execute({ position = vim.g.neoTreePosition, reveal = true })
+			require("neo-tree.command").execute({
+				position = vim.g.neoTreePosition,
+				reveal = true,
+				reveal_force_cwd = true,
+			})
 		end, { desc = "Open Neotree" })
 	end,
 }
