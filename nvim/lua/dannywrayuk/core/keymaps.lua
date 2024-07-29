@@ -74,8 +74,8 @@ keymap.set("n", "<leader>gp", function()
 		if input == nil then
 			return
 		end
-		vim.cmd('Git commit -q -m "' .. input .. '"')
-		vim.cmd("Git push -q")
+		vim.cmd('Neogit commit -q -m "' .. input .. '"')
+		vim.cmd("Neogit push -q")
 	end)
 end, { desc = "Commit and Push staged changes" })
 
@@ -84,10 +84,10 @@ keymap.set("n", "<leader>ga", function()
 		if input == nil then
 			return
 		end
-		print("Git Push")
-		vim.cmd("Git add --all")
-		vim.cmd('Git commit -q -m "' .. input .. '"')
-		vim.cmd("Git push -q")
+		print("Neogit Push")
+		vim.cmd("Neogit add --all")
+		vim.cmd('Neogit commit -q -m "' .. input .. '"')
+		vim.cmd("Neogit push -q")
 		print("Done.")
 	end)
 end, { desc = "Commit and Push all changes" })
