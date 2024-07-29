@@ -67,11 +67,11 @@ keymap.set({ "n", "i" }, option.l, function()
 	end
 end, { desc = "Add log statement at cursor" })
 
-vim.api.nvim_create_autocmd("TermClose", {
-	callback = function()
-		vim.cmd(":bd")
-	end,
-})
+-- vim.api.nvim_create_autocmd("TermClose", {
+-- 	callback = function()
+-- 		vim.cmd(":bd")
+-- 	end,
+-- })
 keymap.set("n", "<leader>ga", function()
 	vim.ui.input({ prompt = "Commit Message" }, function(input)
 		if input == nil then
