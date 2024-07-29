@@ -77,6 +77,6 @@ keymap.set("n", "<leader>ga", function()
 		if input == nil then
 			return
 		end
-		vim.cmd([[:terminal git add -A && git commit -m "]] .. input .. [[" && git push]])
+		vim.cmd([[:vert ter git add -A && git commit -m "]] .. input .. [[" && git push]])
 	end)
 end, { desc = "Commit and Push all changes" })
