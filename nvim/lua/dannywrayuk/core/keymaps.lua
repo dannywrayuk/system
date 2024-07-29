@@ -66,3 +66,12 @@ keymap.set({ "n", "i" }, option.l, function()
 		print("no log format for: " .. vim.o.filetype)
 	end
 end, { desc = "Add log statement at cursor" })
+
+keymap.set("n", "<leader>ga", function()
+	vim.ui.input({ prompt = "Commit Message" }, function(input)
+		if input == nil then
+			return
+		end
+		vim.cmd([[:terminal git add -A && git commit -m "]] .. input .. [[" && git push]])
+	end)
+end, { desc = "Commit and Push all changes" })
