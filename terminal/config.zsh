@@ -167,6 +167,9 @@ alias lofi="open https://www.youtube.com/watch\?v\=jfKfPfyJRdk"
 
 # Scripts and Functions
 
+# Run Package.json script
+source $DOTFILES/terminal/scripts/list-package-scripts
+
 # Tmux Sessionizer
 alias tmux-sessionizer="$DOTFILES/terminal/scripts/tmux-sessionizer"
 
