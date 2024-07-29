@@ -66,28 +66,3 @@ keymap.set({ "n", "i" }, option.l, function()
 		print("no log format for: " .. vim.o.filetype)
 	end
 end, { desc = "Add log statement at cursor" })
-
--- git commands
-
-keymap.set("n", "<leader>gp", function()
-	vim.ui.input({ prompt = "Commit Message" }, function(input)
-		if input == nil then
-			return
-		end
-		vim.cmd('Neogit commit -q -m "' .. input .. '"')
-		vim.cmd("Neogit push -q")
-	end)
-end, { desc = "Commit and Push staged changes" })
-
-keymap.set("n", "<leader>ga", function()
-	vim.ui.input({ prompt = "Commit Message" }, function(input)
-		if input == nil then
-			return
-		end
-		print("Neogit Push")
-		vim.cmd("Neogit add --all")
-		vim.cmd('Neogit commit -q -m "' .. input .. '"')
-		vim.cmd("Neogit push -q")
-		print("Done.")
-	end)
-end, { desc = "Commit and Push all changes" })

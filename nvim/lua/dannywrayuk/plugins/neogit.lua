@@ -47,5 +47,19 @@ return {
 
 		local keymap = require("dannywrayuk.util.keymap")
 		keymap.set("n", "<leader>z", ":Neogit kind=vsplit<CR>")
+
+		local git = require("neogit.lib.git")
+		keymap.set("n", "<leader>ga", function()
+			vim.ui.input({ prompt = "Commit Message" }, function(input)
+				if input == nil then
+					return
+				end
+				print("Neogit Push")
+				git.cli.add.all.call({ await = true })
+				git.cli.commit.with_message(input).call({ await = true })
+				git.push.push_interactive(git.branch.pushRemote(), git.branch.current(), {})
+				print("Done.")
+			end)
+		end, { desc = "Commit and Push all changes" })
 	end,
 }

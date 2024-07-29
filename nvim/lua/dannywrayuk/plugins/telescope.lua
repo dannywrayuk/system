@@ -53,6 +53,11 @@ return {
 					hide_on_startup = true,
 				},
 			},
+			pickers = {
+				git_branches = {
+					mappings = { n = { ["<C-n>"] = "git_create_branch" }, i = { ["<C-n>"] = "git_create_branch" } },
+				},
+			},
 		})
 		keymap.set("n", "<leader>ft", builtin.builtin, { desc = "Telescope: Open list of all builtin lists" })
 		keymap.set("n", "<leader>f;", builtin.resume, { desc = "Telescope: Open last telescope" })

@@ -165,7 +165,6 @@ return {
 					["ot"] = "none",
 				},
 			},
-			pickers = { git_branches = { mappings = { ["A"] = "git_create_branch" } } },
 			hide_root_node = true,
 			retain_hidden_root_indent = true,
 			popup_border_style = "rounded",
