@@ -3,11 +3,11 @@ tap "homebrew/cask-fonts"
 tap "microsoft/git"
 tap "oven-sh/bun"
 
-
+brew "awscli"
+brew "eza"
 brew "fd"
 brew "fnm"
 brew "fzf"
-brew "awscli"
 brew "jq"
 brew "neovim"
 brew "ripgrep"
@@ -15,6 +15,6 @@ brew "tmux"
 brew "oven-sh/bun/bun"
 
 cask "font-fira-code-nerd-font"
+cask "git-credential-manager"
 cask "hammerspoon"
 cask "iterm2"
-

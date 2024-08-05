@@ -25,6 +25,12 @@ setopt no_beep
 setopt no_list_beep
 set bell-style none
 
+# Fzf colors
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
 # Set Prompt Line
 add-zsh-hook precmd vcs_info
 zstyle ':vcs_info:git:*' formats '(%b)'
@@ -150,6 +156,9 @@ alias proj="cd $PROJDIR/\$(ls $PROJDIR | fzf)"
 
 # Go to Documents
 alias docs="cd ~/Documents"
+
+# FS Tree view
+alias tree=" eza -TL 2 --color=always --group-directories-first --icons"
 
 
 # Editor
