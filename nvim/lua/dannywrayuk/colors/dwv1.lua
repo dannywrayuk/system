@@ -90,12 +90,22 @@ local g = {
 		todo = c.blue,
 		warning = c.yellow,
 		info = c.blue2,
-		hint = c.blue7,
+		hint = c.blue6,
 		add = c.teal,
 		delete = c.red1,
 		change = c.yellow,
 		ignore = c.dark3,
 	},
+	rainbow = {
+		a = c.red,
+		b = c.orange,
+		c = c.yellow,
+		d = c.green,
+		e = c.blue1,
+		f = c.blue,
+		g = c.purple,
+	},
+	markdown = { title = c.blue },
 }
 
 local overrides = {}

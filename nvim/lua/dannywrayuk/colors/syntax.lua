@@ -226,7 +226,7 @@ return function(c, g, options, util)
 		DiagnosticWarn = { fg = g.semantic.warning }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 		DiagnosticInfo = { fg = g.semantic.info }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 		DiagnosticHint = { fg = g.semantic.hint }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-		DiagnosticUnnecessary = { fg = c.terminal_black }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+		DiagnosticUnnecessary = { fg = g.semantic.warning }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 
 		DiagnosticVirtualTextError = { bg = util.darken(g.semantic.error, 0.1), fg = g.semantic.error }, -- Used for "Error" diagnostic virtual text
 		DiagnosticVirtualTextWarn = { bg = util.darken(g.semantic.warning, 0.1), fg = g.semantic.warning }, -- Used for "Warning" diagnostic virtual text
@@ -240,7 +240,7 @@ return function(c, g, options, util)
 
 		LspSignatureActiveParameter = { bg = util.darken(g.bg.highlight, 0.4), bold = true },
 		LspCodeLens = { fg = g.syntax.comment },
-		LspInlayHint = { bg = util.darken(c.blue7, 0.1), fg = c.dark3 },
+		LspInlayHint = { bg = util.darken(g.semantic.hint, 0.1), fg = g.semantic.hint },
 
 		LspInfoBorder = { fg = g.fg.highlight, bg = g.editor.float.bg },
 
@@ -295,7 +295,15 @@ return function(c, g, options, util)
 		end
 	end
 
-	local markdown_rainbow = { c.blue, c.yellow, c.green, c.teal, c.magenta, c.purple }
+	local markdown_rainbow = {
+		g.rainbow.a,
+		g.rainbow.b,
+		g.rainbow.c,
+		g.rainbow.d,
+		g.rainbow.e,
+		g.rainbow.f,
+		g.rainbow.g,
+	}
 
 	for i, color in ipairs(markdown_rainbow) do
 		highlights["@markup.heading." .. i .. ".markdown"] = { fg = color, bold = true }
