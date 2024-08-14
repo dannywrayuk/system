@@ -159,31 +159,15 @@ return function(c, g, options, util)
 		["@lsp.type.namespace.python"] = { link = "@variable" },
 
 		Underlined = { underline = true }, -- (preferred) text that stands out, HTML links
-		Bold = { bold = true, fg = g.fg.base }, -- (preferred) any bold text
-		Italic = { italic = true, fg = g.fg.base }, -- (preferred) any italic text
+		Bold = { bold = true }, -- (preferred) any bold text
+		Italic = { italic = true }, -- (preferred) any italic text
 
-		qfLineNr = { fg = c.dark5 },
-		qfFileName = { fg = c.blue },
+		qfFileName = { fg = g.fg.highlight },
 
-		htmlH1 = { fg = c.magenta, bold = true },
-		htmlH2 = { fg = c.blue, bold = true },
-
-		-- mkdHeading = { fg = c.orange, bold = true },
-		-- mkdCode = { bg = c.terminal_black, fg = g.fg.base },
-		mkdCodeDelimiter = { bg = c.terminal_black, fg = g.fg.base },
-		mkdCodeStart = { fg = c.teal, bold = true },
-		mkdCodeEnd = { fg = c.teal, bold = true },
-		-- mkdLink = { fg = c.blue, underline = true },
-
-		markdownHeadingDelimiter = { fg = c.orange, bold = true },
-		markdownCode = { fg = c.teal },
-		markdownCodeBlock = { fg = c.teal },
-		markdownH1 = { fg = c.magenta, bold = true },
-		markdownH2 = { fg = c.blue, bold = true },
-		markdownLinkText = { fg = c.blue, underline = true },
+		htmlH1 = { fg = g.markdown.h1, bold = true },
+		htmlH2 = { fg = g.markdown.h2, bold = true },
 
 		--- Text
-		-- ["@markup.raw.markdown"] = { fg = c.blue },
 		["@markup"] = { link = "@none" },
 		["@markup.environment"] = { link = "Macro" },
 		["@markup.environment.name"] = { link = "Type" },
@@ -195,20 +179,20 @@ return function(c, g, options, util)
 		["@markup.strikethrough"] = { strikethrough = true },
 		["@markup.underline"] = { underline = true },
 		["@markup.heading"] = { link = "Title" },
-		["@markup.raw.markdown_inline"] = { bg = c.terminal_black, fg = c.blue },
-		["@markup.link"] = { fg = c.teal },
+		["@markup.raw.markdown_inline"] = { bg = g.bg.upper },
+		["@markup.link"] = { fg = g.markdown.link },
 		["@markup.link.label"] = { link = "SpecialChar" },
 		["@markup.link.label.symbol"] = { link = "Identifier" },
 		["@markup.link.url"] = { link = "Underlined" },
 
-		["@markup.list.unchecked"] = { fg = c.blue }, -- For brackets and parens.
-		["@markup.list.checked"] = { fg = c.green1 }, -- For brackets and parens.
-		["@markup.list"] = { fg = c.blue5 }, -- For special punctutation that does not fall in the catagories before.
+		["@markup.list.unchecked"] = { fg = g.markdown.unchecked }, -- For brackets and parens.
+		["@markup.list.checked"] = { fg = g.markdown.checked }, -- For brackets and parens.
+		["@markup.list"] = { fg = g.markdown.list }, -- For special punctutation that does not fall in the catagories before.
 
 		["@diff.plus"] = { link = "DiffAdd" },
 		["@diff.minus"] = { link = "DiffDelete" },
 		["@diff.delta"] = { link = "DiffChange" },
-		["helpCommand"] = { bg = c.terminal_black, fg = c.blue },
+		["helpCommand"] = { fg = g.fg.highlight },
 
 		debugPC = { bg = g.editor.sidebar.bg }, -- used for highlighting the current line in terminal-debug
 		debugBreakpoint = { bg = util.darken(g.semantic.info, 0.1), fg = g.semantic.info }, -- used for breakpoint colors in terminal-debug

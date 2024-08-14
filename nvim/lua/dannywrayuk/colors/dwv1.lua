@@ -1,5 +1,4 @@
 local c = {
-	none = "NONE",
 	bg = "#1a1b26",
 	bg_dark = "#16161e",
 	bg_highlight = "#292e42",
@@ -95,6 +94,9 @@ local g = {
 		delete = c.red1,
 		change = c.yellow,
 		ignore = c.dark3,
+		good = c.green,
+		bad = c.red,
+		loading = c.yellow,
 	},
 	rainbow = {
 		a = c.red,
@@ -105,7 +107,14 @@ local g = {
 		f = c.blue,
 		g = c.purple,
 	},
-	markdown = { title = c.blue },
+	markdown = {
+		h1 = c.magenta,
+		h2 = c.blue,
+		link = c.teal,
+		list = c.blue,
+		checked = c.blue,
+		unchecked = c.green1,
+	},
 }
 
 local overrides = {}

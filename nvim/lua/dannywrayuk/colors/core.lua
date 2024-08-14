@@ -55,7 +55,7 @@ return function(c, g, options, util)
 		TabLine = { bg = g.editor.statusline, fg = g.fg.lower }, -- tab pages line, not active tab page label
 		TabLineFill = { bg = g.bg.lower }, -- tab pages line, where there are no labels
 		TabLineSel = { fg = g.fg.highlight, bg = g.bg.base }, -- tab pages line, active tab page label
-		Title = { fg = g.markdown.title }, -- titles for output from ":set all", ":autocmd" etc.
+		Title = { fg = g.markdown.h1 }, -- titles for output from ":set all", ":autocmd" etc.
 		Visual = { bg = g.bg.highlight }, -- Visual mode selection
 		VisualNOS = { bg = g.bg.highlight }, -- Visual mode selection when vim is "Not Owning the Selection".
 		WarningMsg = { fg = g.semantic.warning }, -- warning messages
