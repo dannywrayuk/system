@@ -1,4 +1,12 @@
 HOST=$(hostname | cut -d. -f1)
-echo  "config: { $HOST = config { user = \"$USER\"; host = \"$HOST\"; }; }" > ./host.nix
-git add --intent-to-add host.nix
-git update-index --assume-unchanged host.nix
+echo  "{ 
+    withDefault = config: { 
+        $HOST = (config.\${\"$HOST\"} or config.\${config.default}) { 
+                user = \"$USER\"; 
+        }; 
+    };
+    user = \"$USER\";
+    host=\"$HOST\";
+}" > ./nix/host.nix
+git add --intent-to-add ./nix/host.nix
+git update-index --assume-unchanged ./nix/host.nix
