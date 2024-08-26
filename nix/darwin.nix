@@ -3,6 +3,7 @@
 
     environment.shells = [ pkgs.zsh ];
     environment.loginShell = pkgs.zsh;
+    environment.etc.hushlogin.enable = true;
 
     services.nix-daemon.enable = true;
 
