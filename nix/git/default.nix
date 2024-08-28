@@ -19,7 +19,7 @@
         credential = {
             helper = [
                 "cache --timeout 21600"
-                    "oauth"
+                "oauth"
             ];
         };
     };
