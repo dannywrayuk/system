@@ -12,7 +12,7 @@
     gcb="git checkout -b"; # Checkout new branch 
     gcp="git -C $PROJ_DIR clone"; # Clone repo into project directory 
     gnuke="git clean -xdfi"; # Clear all untracked files (interactive) 
-    gacp="git add --all && echo 'Commit Message: \c' && read message && git commit -m $message && git push"; # Add, Commit, Push
+    gacp="git add --all && echo 'Commit Message:' && read message && git commit -m $message && git push"; # Add, Commit, Push
     ggdr="git branch -rl | grep 'origin/HEAD' | cut -d '>' -f 2 | tr -d ' '"; # Get main branch (with remote) 
     ggd="git branch -rl | grep 'origin/HEAD' | cut -d '>' -f 2 | tr -d ' ' | sed 's/origin\///' "; # Get main branch 
     grm="git fetch && git rebase -i \$(ggdr)"; # Rebase main from origin 

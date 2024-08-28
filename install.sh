@@ -1,11 +1,11 @@
-read -p "Do you wish to overwrite existing files?(y/n)" OVERWRITE
+echo "Installing nix"
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
-find $DOTFILES/home -type f | while read FILE
-do
-LINK=${FILE/$DOTFILES\/home/~}
- if [[ "$OVERWRITE" =~ [yY] ]]; then rm "$LINK"; fi
- ln -s "$FILE" "$LINK"
-done
+echo "Installing Homebrew"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-ln -s $DOTFILES/nvim ~/.config
-ln -s $DOTFILES/.hammerspoon ~
+echo "Generating Host file"
+./nix/generate-host.sh
+
+echo "Creating Project Directory"
+mkdir -p $HOME/project

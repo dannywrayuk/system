@@ -6,8 +6,8 @@ config: {
     dotDir = ".config/zsh"; # Must be relative to ~
     localVariables = {
         CONFIG_DIR = "${config.xdg.configHome}";
-        PROJ_DIR = "$HOME/proj";
-        DOT_DIR = "$HOME/dotfiles";
+        PROJ_DIR = "$HOME/project";
+        SYS_CONFIG_DIR = "${config.xdg.configHome}/system";
     };
     history = {
         expireDuplicatesFirst = true;

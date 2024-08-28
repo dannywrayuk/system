@@ -11,4 +11,3 @@ export RPROMPT='%F{8}${vcs_info_msg_0_} %1~ %*%f'
 
 # Source local device config
 [ -s "$CONFIG_DIR/zsh/.zshlocal" ] && source $CONFIG_DIR/zsh/.zshlocal
- 
