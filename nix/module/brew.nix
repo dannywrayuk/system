@@ -1,5 +1,5 @@
 let
-    host = (import ../host.nix).host;
+    host = (import ../util/system-variables.nix).host;
     extraCasks = {
         DannysMacbookAir = [
             "surfshark"

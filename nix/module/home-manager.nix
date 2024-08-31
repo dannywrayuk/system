@@ -2,7 +2,7 @@
 
     programs.home-manager.enable = true;
 
-    xdg.configFile = import ./xdgMap.nix config [
+    xdg.configFile = import ../util/xdgMap.nix config [
         "hammerspoon"
         "nvim"
         "tmux"
@@ -35,8 +35,8 @@
         };
         eza = { enable = true; };
         fd = { enable = true; };
-        fzf = import ./fzf;
-        git = import ./git; 
+        fzf = import ./fzf.nix;
+        git = import ./git.nix; 
         git-credential-oauth = { enable = true; };
         neovim = {
             enable = true;

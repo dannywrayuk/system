@@ -52,5 +52,5 @@
 
     fonts.packages = [ (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
 
-    homebrew = import ./brew;
+    homebrew = import ./brew.nix;
 }

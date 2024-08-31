@@ -4,8 +4,8 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
 echo "Installing Homebrew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-echo "Generating Host file"
-./nix/generate-host.sh
+echo "Generating system-variables file"
+./nix/generate-system-variables.zsh
 
 echo "Creating Project Directory"
 mkdir -p $HOME/project
