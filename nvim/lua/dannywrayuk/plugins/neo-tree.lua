@@ -141,6 +141,7 @@ return {
 				moveCursorUp = moveCursorUp,
 			},
 			window = {
+				position = "float",
 				mappings = {
 					["n"] = "goToParent",
 					["N"] = "goToParentAndClose",

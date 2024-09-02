@@ -8,6 +8,7 @@
         "tmux"
         "wezterm"
         "terminal"
+        "yazi"
     ];
 
     home = {
@@ -44,6 +45,7 @@
         };
         ripgrep = { enable = true; };
         tmux = { enable = true; };
+        yazi = { enable = true; };
         zsh = import ./zsh config;
     };
 }
