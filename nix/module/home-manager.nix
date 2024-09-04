@@ -15,6 +15,7 @@
         packages = with pkgs; [ 
             bottom
             fnm
+            git-credential-oauth 
             jq
             tmux
             wezterm
@@ -38,7 +39,6 @@
         fd = { enable = true; };
         fzf = import ./fzf.nix;
         git = import ./git.nix; 
-        git-credential-oauth = { enable = true; };
         neovim = {
             enable = true;
             defaultEditor = true;
