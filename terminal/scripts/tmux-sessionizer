@@ -4,7 +4,7 @@ else
     selected=$(
         {
             echo "$(
-                find ~/proj -mindepth 1 -maxdepth 1 -type d
+                find ~/project -mindepth 1 -maxdepth 1 -type d
             )";
             echo ~/dotfiles;
         } | sed "s|^$HOME/||g" | fzf)
