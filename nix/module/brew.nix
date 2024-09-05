@@ -12,6 +12,7 @@ in {
     masApps = { };
     casks = [ 
         "hammerspoon"
+        "firefox"
     ] ++ (extraCasks.${host} or []);
     taps = [];
     brews = [];
