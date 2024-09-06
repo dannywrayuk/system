@@ -13,39 +13,34 @@
 
     home = {
         packages = with pkgs; [ 
+            awscli
             bottom
+            bun
+            fd
             fnm
-            git-credential-oauth 
+            git-credential-manager
+            pam-reattach
             jq
+            ripgrep
             tmux
             wezterm
+            yazi
         ];
         
         sessionPath = [
             "/opt/homebrew/bin"
             "${config.xdg.configHome}/terminal/scripts"
         ];
-        enableNixpkgsReleaseCheck = false;
-        stateVersion = "23.05";
+        stateVersion = "24.05";
     };
 
     programs = {
-        awscli = { enable = true; };
-        bun = { 
-            enable = true;
-            enableGitIntegration = false;
-        };
-        eza = { enable = true; };
-        fd = { enable = true; };
         fzf = import ./fzf.nix;
         git = import ./git.nix; 
         neovim = {
             enable = true;
             defaultEditor = true;
         };
-        ripgrep = { enable = true; };
-        tmux = { enable = true; };
-        yazi = { enable = true; };
         zsh = import ./zsh config;
     };
 }
