@@ -31,12 +31,13 @@
             "/opt/homebrew/bin"
             "${config.xdg.configHome}/terminal/scripts"
         ];
+        enableNixpkgsReleaseCheck = false;
         stateVersion = "24.05";
     };
 
     programs = {
         fzf = import ./fzf.nix;
-        git = import ./git.nix; 
+        git = import ./git.nix pkgs; 
         neovim = {
             enable = true;
             defaultEditor = true;

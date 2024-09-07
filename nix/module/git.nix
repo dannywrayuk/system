@@ -1,4 +1,4 @@
-{
+ pkgs: {
     enable = true;
     userName = "Danny Wray";
     userEmail = "48837241+dannywrayuk@users.noreply.github.com";
@@ -18,8 +18,7 @@
         };
         credential = {
             helper = [
-                "cache --timeout 21600"
-                "oauth"
+                "${pkgs.git-credential-manager}"
             ];
         };
     };
