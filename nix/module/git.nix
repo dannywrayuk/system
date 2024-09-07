@@ -18,6 +18,7 @@
         };
         credential = {
             helper = [
+                "" # Empty string tells git to disregard any other config
                 "${pkgs.git-credential-manager}/bin/git-credential-manager"
             ];
         };
