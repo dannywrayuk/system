@@ -17,4 +17,8 @@ config.hide_tab_bar_if_only_one_tab = true
 config.send_composed_key_when_left_alt_is_pressed = true
 config.use_dead_keys = false
 
+-- Bug fix until issue is resolved
+-- https://github.com/wez/wezterm/issues/5990
+config.front_end = "WebGpu"
+
 return config

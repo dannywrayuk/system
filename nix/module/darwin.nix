@@ -22,7 +22,7 @@
                 show-recents = false;
                 persistent-apps = [
                     "/Applications/Firefox.app"
-                    "/Applications/WezTerm.app"
+                    "${pkgs.wezterm}/Applications/WezTerm.app"
                 ];
             };
             finder = {
