@@ -18,7 +18,7 @@
         };
         credential = {
             helper = [
-                "${pkgs.git-credential-manager}"
+                "${pkgs.git-credential-manager}/bin/git-credential-manager"
             ];
         };
     };
