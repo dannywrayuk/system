@@ -21,4 +21,23 @@ config.use_dead_keys = false
 -- https://github.com/wez/wezterm/issues/5990
 config.front_end = "WebGpu"
 
+local act = wezterm.action
+
+config.keys = {
+	{
+		key = "t",
+		mods = "CTRL|SHIFT",
+		action = act.SwitchToWorkspace({
+			name = "test",
+		}),
+	},
+	{
+		key = "9",
+		mods = "ALT",
+		action = act.ShowLauncherArgs({
+			flags = "FUZZY|WORKSPACES",
+		}),
+	},
+}
+
 return config

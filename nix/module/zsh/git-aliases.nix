@@ -14,7 +14,7 @@
     gnuke="git clean -xdfi"; # Clear all untracked files (interactive) 
     gacp="git add --all && echo 'Commit Message:' && read message && git commit -m $message && git push"; # Add, Commit, Push
     ggdr="git branch -rl | grep 'origin/HEAD' | cut -d '>' -f 2 | tr -d ' '"; # Get main branch (with remote) 
-    ggd="git branch -rl | grep 'origin/HEAD' | cut -d '>' -f 2 | tr -d ' ' | sed 's/origin\///' "; # Get main branch 
+    ggd="git branch -rl | grep 'origin/HEAD' | cut -d '>' -f 2 | tr -d ' ' | sed 's/origin\\///' "; # Get main branch 
     grm="git fetch && git rebase -i \$(ggdr)"; # Rebase main from origin 
     gcm="git checkout \$(ggd)"; # Checkout main branch 
     glg="git log";
