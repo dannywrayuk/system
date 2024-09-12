@@ -69,7 +69,6 @@ end, { desc = "Add log statement at cursor" })
 
 local openTerminal = function(cmd)
 	local buf = vim.api.nvim_create_buf(false, true)
-
 	vim.api.nvim_open_win(buf, true, {
 		relative = "editor",
 		width = math.floor(vim.o.columns * 0.4),
@@ -79,7 +78,6 @@ local openTerminal = function(cmd)
 		style = "minimal",
 	})
 	vim.api.nvim_buf_set_keymap(buf, "t", "<esc>", "<cmd>close<CR>", { noremap = true, silent = true })
-
 	vim.fn.termopen(table.concat(cmd, " "))
 	vim.cmd("startinsert")
 end
