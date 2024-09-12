@@ -67,11 +67,6 @@ keymap.set({ "n", "i" }, option.l, function()
 	end
 end, { desc = "Add log statement at cursor" })
 
--- vim.api.nvim_create_autocmd("TermClose", {
--- 	callback = function()
--- 		vim.cmd(":bd")
--- 	end,
--- })
 keymap.set("n", "<leader>ga", function()
 	vim.ui.input({ prompt = "Commit Message" }, function(input)
 		if input == nil then
@@ -80,3 +75,30 @@ keymap.set("n", "<leader>ga", function()
 		vim.cmd([[:vert ter git add -A && git commit -m "]] .. input .. [[" && echo "" && git push]])
 	end)
 end, { desc = "Commit and Push all changes" })
+
+local openTerminal = function(cmd)
+	local buf = vim.api.nvim_create_buf(false, true) -- Create an unlisted, scratch buffer
+
+	-- Open a floating window for the terminal
+	local win = vim.api.nvim_open_win(buf, true, {
+		relative = "editor",
+		width = math.floor(vim.o.columns * 0.8),
+		height = math.floor(vim.o.lines * 0.8),
+		row = math.floor(vim.o.lines * 0.1),
+		col = math.floor(vim.o.columns * 0.1),
+		style = "minimal",
+		border = "single",
+	})
+
+	-- Start the terminal in the buffer
+	vim.fn.termopen(cmd)
+
+	-- Set the buffer to close when pressing 'q'
+	vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+	vim.cmd("startinsert")
+end
+
+-- Example usage: open a terminal in a vertical split and run the `ls` command
+keymap.set("n", "<leader>ll", function()
+	openTerminal("git add --all && echo 'Commit Message:' && read message && git commit -m $message && git push")
+end)
