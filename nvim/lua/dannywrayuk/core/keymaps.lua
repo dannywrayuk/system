@@ -90,7 +90,9 @@ keymap.set("n", "<leader>ga", function()
 		"&& git add --all",
 		"&& echo 'Commit Message:'",
 		"&& read message",
+		"&& echo '\n'",
 		"&& git commit -m $message ",
+		"&& echo '\n'",
 		"&& git push",
 	})
 end, { desc = "Commit and Push all changes" })
