@@ -44,12 +44,11 @@ return {
 				b = { fg = colors.white, bg = colors.grey },
 				c = { fg = colors.white, bg = colors.none },
 			},
-
 			insert = { a = { fg = colors.black, bg = colors.green } },
 			visual = { a = { fg = colors.black, bg = colors.yellow } },
 			replace = { a = { fg = colors.black, bg = colors.red } },
 			command = { a = { fg = colors.black, bg = colors.violet } },
-
+			terminal = { a = { fg = colors.black, bg = colors.violet } },
 			inactive = {
 				a = { fg = colors.white, bg = colors.grey },
 				b = { fg = colors.white, bg = colors.black },
@@ -68,6 +67,7 @@ return {
 					["V-LINE"] = "",
 					REPLACE = "",
 					COMMAND = "",
+					TERMINAL = "󱕷",
 				}
 				local icon = modeIcons[mode]
 				if icon == nil then
