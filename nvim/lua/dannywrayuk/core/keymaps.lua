@@ -89,13 +89,10 @@ local openTerminal = function(cmd)
 		style = "minimal",
 		border = "single",
 	})
+	vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
 
 	-- Start the terminal in the buffer
 	vim.fn.termopen(cmd)
-
-	-- Set the buffer to close when pressing 'q'
-	vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
-	vim.cmd("startinsert")
 end
 
 -- Example usage: open a terminal in a vertical split and run the `ls` command
