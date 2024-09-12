@@ -68,11 +68,11 @@ keymap.set({ "n", "i" }, option.l, function()
 end, { desc = "Add log statement at cursor" })
 
 local openTerminal = function(cmd)
-	local buf = vim.api.nvim_create_buf(false, true) -- Create an unlisted, scratch buffer
+	local buf = vim.api.nvim_create_buf(false, true)
 
 	vim.api.nvim_open_win(buf, true, {
 		relative = "editor",
-		width = math.floor(vim.o.columns * 0.3),
+		width = math.floor(vim.o.columns * 0.4),
 		height = math.floor(vim.o.lines),
 		row = math.floor(vim.o.lines),
 		col = math.floor(vim.o.columns),
