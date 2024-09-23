@@ -9,5 +9,8 @@ export RPROMPT='%F{8}${vcs_info_msg_0_} %1~ %*%f'
 # Load FNM
 [ -z $FNM_MULTISHELL_PATH ] && eval "$(fnm env --use-on-cd)"
 
+# Load shell functions
+source "$CONFIG_DIR/terminal/functions/all.zsh"
+
 # Source local device config
-[ -s "$CONFIG_DIR/zsh/.zshlocal" ] && source $CONFIG_DIR/zsh/.zshlocal
+[ -s "$CONFIG_DIR/zsh/.zshlocal" ] && source "$CONFIG_DIR/zsh/.zshlocal"

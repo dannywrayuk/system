@@ -1,13 +1,15 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: let
+    sys-vars = import ../util/system-variables.nix;
+    in {
 
     programs.home-manager.enable = true;
 
     xdg.configFile = import ../util/xdgMap.nix config [
         "hammerspoon"
         "nvim"
+        "terminal"
         "tmux"
         "wezterm"
-        "terminal"
         "yazi"
     ];
 
@@ -22,6 +24,7 @@
             pam-reattach
             jq
             ripgrep
+            rustup
             tmux
             wezterm
             yazi
@@ -29,7 +32,8 @@
         
         sessionPath = [
             "/opt/homebrew/bin"
-            "${config.xdg.configHome}/terminal/scripts"
+            "/Users/${sys-vars.user}/.cargo/bin"
+            "${config.xdg.configHome}/terminal/commands"
         ];
         enableNixpkgsReleaseCheck = false;
         stateVersion = "24.05";
