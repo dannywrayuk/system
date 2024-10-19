@@ -8,8 +8,6 @@ config: {
         CONFIG_DIR = "${config.xdg.configHome}";
         PROJ_DIR = "$HOME/project";
         SYS_CONFIG_DIR = "${config.xdg.configHome}/system";
-        # For some reason I cant seem to override the osxkeychain, so this might be the easiest way
-        GIT_CONFIG_NOSYSTEM = true;
     };
     history = {
         expireDuplicatesFirst = true;

@@ -1,11 +1,13 @@
 return function(wezterm)
 	local M = {}
+	local gitPath = "/etc/profiles/per-user/" .. os.getenv("USER") .. "/bin/git"
+
 	M.branch = function(cwd)
 		if cwd == nil or cwd == "-" then
 			return "-"
 		end
 		local success, stdout, stderr = wezterm.run_child_process({
-			"/etc/profiles/per-user/danny/bin/git",
+			gitPath,
 			"-C",
 			cwd,
 			"branch",
@@ -23,7 +25,7 @@ return function(wezterm)
 			return "-"
 		end
 		local success, stdout, stderr = wezterm.run_child_process({
-			"/etc/profiles/per-user/danny/bin/git",
+			gitPath,
 			"-C",
 			cwd,
 			"rev-parse",
