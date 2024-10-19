@@ -3,6 +3,7 @@ let
     extraCasks = {
         DannysMacbookAir = [
             "surfshark"
+            "raycast"
         ];
     };
 in {
@@ -13,7 +14,6 @@ in {
     casks = [ 
         "hammerspoon"
         "firefox"
-        "raycast"
     ] ++ (extraCasks.${host} or []);
     taps = [];
     brews = [];
