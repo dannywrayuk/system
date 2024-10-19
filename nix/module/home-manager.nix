@@ -8,7 +8,6 @@
         "hammerspoon"
         "nvim"
         "terminal"
-        "tmux"
         "wezterm"
         "yazi"
     ];
@@ -25,7 +24,6 @@
             jq
             ripgrep
             rustup
-            tmux
             wezterm
             yazi
         ];
