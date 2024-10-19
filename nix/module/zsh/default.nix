@@ -20,7 +20,6 @@ config: {
         enable = true;
     };
     profileExtra = builtins.readFile ./profileExtra.zsh; 
-    initExtraFirst = builtins.readFile ./initExtraFirst.zsh;
     initExtra = builtins.readFile ./initExtra.zsh;
     shellAliases = import ./aliases.nix // import ./git-aliases.nix;
 }

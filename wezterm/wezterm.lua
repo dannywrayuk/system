@@ -1,4 +1,3 @@
--- Pull in the wezterm API
 local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
@@ -13,7 +12,6 @@ config.window_padding = {
 	bottom = 10,
 }
 
-config.hide_tab_bar_if_only_one_tab = true
 config.send_composed_key_when_left_alt_is_pressed = true
 config.use_dead_keys = false
 
@@ -22,22 +20,99 @@ config.use_dead_keys = false
 config.front_end = "WebGpu"
 
 local act = wezterm.action
-
+config.default_workspace = "Scratch"
 config.keys = {
 	{
-		key = "t",
-		mods = "CTRL|SHIFT",
-		action = act.SwitchToWorkspace({
-			name = "test",
-		}),
-	},
-	{
-		key = "9",
-		mods = "ALT",
-		action = act.ShowLauncherArgs({
-			flags = "FUZZY|WORKSPACES",
+		key = "a",
+		mods = "CTRL",
+		action = act.ActivateKeyTable({
+			name = "LEADER",
+			timeout_milliseconds = 1000,
+			one_shot = false,
+			until_unknown = true,
 		}),
 	},
 }
+config.key_tables = {
+	LEADER = {
+		{
+			key = "a",
+			action = act.SwitchToWorkspace({
+				name = "Sessionizer",
+				spawn = {
+					args = { "zsh", "-c", "sessionizer" },
+				},
+			}),
+		},
+		{
+			key = "i",
+			action = act.ShowLauncherArgs({
+				flags = "FUZZY|WORKSPACES",
+			}),
+		},
+		{
+			key = "d",
+			action = act.SwitchToWorkspace({ name = "Scratch" }),
+		},
+		{
+			key = "s",
+			action = act.SplitHorizontal({
+				domain = "CurrentPaneDomain",
+			}),
+		},
+		{
+			key = "n",
+			action = act.SpawnTab("CurrentPaneDomain"),
+		},
+		{
+			key = "x",
+			action = act.CloseCurrentTab({ confirm = false }),
+		},
+		{
+			key = "o",
+			action = act.ActivateLastTab,
+		},
+		{
+			key = "t",
+			action = act.ActivatePaneDirection("Next"),
+		},
+		{
+			key = "z",
+			action = act.TogglePaneZoomState,
+		},
+	},
+}
+for i = 1, 9 do
+	table.insert(config.key_tables.LEADER, {
+		key = tostring(i),
+		action = act.ActivateTab(i - 1),
+	})
+end
+
+require("commandInterface")(wezterm, {
+	switchToWorkspace = function(args)
+		return act.SwitchToWorkspace({
+			name = args.name or "default",
+			spawn = {
+				cwd = args.cwd or wezterm.home_dir,
+			},
+		})
+	end,
+})
+
+wezterm.on("format-window-title", function(tab)
+	local zoomed = ""
+	if tab.active_pane.is_zoomed then
+		zoomed = "🔍 "
+	end
+
+	return zoomed .. wezterm.mux.get_active_workspace()
+end)
+
+config.use_fancy_tab_bar = false
+config.tab_bar_at_bottom = true
+config.show_new_tab_button_in_tab_bar = false
+
+require("tabbar")(wezterm)
 
 return config
