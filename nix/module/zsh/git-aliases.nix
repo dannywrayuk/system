@@ -3,6 +3,7 @@
     gs="git status"; # Status 
     gss="git status -s -b"; # Status short form 
     ga="git add"; # Add 
+    gdp="git stash -u && git stash drop";
     gaa="git add --all"; # Add all 
     gc="git commit"; # Commit 
     gl="git pull"; # Pull 
