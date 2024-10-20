@@ -37,11 +37,14 @@ config.key_tables = {
 	LEADER = {
 		{
 			key = "a",
-			action = act.SwitchToWorkspace({
-				name = "Sessionizer",
-				spawn = {
+			action = act.SplitPane({
+                direction="Left",
+                command = {
 					args = { "zsh", "-c", "sessionizer" },
-				},
+                },
+                size={
+                    Cells=35,
+                }
 			}),
 		},
 		{
