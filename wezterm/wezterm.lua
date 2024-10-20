@@ -38,13 +38,13 @@ config.key_tables = {
 		{
 			key = "a",
 			action = act.SplitPane({
-                direction="Left",
-                command = {
+				direction = "Left",
+				command = {
 					args = { "zsh", "-c", "sessionizer" },
-                },
-                size={
-                    Cells=35,
-                }
+				},
+				size = {
+					Cells = 35,
+				},
 			}),
 		},
 		{
