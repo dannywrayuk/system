@@ -4,6 +4,27 @@ return function(wezterm)
 	local paths = require("tabbar.paths")
 	local git = require("tabbar.git")(wezterm)
 
+	local isZoomedPane = function(pane)
+		if pane == nil then
+			return false
+		end
+		local tab = pane:tab()
+		if tab == nil then
+			return false
+		end
+		local panes = tab:panes_with_info()
+		if panes == nil then
+			return false
+		end
+
+		for _, p in ipairs(panes) do
+			if p.is_zoomed then
+				return true
+			end
+		end
+		return false
+	end
+
 	wezterm.on("update-status", function(gui_window, pane)
 		local tab_count = #gui_window:mux_window():tabs()
 		local tab_width = gui_window:active_tab():get_size().cols
@@ -30,8 +51,19 @@ return function(wezterm)
 
 		local batteryPill = battery.pill(wezterm.battery_info()[1], pills, palette)
 
-		local lstatus = table.concat({ projectPill.content, gitBranchPill.content }, " ")
-		local rstatus = table.concat({ batteryPill.content, datePill.content }, " ")
+		local is_zoomed = isZoomedPane(pane)
+		local zoomPill = is_zoomed and pills.pill("", palette.brights[8]) or { content = "" }
+
+		local lstatus = table.concat({
+			projectPill.content,
+			gitBranchPill.content,
+		}, " ")
+
+		local rstatus = table.concat({
+			zoomPill.content,
+			batteryPill.content,
+			datePill.content,
+		}, " ")
 
 		local contentLength = gitBranchPill.length + projectPill.length + 1
 		local padding = #gui_window:mux_window():tabs() == 1 and "" or wezterm.pad_left(" ", max_left - contentLength)
