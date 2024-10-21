@@ -21,6 +21,11 @@ return {
 		})
 
 		vim.keymap.set({ "n", "v" }, "<leader>p", function()
+			vim.lsp.buf.execute_command({
+				command = "typescript.organizeImports",
+				arguments = { vim.api.nvim_buf_get_name(0) },
+				title = "",
+			})
 			conform.format({
 				lsp_fallback = true,
 				async = false,

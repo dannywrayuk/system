@@ -3,6 +3,7 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
+		"williamboman/mason-lspconfig.nvim",
 	},
 	opts = {
 		diagnostics = {
@@ -18,49 +19,59 @@ return {
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
+		local mason_lspconfig = require("mason-lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		local capabilities = cmp_nvim_lsp.default_capabilities()
 		local lspKeymaps = require("dannywrayuk.core.lsp.keymaps")
-		local on_attach = function(_, buffnr)
-			lspKeymaps.on_attach(buffnr)
+
+		mason_lspconfig.setup({
+			ensure_installed = {
+				"html",
+				"cssls",
+				"lua_ls",
+				"graphql",
+				"eslint",
+			},
+			automatic_installation = true,
+		})
+
+		local lspConfigBuilder = function(extend)
+			return function(server_name)
+				local config = {
+					capabilities = cmp_nvim_lsp.default_capabilities(),
+					on_attach = function(_, buffnr)
+						lspKeymaps.on_attach(buffnr)
+					end,
+				}
+
+				if extend ~= nil then
+					for i, j in pairs(extend) do
+						config[i] = j
+					end
+				end
+				return lspconfig[server_name].setup(config)
+			end
 		end
 
-		lspconfig.html.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		lspconfig.cssls.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		lspconfig.eslint.setup({
-			capabilities = capabilities,
-		})
-
-		lspconfig.graphql.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
-		})
-
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
-					},
-					workspace = {
-						library = {
-							[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-							[vim.fn.stdpath("config") .. "/lua"] = true,
+		mason_lspconfig.setup_handlers({
+			lspConfigBuilder(),
+			["graphql"] = lspConfigBuilder({
+				filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
+			})("graphql"),
+			["lua_ls"] = lspConfigBuilder({
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { "vim" },
+						},
+						workspace = {
+							library = {
+								[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+								[vim.fn.stdpath("config") .. "/lua"] = true,
+							},
 						},
 					},
 				},
-			},
+			}),
 		})
 	end,
 }

@@ -17,25 +17,13 @@ return {
 		local types = require("cmp.types")
 		require("luasnip.loaders.from_vscode").lazy_load()
 
-		local function get_lsp_completion_context(completion, source)
-			local ok, source_name = pcall(function()
-				return source.source.client.config.name
-			end)
-			if not ok then
-				return nil
-			end
-			if source_name == "tsserver" then
-				return completion.detail
-			end
-		end
-
 		local SYMBOL_MAP = {
 			Text = "󰦨",
 			Method = "󰆧",
 			Function = "󰆧",
 			Constructor = "󰆧",
 			Field = "",
-			Variable = "",
+			Variable = "",
 			Class = "",
 			Interface = "",
 			Module = "󰅩",
@@ -75,11 +63,11 @@ return {
 				[types.lsp.CompletionItemKind.Variable] = 0,
 				[types.lsp.CompletionItemKind.Method] = 0,
 				[types.lsp.CompletionItemKind.Field] = 0,
-				[types.lsp.CompletionItemKind.Text] = 0,
 				[types.lsp.CompletionItemKind.Property] = 0,
-				[types.lsp.CompletionItemKind.Constant] = 0,
+				[types.lsp.CompletionItemKind.Keyword] = 10,
+				[types.lsp.CompletionItemKind.Text] = 20,
+				[types.lsp.CompletionItemKind.Constant] = 20,
 				[types.lsp.CompletionItemKind.Snippet] = 100,
-				[types.lsp.CompletionItemKind.Keyword] = 100,
 			})[kind] or 50
 		end
 		local compareKind = function(a, b)
@@ -113,35 +101,42 @@ return {
 				["<C-i>"] = cmp.mapping.scroll_docs(-1),
 				["<C-e>"] = cmp.mapping.scroll_docs(1),
 			}),
-			sources = cmp.config.sources({
+			sources = {
 				{ name = "luasnip" },
 				{ name = "nvim_lsp" },
 				{ name = "nvim_lua" },
 				{ name = "buffer" },
 				{ name = "path" },
-			}),
+			},
 			sorting = {
 				comparators = {
 					cmp.config.compare.offset,
-					cmp.config.compare.exact,
 					compareKind,
+					cmp.config.compare.exact,
 					cmp.config.compare.score,
-					cmp.config.compare.kind,
+					cmp.config.recently_used,
+					cmp.config.compare.locality,
 					cmp.config.compare.sort_text,
+					cmp.config.compare.kind,
 					cmp.config.compare.length,
 					cmp.config.compare.order,
 				},
 			},
+			matching = {
+				disallow_fuzzy_matching = true,
+				disallow_fullfuzzy_matching = true,
+				disallow_partial_fuzzy_matching = true,
+				disallow_partial_matching = true,
+			},
+			confirmation = {
+				default_behavior = cmp.ConfirmBehavior.Replace,
+			},
 			formatting = {
 				fields = { "kind", "abbr", "menu" },
 				format = function(entry, item)
-					local completion_context = get_lsp_completion_context(entry.completion_item, entry.source)
 					item.kind = SYMBOL_MAP[item.kind] or "󰢤"
-					if #item.abbr < 25 then
-						item.abbr = string.format("%-25s", item.abbr)
-					end
-					if completion_context ~= nil and completion_context ~= "" then
-						item.menu = completion_context
+					if #item.abbr < 15 then
+						item.abbr = string.format("%-15s", item.abbr)
 					end
 					return item
 				end,

@@ -18,4 +18,4 @@ fi
 selected_name=$(basename "$selected" | tr . _)
 
 weztermCommand switchToWorkspace "$(jq -n --arg name $selected_name --arg cwd $HOME/$selected '$ARGS.named')"
-sleep 1
+sleep 0.1
