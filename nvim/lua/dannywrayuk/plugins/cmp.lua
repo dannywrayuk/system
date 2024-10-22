@@ -138,6 +138,9 @@ return {
 					if #item.abbr < 15 then
 						item.abbr = string.format("%-15s", item.abbr)
 					end
+					if #item.abbr > 30 then
+						item.abbr = string.sub(item.abbr, 1, 29) .. "…"
+					end
 					return item
 				end,
 			},
