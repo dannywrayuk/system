@@ -44,10 +44,10 @@ keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- yank to system clipboard
-keymap.set({ "n", "v" }, option.s .. "y", [["+y]])
+keymap.set({ "n", "v" }, option.y, [["+y]])
 
 -- paste last yanked
-keymap.set({ "n", "v" }, option.s .. "p", [["0p]])
+keymap.set({ "n" }, option.p, [["0p]])
 
 -- log
 local languageLogs = {

@@ -67,7 +67,7 @@ return {
 				desc = "Restart LSP",
 			})
 
-			keymap.set("n", "<leader>o", function()
+			keymap.set("n", "<leader>i", function()
 				vim.lsp.buf.execute_command({
 					command = "typescript.organizeImports",
 					arguments = { vim.api.nvim_buf_get_name(0) },
