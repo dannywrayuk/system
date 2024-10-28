@@ -37,14 +37,17 @@ config.key_tables = {
 	LEADER = {
 		{
 			key = "a",
-			action = act.SplitPane({
-				direction = "Left",
-				command = {
-					args = { "zsh", "-c", "sessionizer" },
-				},
-				size = {
-					Cells = 35,
-				},
+			action = act.Multiple({
+				act.SplitPane({
+					direction = "Left",
+					command = {
+						args = { "zsh", "-c", "sessionizer" },
+					},
+					size = {
+						Cells = 35,
+					},
+				}),
+				act.PopKeyTable,
 			}),
 		},
 		{
