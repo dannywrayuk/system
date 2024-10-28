@@ -3,13 +3,15 @@ local pasteHistory = require("lib.pasteHistory")
 local windowManager = require("lib.windowManager")
 local scrollWheelfix = require("lib.scrollWheelFix")
 local sleepToggle = require("lib.sleepToggle")
+local doubleTapShift = require("lib.doubleTapShift")
 
+doubleTapShift:start()
 scrollWheelfix:start()
 
 hs.hotkey.bind({ "ctrl" }, "1", switchWindow({ "Firefox", "Chrome" }))
 hs.hotkey.bind({ "ctrl" }, "2", switchWindow({ "Obsidian" }))
 hs.hotkey.bind({ "ctrl" }, "3", switchWindow({ "WezTerm" }))
-hs.hotkey.bind({ "ctrl" }, "4", switchWindow({ "Microsoft Teams" }))
+hs.hotkey.bind({ "ctrl" }, "4", switchWindow({ "Microsoft Teams", "Mail" }))
 
 pasteHistory.start()
 hs.hotkey.bind({ "cmd", "shift" }, "K", pasteHistory.clearHistory)
