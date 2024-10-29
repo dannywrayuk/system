@@ -85,9 +85,9 @@ end
 keymap.set("n", "<leader>ga", function()
 	openTerminal({
 		"echo 'Commit and Push all changes.\n'",
-		"&& git add --all",
 		"&& echo 'Commit Message:'",
 		"&& read message",
+        "&& git add --all",
 		"&& echo '\n'",
 		"&& git commit -m $message ",
 		"&& echo '\n'",
