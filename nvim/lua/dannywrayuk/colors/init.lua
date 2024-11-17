@@ -3,6 +3,35 @@ local get_compiled_path = function(themeName)
 	return table.concat({ vim.fn.stdpath("state"), "theme", themeName .. "_compiled.lua" }, "/")
 end
 
+local function forEachIn(dir, act)
+	local scandir = vim.fs.dir
+
+	local function is_lua_file(filename)
+		return filename:sub(-4) == ".lua"
+	end
+
+	local function strip_extension(filename)
+		return filename:gsub("%.lua$", "")
+	end
+
+	local iterator, err = scandir(vim.fn.stdpath("config") .. "/lua/" .. dir)
+	if not iterator then
+		vim.api.nvim_err_writeln("Failed to scan directory: " .. (err or "Unknown error"))
+		return
+	end
+
+	while true do
+		local name, type = iterator()
+		if not name then
+			break
+		end
+		if type == "file" and is_lua_file(name) then
+			local module = dir:gsub("/", ".") .. "." .. strip_extension(name)
+			act(require(module))
+		end
+	end
+end
+
 local function join(firstTable, secondTable)
 	if firstTable == nil or secondTable == nil then
 		return
@@ -24,14 +53,16 @@ end
 local compile = function(themeName)
 	local inspect = vim.inspect
 	vim.loop.fs_mkdir(vim.fn.stdpath("state") .. "/theme", 448)
-
 	local theme = require(namespace .. themeName)
 	local util = require(namespace .. "util")(theme.colors, theme.groups, theme.options)
 
 	local highlights = {}
 	join(highlights, require(namespace .. "core")(theme.colors, theme.groups, theme.options, util))
 	join(highlights, require(namespace .. "syntax")(theme.colors, theme.groups, theme.options, util))
-	join(highlights, require(namespace .. "plugin")(theme.colors, theme.groups, theme.options, util))
+
+	forEachIn("/dannywrayuk/colors/plugins", function(module)
+		join(highlights, module(theme.colors, theme.groups, theme.options, util))
+	end)
 	join(highlights, theme.overrides)
 
 	local fname = get_compiled_path(themeName)
@@ -59,7 +90,7 @@ return {
 			package.loaded[namespace .. themeName] = nil
 			package.loaded[namespace .. "core"] = nil
 			package.loaded[namespace .. "syntax"] = nil
-			package.loaded[namespace .. "plugin"] = nil
+			package.loaded[namespace .. "plugins"] = nil
 			compile(themeName)
 			vim.cmd("colorscheme " .. themeName)
 		end, {})

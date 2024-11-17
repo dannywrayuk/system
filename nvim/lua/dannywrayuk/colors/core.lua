@@ -9,16 +9,16 @@ return function(c, g, options, util)
 		DiffChange = { bg = g.semantic.change }, -- diff mode: Changed line |diff.txt|
 		DiffDelete = { bg = g.semantic.delete }, -- diff mode: Deleted line |diff.txt|
 		DiffText = { bg = g.bg.highlight }, -- diff mode: Changed text within a changed line |diff.txt|
-		EndOfBuffer = { fg = g.fg.lower }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
+		EndOfBuffer = { fg = g.bg.lower }, -- filler lines (~) after the end of the buffer.  By default, this is highlighted like |hl-NonText|.
 		-- TermCursor  = { }, -- cursor in a focused terminal
 		-- TermCursorNC= { }, -- cursor in an unfocused terminal
 		ErrorMsg = { fg = g.semantic.error }, -- error messages on the command line
-		VertSplit = { fg = g.fg.lower }, -- the column separating vertically split windows
-		WinSeparator = { fg = g.fg.lower, bold = true }, -- the column separating vertically split windows
+		VertSplit = { fg = g.editor.divider }, -- the column separating vertically split windows
+		WinSeparator = { fg = g.editor.divider, bg = g.bg.lower, bold = true }, -- the column separating vertically split windows
 		Folded = { fg = g.fg.highlight, bg = g.bg.highlight }, -- line used for closed folds
 		FoldColumn = { bg = g.bg.base, fg = g.fg.lower }, -- 'foldcolumn'
 		SignColumn = { bg = g.bg.base, fg = g.fg.lower }, -- column where |signs| are displayed
-		SignColumnSB = { bg = g.editor.sidebar.bg, fg = g.fg.lower }, -- column where |signs| are displayed
+		SignColumnSB = { bg = g.bg.lower, fg = g.fg.lower }, -- column where |signs| are displayed
 		Substitute = { bg = g.semantic.change }, -- |:substitute| replacement text highlighting
 		LineNr = { fg = g.fg.lower }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 		CursorLineNr = { fg = g.fg.highlight, bold = true }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
@@ -32,10 +32,10 @@ return function(c, g, options, util)
 		NonText = { fg = g.fg.lower }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
 		Normal = { fg = g.fg.base, bg = g.bg.base }, -- normal text
 		NormalNC = { fg = g.fg.base, bg = g.bg.lower }, -- normal text in non-current windows
-		NormalSB = { fg = g.editor.sidebar.fg, bg = g.editor.sidebar.bg }, -- normal text in sidebar
-		NormalFloat = { fg = g.editor.float.fg, bg = g.editor.float.bg }, -- Normal text in floating windows.
-		FloatBorder = { fg = g.fg.highlight, bg = g.editor.float.bg },
-		FloatTitle = { fg = g.fg.highlight, bg = g.editor.float.bg },
+		NormalSB = { fg = g.fg.base, bg = g.bg.lower }, -- normal text in sidebar
+		NormalFloat = { fg = g.fg.base, bg = g.bg.lower }, -- Normal text in floating windows.
+		FloatBorder = { fg = g.editor.border, bg = g.bg.lower },
+		FloatTitle = { fg = g.fg.highlight, bg = g.bg.lower },
 		Pmenu = { bg = g.bg.base, fg = g.fg.base }, -- Popup menu: normal item.
 		PmenuSel = { bg = util.darken(g.fg.lower, 0.8) }, -- Popup menu: selected item.
 		PmenuSbar = { bg = util.lighten(g.bg.base, 0.95) }, -- Popup menu: scrollbar.
@@ -50,7 +50,7 @@ return function(c, g, options, util)
 		SpellCap = { sp = g.semantic.warning, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
 		SpellLocal = { sp = g.semantic.info, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
 		SpellRare = { sp = g.semantic.hint, undercurl = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-		StatusLine = { fg = g.editor.sidebar.fg, bg = g.editor.statusline }, -- status line of current window
+		StatusLine = { fg = g.fg.base, bg = g.editor.statusline }, -- status line of current window
 		StatusLineNC = { fg = g.fg.lower, bg = g.editor.statusline }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
 		TabLine = { bg = g.editor.statusline, fg = g.fg.lower }, -- tab pages line, not active tab page label
 		TabLineFill = { bg = g.bg.lower }, -- tab pages line, where there are no labels

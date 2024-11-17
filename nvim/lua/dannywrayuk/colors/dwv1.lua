@@ -50,10 +50,9 @@ local g = {
 		upper = util.lighten(c.fg, 0.8, "#000000"),
 		highlight = c.blue1,
 	},
-
 	editor = {
-		sidebar = { fg = c.fg, bg = c.bg },
-		float = { fg = c.fg, bg = c.bg },
+		border = c.red,
+		divider = c.orange,
 		statusline = c.bg_dark,
 	},
 	syntax = {

@@ -194,7 +194,7 @@ return function(c, g, options, util)
 		["@diff.delta"] = { link = "DiffChange" },
 		["helpCommand"] = { fg = g.fg.highlight },
 
-		debugPC = { bg = g.editor.sidebar.bg }, -- used for highlighting the current line in terminal-debug
+		debugPC = { bg = g.bg.lower }, -- used for highlighting the current line in terminal-debug
 		debugBreakpoint = { bg = util.darken(g.semantic.info, 0.1), fg = g.semantic.info }, -- used for breakpoint colors in terminal-debug
 
 		dosIniLabel = { link = "@property" },
@@ -226,7 +226,7 @@ return function(c, g, options, util)
 		LspCodeLens = { fg = g.syntax.comment },
 		LspInlayHint = { bg = util.darken(g.semantic.hint, 0.1), fg = g.semantic.hint },
 
-		LspInfoBorder = { fg = g.fg.highlight, bg = g.editor.float.bg },
+		LspInfoBorder = { fg = g.editor.border, bg = g.bg.lower },
 
 		ALEErrorSign = { fg = g.semantic.error },
 		ALEWarningSign = { fg = g.semantic.warning },
