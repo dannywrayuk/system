@@ -1,6 +1,6 @@
 return {
-	"nvim-neo-tree/neo-tree.nvim",
-	branch = "v3.x",
+	"dannywrayuk/neo-tree.nvim",
+	-- branch = "v3.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
@@ -142,6 +142,11 @@ return {
 			},
 			window = {
 				position = "float",
+				popup = {
+					title = function()
+						return ""
+					end,
+				},
 				mappings = {
 					["n"] = "goToParent",
 					["N"] = "goToParentAndClose",

@@ -83,13 +83,16 @@ local openTerminal = function(cmd)
 end
 
 keymap.set("n", "<leader>ga", function()
+	local branch = require("dannywrayuk.util.git-branch")()
+	local commitPrefix = require("dannywrayuk.util.git-commit-prefix")(branch)
 	openTerminal({
 		"echo 'Commit and Push all changes.\n'",
 		"&& echo 'Commit Message:'",
-		"&& read message",
-        "&& git add --all",
+		"&& message='" .. commitPrefix .. "'",
+		"&& vared message",
+		"&& git add --all",
 		"&& echo '\n'",
-		"&& git commit -m $message ",
+		"&& git commit -m $message",
 		"&& echo '\n'",
 		"&& git push",
 	})
