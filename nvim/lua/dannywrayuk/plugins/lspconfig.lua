@@ -23,7 +23,7 @@ return {
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local keymap = require("dannywrayuk.util.keymap")
 		local keymaps = function(buffer)
-			keymap.set("n", "gd", vim.lsp.buf.definition, {
+			keymap.set("n", "gd", vim.lsp.tagfunc, {
 				buffer = buffer,
 				desc = "Go to definition",
 			})
