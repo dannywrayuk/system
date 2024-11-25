@@ -66,34 +66,3 @@ keymap.set({ "n", "i" }, option.l, function()
 		print("no log format for: " .. vim.o.filetype)
 	end
 end, { desc = "Add log statement at cursor" })
-
-local openTerminal = function(cmd)
-	local buf = vim.api.nvim_create_buf(false, true)
-	vim.api.nvim_open_win(buf, true, {
-		relative = "editor",
-		width = math.floor(vim.o.columns * 0.4),
-		height = math.floor(vim.o.lines),
-		row = math.floor(vim.o.lines),
-		col = math.floor(vim.o.columns),
-		style = "minimal",
-	})
-	vim.api.nvim_buf_set_keymap(buf, "t", "<esc>", "<cmd>close<CR>", { noremap = true, silent = true })
-	vim.fn.termopen(table.concat(cmd, " "))
-	vim.cmd("startinsert")
-end
-
-keymap.set("n", "<leader>ga", function()
-	local branch = require("dannywrayuk.util.git-branch")()
-	local commitPrefix = require("dannywrayuk.util.git-commit-prefix")(branch)
-	openTerminal({
-		"echo 'Commit and Push all changes.\n'",
-		"&& echo 'Commit Message:'",
-		"&& message='" .. commitPrefix .. "'",
-		"&& vared -M emacs message",
-		"&& git add --all",
-		"&& echo '\n'",
-		"&& git commit -m $message",
-		"&& echo '\n'",
-		"&& git push",
-	})
-end, { desc = "Commit and Push all changes" })

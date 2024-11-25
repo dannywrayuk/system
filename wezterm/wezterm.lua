@@ -51,6 +51,21 @@ config.key_tables = {
 			}),
 		},
 		{
+			key = "c",
+			action = act.Multiple({
+				act.SplitPane({
+					direction = "Right",
+					command = {
+						args = { "zsh", "-c", "git-add-commit-push" },
+					},
+					size = {
+						Cells = 35,
+					},
+				}),
+				act.PopKeyTable,
+			}),
+		},
+		{
 			key = "i",
 			action = act.ShowLauncherArgs({
 				flags = "FUZZY|WORKSPACES",

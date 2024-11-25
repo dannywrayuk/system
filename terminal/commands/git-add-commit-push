@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+BRANCH=$(git branch --show-current)
+
+if [[ $BRANCH =~ "^([a-z]+)/([A-Z]+-[0-9]+)" ]]; then
+    PREFIX="${match[1]}: ${match[2]} "
+else
+    PREFIX=""
+fi
+
+echo 'Commit and Push all changes.\n'
+echo 'Commit Message:'
+COMMIT=$PREFIX
+vared -M emacs COMMIT
+git add --all
+echo '\n'
+git commit -m $COMMIT
+echo '\n'
+git push
+read
