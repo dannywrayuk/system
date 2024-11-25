@@ -1,4 +1,5 @@
 return function(wezterm)
+	local palette = require("palette")
 	local presentation = require("tabbar.presentation")
 	local battery = require("tabbar.battery")
 	local paths = require("tabbar.paths")
@@ -30,29 +31,22 @@ return function(wezterm)
 		local tab_width = gui_window:active_tab():get_size().cols
 		local max_left = tab_width / 2 - (tab_count * 4 - 1) / 2
 
-		local palette = gui_window:effective_config().resolved_palette
-		local pills = presentation.pill_builder(
-			palette.tab_bar.background,
-			palette.tab_bar.new_tab.bg_color,
-			"",
-			"",
-			wezterm.format
-		)
+		local pills = presentation.pill_builder(palette.base, palette.surface0, "", "", wezterm.format)
 
 		local date = wezterm.strftime("%A, %d %b  %H:%M")
-		local datePill = pills.pill_label("󰃭", date, palette.tab_bar.active_tab.bg_color)
+		local datePill = pills.pill_label("󰃭", date, palette.mauve)
 
 		local cwd = paths.cwd(pane)
 		local gitToplevel = paths.basepath(git.toplevel(cwd))
-		local projectPill = pills.pill_label("", gitToplevel, palette.brights[5])
+		local projectPill = pills.pill_label("", gitToplevel, palette.blue)
 
 		local gitBranch = git.branch(cwd)
-		local gitBranchPill = pills.pill(" " .. gitBranch, palette.brights[7])
+		local gitBranchPill = pills.pill(" " .. gitBranch, palette.teal)
 
 		local batteryPill = battery.pill(wezterm.battery_info()[1], pills, palette)
 
 		local is_zoomed = isZoomedPane(pane)
-		local zoomPill = is_zoomed and pills.pill("", palette.brights[8]) or { content = "" }
+		local zoomPill = is_zoomed and pills.pill("", palette.surface2) or { content = "" }
 
 		local lstatus = table.concat({
 			projectPill.content,
@@ -76,9 +70,7 @@ return function(wezterm)
 		if #tabs == 1 then
 			return ""
 		end
-		local palette = local_config.resolved_palette
-		local pills =
-			presentation.pill_builder(palette.tab_bar.background, palette.tab_bar.new_tab.bg_color, "", " ")
-		return pills.pill(tostring(tab.tab_index + 1), tab.is_active and palette.indexed[16] or palette.brights[5]).content
+		local pills = presentation.pill_builder(palette.base, palette.base, "", " ")
+		return pills.pill(tostring(tab.tab_index + 1), tab.is_active and palette.peach or palette.blue).content
 	end)
 end

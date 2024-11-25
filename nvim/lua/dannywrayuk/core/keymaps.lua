@@ -89,7 +89,7 @@ keymap.set("n", "<leader>ga", function()
 		"echo 'Commit and Push all changes.\n'",
 		"&& echo 'Commit Message:'",
 		"&& message='" .. commitPrefix .. "'",
-		"&& vared message",
+		"&& vared -M emacs message",
 		"&& git add --all",
 		"&& echo '\n'",
 		"&& git commit -m $message",
