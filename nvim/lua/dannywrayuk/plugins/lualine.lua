@@ -30,7 +30,7 @@ return {
 			normal = {
 				a = { fg = colors.mantle, bg = colors.blue },
 				b = { fg = colors.text, bg = colors.surface0 },
-				c = { fg = colors.text, bg = none },
+				c = { fg = colors.text, bg = none},
 			},
 			insert = { a = { fg = colors.mantle, bg = colors.green } },
 			visual = { a = { fg = colors.mantle, bg = colors.yellow } },
@@ -75,11 +75,11 @@ return {
 			},
 			sections = {
 				lualine_a = { mode },
-				lualine_b = { "diff", "diagnostics" },
+				lualine_b = {},
 				lualine_c = { { "filename", path = 1 } },
 				lualine_x = {},
-				lualine_y = { "filetype" },
-				lualine_z = { "location" },
+				lualine_y = { "diagnostics", "diff" },
+				lualine_z = {},
 			},
 			inactive_sections = {
 				lualine_a = { { "filename", path = 1 } },

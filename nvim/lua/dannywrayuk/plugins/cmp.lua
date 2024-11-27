@@ -133,7 +133,7 @@ return {
 			},
 			formatting = {
 				fields = { "kind", "abbr" },
-				format = function(entry, item)
+				format = function(_, item)
 					item.kind = SYMBOL_MAP[item.kind] or "󰢤"
 					if #item.abbr < 15 then
 						item.abbr = string.format("%-15s", item.abbr)
