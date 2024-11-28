@@ -7,7 +7,6 @@
     "...." = "cd ../../..";
     "....." = "cd ../../../..";
     proj="cd $PROJ_DIR/\$(ls $PROJ_DIR | fzf)";
-    tree="eza -TL 2 --color=always --group-directories-first --icons";
     vim="nvim";
     viml="nvim -c \"'0\"";
     lofi="open https://www.youtube.com/watch\?v\=jfKfPfyJRdk";

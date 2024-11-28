@@ -45,6 +45,7 @@ return {
 
 		alphaTheme.section.header.opts.hl = "AlphaHeader"
 		alphaTheme.section.buttons.val = {}
+		alphaTheme.config.opts = { keymap = { press = nil } }
 		alpha.setup(alphaTheme.config)
 	end,
 }
