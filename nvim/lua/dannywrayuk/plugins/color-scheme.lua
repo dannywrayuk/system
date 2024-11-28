@@ -14,6 +14,7 @@ return {
 				custom_highlights = function(colors)
 					return {
 						SpelunkerSpellBad = { bg = hex.blend(colors.red, colors.base, 0.2) },
+						SpelunkerComplexOrCompoundWord = { bg = hex.blend(colors.red, colors.base, 0.2) },
 					}
 				end,
 			})
