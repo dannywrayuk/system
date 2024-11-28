@@ -142,7 +142,7 @@ return {
 			},
 			window = {
 				position = "float",
-				width = 20,
+				width = 30,
 				auto_expand_width = true,
 				popup = {
 					title = function()
