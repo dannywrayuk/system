@@ -5,6 +5,7 @@ return {
 		priority = 1000,
 		config = function()
 			local readFile = require("dannywrayuk.util.readFile")
+			local hex = require("dannywrayuk.util.hex")
 			local palette = vim.json.decode(readFile(vim.fn.expand("$HOME/.config/system/colors/palette.json")))
 			require("catppuccin").setup({
 				color_overrides = {
@@ -12,7 +13,7 @@ return {
 				},
 				custom_highlights = function(colors)
 					return {
-						-- Comment = { fg = colors.flamingo },
+						SpelunkerSpellBad = { bg = hex.blend(colors.red, colors.base, 0.2) },
 					}
 				end,
 			})

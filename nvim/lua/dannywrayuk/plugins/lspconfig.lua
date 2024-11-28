@@ -78,6 +78,7 @@ return {
 				"lua_ls",
 				"graphql",
 				"eslint",
+				"vtsls",
 			},
 			automatic_installation = true,
 		})
@@ -102,6 +103,13 @@ return {
 
 		mason_lspconfig.setup_handlers({
 			lspConfigBuilder(),
+			["vtsls"] = lspConfigBuilder({
+				root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", "package.json"),
+				single_file_support = false,
+			}),
+			["denols"] = lspConfigBuilder({
+				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+			}),
 			["graphql"] = lspConfigBuilder({
 				filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
 			})("graphql"),
