@@ -6,6 +6,10 @@ setopt prompt_subst
 export PROMPT='%F{green}➜%f '
 export RPROMPT='%F{8}${vcs_info_msg_0_} %1~ %*%f'
 
+# Deno 
+export DENO_INSTALL="/Users/myname/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 # Load FNM
 [ -z $FNM_MULTISHELL_PATH ] && eval "$(fnm env --use-on-cd)"
 
