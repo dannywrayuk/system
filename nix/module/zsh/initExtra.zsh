@@ -7,7 +7,7 @@ export PROMPT='%F{green}➜%f '
 export RPROMPT='%F{8}${vcs_info_msg_0_} %1~ %*%f'
 
 # Deno 
-export DENO_INSTALL="/Users/myname/.deno"
+export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 # Load FNM
