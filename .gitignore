@@ -1,4 +1,5 @@
 .DS_Store
 nvim/plugin/packer_compiled.lua
+nvim/spell/en.utf-8.add.spl
 nix/system-variables.json
 tmux/plugins
