@@ -15,7 +15,9 @@ if [[ ! -d "$HOME/$selected" ]]; then
     exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
+selected_name="$(basename "$selected" | tr . _)"
+selected_path="$HOME/$selected"
+json_args=$(jq -n --arg name "$selected_name" --arg cwd "$selected_path" '$ARGS.named')
 
-weztermCommand switchToWorkspace "$(jq -n --arg name $selected_name --arg cwd $HOME/$selected '$ARGS.named')"
+weztermCommand switchToWorkspace "$json_args"
 sleep 0.1
