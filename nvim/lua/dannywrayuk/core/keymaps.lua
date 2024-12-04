@@ -49,6 +49,8 @@ keymap.set({ "n", "v" }, option.y, [["+y]])
 -- paste last yanked
 keymap.set({ "n" }, option.p, [["0p]])
 
+keymap.set("n", "zB", ":mkspell! " .. vim.fn.stdpath("config") .. "/spell/en.utf-8.add<CR>")
+
 -- log
 local languageLogs = {
 	javascript = "console.log()",
