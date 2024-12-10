@@ -79,6 +79,8 @@ return {
 				"graphql",
 				"eslint",
 				"vtsls",
+				"denols",
+				"rnix_ls",
 			},
 			automatic_installation = true,
 		})

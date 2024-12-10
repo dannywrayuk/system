@@ -4,4 +4,5 @@ return {
 	"tpope/vim-commentary",
 	"tpope/vim-abolish",
 	"kamykn/spelunker.vim",
+	"github/copilot.vim",
 }
