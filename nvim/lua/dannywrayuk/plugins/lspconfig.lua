@@ -80,7 +80,7 @@ return {
 				"eslint",
 				"vtsls",
 				"denols",
-				"rnix_ls",
+				"rnix",
 			},
 			automatic_installation = true,
 		})
