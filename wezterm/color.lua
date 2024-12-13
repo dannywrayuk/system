@@ -42,7 +42,7 @@ return {
 	compose_cursor = c.flamingo,
 
 	tab_bar = {
-		background = c.crust,
+		background = c.base,
 		active_tab = {
 			bg_color = c.mauve,
 			fg_color = c.crust,
