@@ -4,12 +4,11 @@ local config = wezterm.config_builder()
 
 config.colors = require("color")
 config.font = wezterm.font("FiraCode Nerd Font Mono")
-config.font_size = 20
 config.window_padding = {
 	left = 0,
 	right = 0,
-	top = 10,
-	bottom = 10,
+	top = 0,
+	bottom = 0,
 }
 
 config.send_composed_key_when_left_alt_is_pressed = true
@@ -20,6 +19,12 @@ config.use_dead_keys = false
 config.front_end = "WebGpu"
 
 local act = wezterm.action
+local fontOption = 1
+local fontSizes = { 12, 15, 22 }
+
+local centerInWindow = false
+
+config.font_size = fontSizes[fontOption]
 config.default_workspace = "Scratch"
 config.keys = {
 	{
@@ -100,6 +105,36 @@ config.key_tables = {
 		{
 			key = "z",
 			action = act.TogglePaneZoomState,
+		},
+		{
+			key = "f",
+			action = wezterm.action_callback(function(window, pane)
+				local overrides = window:get_config_overrides() or {}
+				fontOption = (fontOption % #fontSizes) + 1
+				overrides.font_size = fontSizes[fontOption]
+				window:set_config_overrides(overrides)
+			end),
+		},
+		{
+			key = "k",
+			action = wezterm.action_callback(function(window, pane)
+				centerInWindow = not centerInWindow
+				local overrides = window:get_config_overrides() or {}
+				if not overrides.window_padding then
+					overrides.window_padding = wezterm.window_padding
+				end
+				if centerInWindow then
+					local windowWidth = window:active_tab():get_size().cols
+					local paddingSize = tostring((windowWidth - 100) / 2) .. "cell"
+
+					overrides.window_padding.left = paddingSize
+					overrides.window_padding.right = paddingSize
+				else
+					overrides.window_padding.left = 0
+					overrides.window_padding.right = 0
+				end
+				window:set_config_overrides(overrides)
+			end),
 		},
 	},
 }

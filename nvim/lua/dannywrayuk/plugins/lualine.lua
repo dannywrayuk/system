@@ -30,7 +30,7 @@ return {
 			normal = {
 				a = { fg = colors.mantle, bg = colors.blue },
 				b = { fg = colors.text, bg = colors.surface0 },
-				c = { fg = colors.text, bg = none},
+				c = { fg = colors.text, bg = none },
 			},
 			insert = { a = { fg = colors.mantle, bg = colors.green } },
 			visual = { a = { fg = colors.mantle, bg = colors.yellow } },

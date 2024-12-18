@@ -62,6 +62,20 @@ return function(wezterm)
 		local contentLength = gitBranchPill.length + projectPill.length + 1
 		local padding = #gui_window:mux_window():tabs() == 1 and "" or wezterm.pad_left(" ", max_left - contentLength)
 
+		-- Set top padding
+		local paneDimensions = gui_window:active_tab():get_size()
+		local cellHeight = math.floor(paneDimensions.pixel_height / paneDimensions.rows)
+		local paddingNeeded = (
+			(gui_window:get_dimensions().pixel_height - cellHeight * (paneDimensions.rows + 1) - 1) % cellHeight
+		) + 1
+		local overrides = gui_window:get_config_overrides() or {}
+		if not overrides.window_padding then
+			overrides.window_padding = wezterm.window_padding or {}
+		end
+		overrides.window_padding.bottom = "0px"
+		overrides.window_padding.top = tostring(paddingNeeded) .. "px"
+		gui_window:set_config_overrides(overrides)
+
 		gui_window:set_left_status(lstatus .. padding)
 		gui_window:set_right_status(rstatus)
 	end)
