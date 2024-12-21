@@ -74,6 +74,8 @@ return function(wezterm)
 		end
 		overrides.window_padding.bottom = "0px"
 		overrides.window_padding.top = tostring(paddingNeeded) .. "px"
+		overrides.window_padding.left = overrides.window_padding.left or 0
+		overrides.window_padding.right = overrides.window_padding.right or 0
 		gui_window:set_config_overrides(overrides)
 
 		gui_window:set_left_status(lstatus .. padding)

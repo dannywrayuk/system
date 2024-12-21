@@ -2,7 +2,6 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
 		"williamboman/mason-lspconfig.nvim",
 	},
 	opts = {
@@ -20,8 +19,8 @@ return {
 	config = function()
 		local lspconfig = require("lspconfig")
 		local mason_lspconfig = require("mason-lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local keymap = require("dannywrayuk.util.keymap")
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 		local keymaps = function(buffer)
 			keymap.set(
 				{ "n", "v" },
@@ -84,11 +83,10 @@ return {
 			},
 			automatic_installation = true,
 		})
-
 		local lspConfigBuilder = function(extend)
 			return function(server_name)
 				local config = {
-					capabilities = cmp_nvim_lsp.default_capabilities(),
+					capabilities = capabilities,
 					on_attach = function(_, buffnr)
 						keymaps(buffnr)
 					end,

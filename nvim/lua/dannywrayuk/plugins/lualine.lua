@@ -4,6 +4,7 @@ return {
 	config = function()
 		local lualine = require("lualine")
 		local colors = require("catppuccin.palettes").get_palette("mocha")
+		local hex = require("dannywrayuk.util.hex")
 
 		local separators = {
 			component = {
@@ -26,21 +27,23 @@ return {
 		}
 
 		local none = "#00000000"
+		local modeBar = function(mode_col)
+			return {
+				a = { fg = colors.mantle, bg = mode_col },
+				c = { fg = colors.text, bg = hex.blend(mode_col, colors.base, 0.1) },
+				z = { fg = colors.test, bg = colors.surface0 },
+			}
+		end
 		local theme = {
-			normal = {
-				a = { fg = colors.mantle, bg = colors.blue },
-				b = { fg = colors.text, bg = colors.surface0 },
-				c = { fg = colors.text, bg = none },
-			},
-			insert = { a = { fg = colors.mantle, bg = colors.green } },
-			visual = { a = { fg = colors.mantle, bg = colors.yellow } },
-			replace = { a = { fg = colors.mantle, bg = colors.red } },
-			command = { a = { fg = colors.mantle, bg = colors.mauve } },
-			terminal = { a = { fg = colors.mantle, bg = colors.mauve } },
+			normal = modeBar(colors.blue),
+			insert = modeBar(colors.green),
+			visual = modeBar(colors.yellow),
+			replace = modeBar(colors.red),
+			command = modeBar(colors.mauve),
+			terminal = modeBar(colors.mauve),
 			inactive = {
 				a = { fg = colors.text, bg = colors.surface0 },
-				b = { fg = colors.text, bg = colors.mantle },
-				c = { fg = colors.text, bg = none },
+				b = { fg = colors.text, bg = none },
 			},
 		}
 
@@ -78,13 +81,13 @@ return {
 				lualine_b = {},
 				lualine_c = { { "filename", path = 1 } },
 				lualine_x = {},
-				lualine_y = { "diagnostics", "diff" },
-				lualine_z = {},
+				lualine_y = {},
+				lualine_z = { "diagnostics", "diff" },
 			},
 			inactive_sections = {
-				lualine_a = { { "filename", path = 1 } },
+				lualine_a = {},
 				lualine_b = {},
-				lualine_c = {},
+				lualine_c = { { "filename", path = 1 } },
 				lualine_x = {},
 				lualine_y = {},
 				lualine_z = { "location" },
