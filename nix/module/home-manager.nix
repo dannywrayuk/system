@@ -11,7 +11,6 @@ in
     "nvim"
     "terminal"
     "wezterm"
-    "yazi"
   ];
 
   home = {
@@ -27,7 +26,6 @@ in
       ripgrep
       rustup
       wezterm
-      yazi
     ];
 
     sessionPath = [

@@ -3,7 +3,6 @@ let
   extraCasks = {
     DannysMacbookAir = [
       "surfshark"
-      "raycast"
     ];
   };
 in

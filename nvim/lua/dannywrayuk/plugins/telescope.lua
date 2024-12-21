@@ -13,9 +13,10 @@ return {
 		local builtin = require("telescope.builtin")
 		local actions = require("telescope.actions")
 		local layout = require("telescope.actions.layout")
+		local themes = require("telescope.themes")
 
 		telescope.setup({
-			defaults = {
+			defaults = themes.get_ivy({
 				results_title = false,
 				sorting_strategy = "ascending",
 				layout_config = {
@@ -36,7 +37,7 @@ return {
 				preview = {
 					hide_on_startup = true,
 				},
-			},
+			}),
 			pickers = {
 				git_branches = {
 					mappings = { n = { ["<C-n>"] = "git_create_branch" }, i = { ["<C-n>"] = "git_create_branch" } },
@@ -48,10 +49,8 @@ return {
 
 		keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Open list of all files in PWD" })
 		keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope: Search all files using grep string" })
-		keymap.set("n", "<leader>fc", builtin.grep_string, { desc = "Telescope: Search all files using current word" })
 
 		keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Telescope: Open list of all recently opened files" })
-		keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope: Open Quickfix" })
 
 		keymap.set("n", "<leader>ft", builtin.builtin, { desc = "Telescope: Open list of all builtin lists" })
 		keymap.set("n", "<leader>f;", builtin.resume, { desc = "Telescope: Open last telescope" })
@@ -63,7 +62,7 @@ return {
 
 		keymap.set(
 			"n",
-			"<leader>fz",
+			"<leader>fg",
 			builtin.git_branches,
 			{ desc = "Telescope: Open list of git branches in current repo" }
 		)
