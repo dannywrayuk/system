@@ -15,6 +15,8 @@ return {
 					return {
 						SpelunkerSpellBad = { bg = hex.blend(colors.red, colors.base, 0.2) },
 						SpelunkerComplexOrCompoundWord = { bg = hex.blend(colors.red, colors.base, 0.2) },
+						NeoTreeNormal = { bg = colors.base },
+						NeoTreeNormalNC = { bg = colors.base },
 					}
 				end,
 			})

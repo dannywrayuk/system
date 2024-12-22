@@ -20,7 +20,7 @@ config.front_end = "WebGpu"
 
 local act = wezterm.action
 local fontOption = 1
-local fontSizes = { 12, 15, 22 }
+local fontSizes = { 15, 20, 24 }
 
 local centerInWindow = false
 
@@ -44,12 +44,12 @@ config.key_tables = {
 			key = "a",
 			action = act.Multiple({
 				act.SplitPane({
-					direction = "Left",
+					direction = "Down",
 					command = {
 						args = { "zsh", "-c", "sessionizer" },
 					},
 					size = {
-						Cells = 35,
+						Cells = 10,
 					},
 				}),
 				act.PopKeyTable,

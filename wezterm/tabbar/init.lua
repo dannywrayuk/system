@@ -27,10 +27,6 @@ return function(wezterm)
 	end
 
 	wezterm.on("update-status", function(gui_window, pane)
-		local tab_count = #gui_window:mux_window():tabs()
-		local tab_width = gui_window:active_tab():get_size().cols
-		local max_left = tab_width / 2 - (tab_count * 4 - 1) / 2
-
 		local pills = presentation.pill_builder(palette.base, palette.surface0, "", "", wezterm.format)
 
 		local date = wezterm.strftime("%A, %d %b  %H:%M")
@@ -59,9 +55,6 @@ return function(wezterm)
 			datePill.content,
 		}, " ")
 
-		local contentLength = gitBranchPill.length + projectPill.length + 1
-		local padding = #gui_window:mux_window():tabs() == 1 and "" or wezterm.pad_left(" ", max_left - contentLength)
-
 		-- Set top padding
 		local paneDimensions = gui_window:active_tab():get_size()
 		local cellHeight = math.floor(paneDimensions.pixel_height / paneDimensions.rows)
@@ -78,7 +71,7 @@ return function(wezterm)
 		overrides.window_padding.right = overrides.window_padding.right or 0
 		gui_window:set_config_overrides(overrides)
 
-		gui_window:set_left_status(lstatus .. padding)
+		gui_window:set_left_status(lstatus)
 		gui_window:set_right_status(rstatus)
 	end)
 
@@ -86,7 +79,7 @@ return function(wezterm)
 		if #tabs == 1 then
 			return ""
 		end
-		local pills = presentation.pill_builder(palette.base, palette.base, "", " ")
+		local pills = presentation.pill_builder(palette.base, palette.base, " ", "")
 		return pills.pill(tostring(tab.tab_index + 1), tab.is_active and palette.peach or palette.blue).content
 	end)
 end

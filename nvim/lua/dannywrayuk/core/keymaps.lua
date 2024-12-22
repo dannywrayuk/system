@@ -4,9 +4,6 @@ local option = require("dannywrayuk.util.option-keys")
 -- remap for uk keyboard lol
 keymap.set("i", "£", "#")
 
--- last buffer
-keymap.set("n", "<leader>s", "<C-^>")
-
 -- moving lines
 keymap.set("n", option.j, ":m .+1<CR>==")
 keymap.set("n", option.k, ":m .-2<CR>==")

@@ -1,6 +1,5 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
-	-- branch = "v3.x",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
@@ -12,25 +11,12 @@ return {
 		local fsc = require("neo-tree.sources.filesystem.commands")
 		local cc = require("neo-tree.sources.common.commands")
 
-		vim.g.neoTreePosition = "float"
+		local initialTreePosition = "bottom"
+		vim.g.neoTreePosition = initialTreePosition
 
 		-- disable netrw
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
-
-		-- diagnostic symbols
-		vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
-		vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
-		vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
-		vim.fn.sign_define("DiagnosticSignHint", { text = "󰌵", texthl = "DiagnosticSignHint" })
-
-		local moveCursorDown = function()
-			vim.cmd("norm! j")
-		end
-
-		local moveCursorUp = function()
-			vim.cmd("norm! k")
-		end
 
 		local goToParent = function(state)
 			local node = state.tree:get_node()
@@ -45,18 +31,6 @@ return {
 			end
 		end
 
-		local openOrExpand = function(state)
-			local node = state.tree:get_node()
-			if node.type == "directory" then
-				if not node:is_expanded() then
-					fsc.toggle_node(state)
-				end
-				vim.cmd("norm! j")
-			else
-				cc.preview(state)
-			end
-		end
-
 		local openAndCloseTree = function(state)
 			local node = state.tree:get_node()
 			if node.type == "directory" then
@@ -67,59 +41,12 @@ return {
 			end
 		end
 
-		local indexOf = function(array, value)
-			for i, v in ipairs(array) do
-				if v == value then
-					return i
-				end
-			end
-			return nil
-		end
-
-		local getSiblings = function(state, node)
-			local parent = state.tree:get_node(node:get_parent_id())
-			local siblings = parent:get_child_ids()
-			return siblings
-		end
-
-		local nextSibling = function(state)
-			local node = state.tree:get_node()
-			local siblings = getSiblings(state, node)
-			if not node.is_last_child then
-				local currentIndex = indexOf(siblings, node.id)
-				local nextIndex = siblings[currentIndex + 1]
-				renderer.focus_node(state, nextIndex)
-			end
-		end
-
-		local prevSibling = function(state)
-			local node = state.tree:get_node()
-			local siblings = getSiblings(state, node)
-			local currentIndex = indexOf(siblings, node.id)
-			if currentIndex > 1 then
-				local nextIndex = siblings[currentIndex - 1]
-				renderer.focus_node(state, nextIndex)
-			end
-		end
-
-		local firstSibling = function(state)
-			local node = state.tree:get_node()
-			local siblings = getSiblings(state, node)
-			renderer.focus_node(state, siblings[1])
-		end
-
-		local lastSibling = function(state)
-			local node = state.tree:get_node()
-			local siblings = getSiblings(state, node)
-			renderer.focus_node(state, siblings[#siblings])
-		end
-
 		local toggleWindowPosition = function(state)
 			cc.close_window(state)
-			if vim.g.neoTreePosition == "float" then
+			if vim.g.neoTreePosition == initialTreePosition then
 				vim.g.neoTreePosition = "left"
 			else
-				vim.g.neoTreePosition = "float"
+				vim.g.neoTreePosition = initialTreePosition
 			end
 			require("neo-tree.command").execute({ position = vim.g.neoTreePosition })
 		end
@@ -128,22 +55,13 @@ return {
 
 		neotree.setup({
 			commands = {
-				goToParent = goToParent,
 				goToParentAndClose = goToParentAndClose,
-				openOrExpand = openOrExpand,
 				openAndCloseTree = openAndCloseTree,
-				nextSibling = nextSibling,
-				prevSibling = prevSibling,
-				firstSibling = firstSibling,
-				lastSibling = lastSibling,
 				toggleWindowPosition = toggleWindowPosition,
-				moveCursorDown = moveCursorDown,
-				moveCursorUp = moveCursorUp,
 			},
 			window = {
-				position = "float",
-				width = 30,
 				auto_expand_width = true,
+				height = "30%",
 				popup = {
 					title = function()
 						return ""
@@ -154,6 +72,7 @@ return {
 					["h"] = "goToParentAndClose",
 					["<Right>"] = "openAndCloseTree",
 					["l"] = "openAndCloseTree",
+					["<CR>"] = "openAndCloseTree",
 					["<esc>"] = "close_window",
 					["T"] = "toggleWindowPosition",
 					["t"] = "none",

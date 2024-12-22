@@ -4,7 +4,7 @@ selected=$(
             find ~/project -mindepth 1 -maxdepth 1 -type d
         )";
         echo ~/.config/system;
-    } | sed "s|^$HOME/||g" | fzf)
+    } | sed "s|^$HOME/||g" | fzf --scrollbar='')
 
 if [[ -z $selected ]]; then
     exit 0
