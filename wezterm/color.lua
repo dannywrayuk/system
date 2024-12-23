@@ -12,7 +12,7 @@ return {
 
 	scrollbar_thumb = c.surface2,
 
-	split = c.overlay0,
+	split = c.blue,
 
 	ansi = {
 		c.surface1,

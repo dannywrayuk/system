@@ -46,6 +46,9 @@ return {
 		})
 
 		local keymap = require("dannywrayuk.util.keymap")
-		keymap.set("n", "<leader>z", ":Neogit kind=vsplit<CR>")
+		local screenSizeSwap = require("dannywrayuk.util.screenSizeSwap")
+		keymap.set("n", "<leader>z", function()
+			vim.cmd(":Neogit kind=" .. screenSizeSwap("split_below_all", "vsplit"))
+		end)
 	end,
 }

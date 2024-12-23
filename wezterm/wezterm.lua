@@ -3,6 +3,10 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 config.colors = require("color")
+config.inactive_pane_hsb = {
+	saturation = 1,
+	brightness = 1,
+}
 config.font = wezterm.font("FiraCode Nerd Font Mono")
 config.window_padding = {
 	left = 0,
@@ -23,6 +27,7 @@ local fontOption = 1
 local fontSizes = { 15, 20, 24 }
 
 local centerInWindow = false
+local paddedWindowWidth = 100
 
 config.font_size = fontSizes[fontOption]
 config.default_workspace = "Scratch"
@@ -43,30 +48,44 @@ config.key_tables = {
 		{
 			key = "a",
 			action = act.Multiple({
-				act.SplitPane({
-					direction = "Down",
-					command = {
-						args = { "zsh", "-c", "sessionizer" },
-					},
-					size = {
-						Cells = 10,
-					},
-				}),
+				wezterm.action_callback(function(window, pane)
+					local direction = centerInWindow and "Down" or "Left"
+					local cells = centerInWindow and 10 or 50
+					window:perform_action(
+						act.SplitPane({
+							direction = direction,
+							command = {
+								args = { "zsh", "-c", "sessionizer" },
+							},
+							size = {
+								Cells = cells,
+							},
+						}),
+						pane
+					)
+				end),
 				act.PopKeyTable,
 			}),
 		},
 		{
 			key = "c",
 			action = act.Multiple({
-				act.SplitPane({
-					direction = "Right",
-					command = {
-						args = { "zsh", "-c", "git-add-commit-push" },
-					},
-					size = {
-						Cells = 35,
-					},
-				}),
+				wezterm.action_callback(function(window, pane)
+					local direction = centerInWindow and "Down" or "Right"
+					local cells = centerInWindow and 20 or 50
+					window:perform_action(
+						act.SplitPane({
+							direction = direction,
+							command = {
+								args = { "zsh", "-c", "git-add-commit-push" },
+							},
+							size = {
+								Cells = cells,
+							},
+						}),
+						pane
+					)
+				end),
 				act.PopKeyTable,
 			}),
 		},
@@ -125,7 +144,7 @@ config.key_tables = {
 				end
 				if centerInWindow then
 					local windowWidth = window:active_tab():get_size().cols
-					local paddingSize = tostring((windowWidth - 100) / 2) .. "cell"
+					local paddingSize = tostring((windowWidth - paddedWindowWidth) / 2) .. "cell"
 
 					overrides.window_padding.left = paddingSize
 					overrides.window_padding.right = paddingSize

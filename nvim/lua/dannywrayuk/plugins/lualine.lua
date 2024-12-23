@@ -31,7 +31,8 @@ return {
 			return {
 				a = { fg = colors.mantle, bg = mode_col },
 				c = { fg = colors.text, bg = hex.blend(mode_col, colors.base, 0.1) },
-				z = { fg = colors.test, bg = colors.surface0 },
+				y = { fg = colors.text, bg = hex.blend(mode_col, colors.mantle, 0.2) },
+				z = { fg = colors.text, bg = hex.blend(mode_col, colors.mantle, 0.3) },
 			}
 		end
 		local theme = {
@@ -66,6 +67,10 @@ return {
 				end
 				return icon
 			end,
+			separator = {
+				right = "",
+				left = "",
+			},
 		}
 
 		lualine.setup({
@@ -81,8 +86,18 @@ return {
 				lualine_b = {},
 				lualine_c = { { "filename", path = 1 } },
 				lualine_x = {},
-				lualine_y = {},
-				lualine_z = { "diagnostics", "diff" },
+				lualine_y = {
+					"diagnostics",
+				},
+				lualine_z = {
+					{
+						"diff",
+						separator = {
+							right = "",
+							left = "",
+						},
+					},
+				},
 			},
 			inactive_sections = {
 				lualine_a = {},
@@ -90,12 +105,23 @@ return {
 				lualine_c = { { "filename", path = 1 } },
 				lualine_x = {},
 				lualine_y = {},
-				lualine_z = { "location" },
+				lualine_z = {},
 			},
 			tabline = {},
 			winbar = {},
 			inactive_winbar = {},
-			extensions = { "neo-tree", "fugitive" },
+			extensions = {
+				{
+					sections = {
+						lualine_c = {
+							function()
+								return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+							end,
+						},
+					},
+					filetypes = { "neo-tree", "NeogitStatus" },
+				},
+			},
 		})
 	end,
 }
