@@ -78,7 +78,7 @@ return {
 				theme = theme,
 				component_separators = separators.component.line,
 				section_separators = separators.section.round,
-				disabled_filetypes = { statusline = { "alpha" } },
+				disabled_filetypes = { statusline = { "alpha", "NeogitStatus" } },
 				globalstatus = true,
 			},
 			sections = {
@@ -88,10 +88,11 @@ return {
 				lualine_x = {},
 				lualine_y = {
 					"diagnostics",
+					"diff",
 				},
 				lualine_z = {
 					{
-						"diff",
+						"filetype",
 						separator = {
 							right = "",
 							left = "",
@@ -119,7 +120,7 @@ return {
 							end,
 						},
 					},
-					filetypes = { "neo-tree", "NeogitStatus" },
+					filetypes = { "neo-tree" },
 				},
 			},
 		})

@@ -1,3 +1,4 @@
+local openMarkdownSplit = require("dannywrayuk.util.openMarkdownSplit")
 return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
@@ -68,8 +69,27 @@ return {
 					title = "",
 				})
 			end, { buffer = buffer, desc = "Organise imports" })
-		end
 
+			keymap.set("n", "<leader>sk", function()
+				vim.lsp.buf_request(0, "textDocument/hover", vim.lsp.util.make_position_params(), function(err, result)
+					if err or not (result and result.contents) then
+						vim.api.nvim_err_writeln("No information")
+						return
+					end
+					openMarkdownSplit(vim.lsp.util.convert_input_to_markdown_lines(result.contents))
+				end)
+			end, { buffer = buffer, desc = "Show hover information in tab" })
+
+			keymap.set("n", "<leader>sd", function()
+				local diagnostics =
+					vim.diagnostic.get(vim.api.nvim_get_current_buf(), { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
+				local messages = {}
+				for _, diagnostic in ipairs(diagnostics) do
+					table.insert(messages, diagnostic.message)
+				end
+				openMarkdownSplit(messages)
+			end, { buffer = buffer, desc = "Show diagnostics in tab" })
+		end
 		mason_lspconfig.setup({
 			ensure_installed = {
 				"html",
