@@ -20,6 +20,7 @@ return {
 						NeoTreeFloatBorder = { bg = colors.base, fg = colors.blue },
 						WinSeparator = { fg = colors.blue },
 						NormalFloat = { bg = colors.surface0 },
+						CopilotSuggestion = { bg = hex.blend(colors.green, colors.base, 0.2) },
 					}
 				end,
 			})
