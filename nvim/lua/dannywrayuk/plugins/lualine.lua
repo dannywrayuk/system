@@ -1,3 +1,4 @@
+local pathToBreadcrumb = require("dannywrayuk.util.pathToBreadcrumb")
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -30,7 +31,7 @@ return {
 		local modeBar = function(mode_col)
 			return {
 				a = { fg = colors.mantle, bg = mode_col },
-				c = { fg = colors.text, bg = hex.blend(mode_col, colors.base, 0.1) },
+				c = { fg = colors.subtext2, bg = hex.blend(mode_col, colors.base, 0.1) },
 				y = { fg = colors.text, bg = hex.blend(mode_col, colors.mantle, 0.2) },
 				z = { fg = colors.text, bg = hex.blend(mode_col, colors.mantle, 0.3) },
 			}
@@ -84,7 +85,7 @@ return {
 			sections = {
 				lualine_a = { mode },
 				lualine_b = {},
-				lualine_c = { { "filename", path = 1 } },
+				lualine_c = { { "filename", path = 1, fmt = pathToBreadcrumb } },
 				lualine_x = {},
 				lualine_y = {
 					"diagnostics",
@@ -103,7 +104,17 @@ return {
 			inactive_sections = {
 				lualine_a = {},
 				lualine_b = {},
-				lualine_c = { { "filename", path = 1 } },
+				lualine_c = {
+					{
+						"filename",
+						path = 1,
+						fmt = pathToBreadcrumb,
+						separator = {
+							right = "",
+							left = "",
+						},
+					},
+				},
 				lualine_x = {},
 				lualine_y = {},
 				lualine_z = {},
@@ -114,10 +125,22 @@ return {
 			extensions = {
 				{
 					sections = {
+						lualine_a = { mode },
 						lualine_c = {
-							function()
-								return vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
-							end,
+							{
+								function()
+									return pathToBreadcrumb(vim.fn.fnamemodify(vim.fn.getcwd(), ":~"))
+								end,
+							},
+						},
+						lualine_z = {
+							{
+								"filetype",
+								separator = {
+									right = "",
+									left = "",
+								},
+							},
 						},
 					},
 					filetypes = { "neo-tree" },
