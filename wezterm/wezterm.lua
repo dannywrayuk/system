@@ -10,6 +10,7 @@ config.inactive_pane_hsb = {
 config.font = wezterm.font("FiraCode Nerd Font Mono")
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
+config.window_decorations = "RESIZE"
 config.window_padding = {
 	left = 0,
 	right = 0,
