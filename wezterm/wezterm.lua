@@ -27,10 +27,42 @@ config.front_end = "WebGpu"
 
 local act = wezterm.action
 local fontOption = 1
-local fontSizes = { 15, 20, 24 }
+local fontSizes = { 18, 28, 10 }
 
 local centerInWindow = false
 local paddedWindowWidth = 100
+
+local changePaddingAction = wezterm.action_callback(function(window, pane)
+	centerInWindow = not centerInWindow
+	local overrides = window:get_config_overrides() or {}
+	if not overrides.window_padding then
+		overrides.window_padding = wezterm.window_padding
+	end
+	if centerInWindow then
+		local windowWidth = window:active_tab():get_size().cols
+		local paddingSize = tostring((windowWidth - paddedWindowWidth) / 2) .. "cell"
+
+		overrides.window_padding.left = paddingSize
+		overrides.window_padding.right = paddingSize
+	else
+		overrides.window_padding.left = 0
+		overrides.window_padding.right = 0
+	end
+	window:set_config_overrides(overrides)
+end)
+
+local changeFontAction = wezterm.action_callback(function(window, pane)
+	local overrides = window:get_config_overrides() or {}
+	fontOption = (fontOption % #fontSizes) + 1
+	overrides.font_size = fontSizes[fontOption]
+	if not overrides.window_padding then
+		overrides.window_padding = wezterm.window_padding
+	end
+	overrides.window_padding.left = 0
+	overrides.window_padding.right = 0
+	centerInWindow = false
+	window:set_config_overrides(overrides)
+end)
 
 config.font_size = fontSizes[fontOption]
 config.default_workspace = "Scratch"
@@ -130,33 +162,11 @@ config.key_tables = {
 		},
 		{
 			key = "f",
-			action = wezterm.action_callback(function(window, pane)
-				local overrides = window:get_config_overrides() or {}
-				fontOption = (fontOption % #fontSizes) + 1
-				overrides.font_size = fontSizes[fontOption]
-				window:set_config_overrides(overrides)
-			end),
+			action = changeFontAction,
 		},
 		{
 			key = "k",
-			action = wezterm.action_callback(function(window, pane)
-				centerInWindow = not centerInWindow
-				local overrides = window:get_config_overrides() or {}
-				if not overrides.window_padding then
-					overrides.window_padding = wezterm.window_padding
-				end
-				if centerInWindow then
-					local windowWidth = window:active_tab():get_size().cols
-					local paddingSize = tostring((windowWidth - paddedWindowWidth) / 2) .. "cell"
-
-					overrides.window_padding.left = paddingSize
-					overrides.window_padding.right = paddingSize
-				else
-					overrides.window_padding.left = 0
-					overrides.window_padding.right = 0
-				end
-				window:set_config_overrides(overrides)
-			end),
+			action = changePaddingAction,
 		},
 	},
 }

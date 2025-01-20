@@ -63,11 +63,11 @@ return {
 			})
 
 			keymap.set("n", "<leader>i", function()
-				vim.lsp.buf.execute_command({
+				local clients = vim.lsp.get_clients({ name = "vtsls" })
+				clients[1].request("workspace/executeCommand", {
 					command = "typescript.organizeImports",
 					arguments = { vim.api.nvim_buf_get_name(0) },
-					title = "",
-				})
+				}, nil, 0)
 			end, { buffer = buffer, desc = "Organise imports" })
 
 			keymap.set("n", "<leader>sk", function()
