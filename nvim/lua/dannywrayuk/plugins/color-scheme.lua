@@ -20,7 +20,17 @@ return {
 						NeoTreeFloatBorder = { bg = colors.base, fg = colors.blue },
 						WinSeparator = { fg = colors.blue },
 						NormalFloat = { bg = colors.surface0 },
-						CopilotSuggestion = { bg = hex.blend(colors.green, colors.base, 0.2) },
+						CopilotSuggestion = { fg = colors.green },
+						["@punctuation"] = { fg = colors.red },
+						["@punctuation.bracket"] = { fg = colors.red },
+						["@parameter"] = { fg = colors.peach },
+						["@variable"] = { fg = colors.yellow },
+						["@variable.member"] = { fg = colors.maroon },
+						["@property"] = { fg = colors.maroon },
+						["@function.builtin"] = { fg = colors.sapphire },
+						["Type"] = { fg = colors.teal },
+						["@type.builtin"] = { fg = colors.pink },
+						["Operator"] = { fg = colors.blue },
 					}
 				end,
 			})
