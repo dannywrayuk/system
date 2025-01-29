@@ -21,6 +21,7 @@ return {
 						WinSeparator = { fg = colors.blue },
 						NormalFloat = { bg = colors.surface0 },
 						CopilotSuggestion = { fg = colors.green },
+						Number = { fg = colors.mauve },
 						["@punctuation"] = { fg = colors.red },
 						["@punctuation.bracket"] = { fg = colors.red },
 						["@parameter"] = { fg = colors.peach },
@@ -30,7 +31,9 @@ return {
 						["@function.builtin"] = { fg = colors.sapphire },
 						["Type"] = { fg = colors.teal },
 						["@type.builtin"] = { fg = colors.pink },
+						["@constant.builtin"] = { fg = colors.pink },
 						["Operator"] = { fg = colors.blue },
+						["@string.documentation"] = { fg = colors.blue },
 					}
 				end,
 			})
