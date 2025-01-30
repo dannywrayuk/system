@@ -29,38 +29,10 @@ local act = wezterm.action
 local fontOption = 1
 local fontSizes = { 18, 28, 10 }
 
-local centerInWindow = false
-local paddedWindowWidth = 100
-
-local changePaddingAction = wezterm.action_callback(function(window, pane)
-	centerInWindow = not centerInWindow
-	local overrides = window:get_config_overrides() or {}
-	if not overrides.window_padding then
-		overrides.window_padding = wezterm.window_padding
-	end
-	if centerInWindow then
-		local windowWidth = window:active_tab():get_size().cols
-		local paddingSize = tostring((windowWidth - paddedWindowWidth) / 2) .. "cell"
-
-		overrides.window_padding.left = paddingSize
-		overrides.window_padding.right = paddingSize
-	else
-		overrides.window_padding.left = 0
-		overrides.window_padding.right = 0
-	end
-	window:set_config_overrides(overrides)
-end)
-
 local changeFontAction = wezterm.action_callback(function(window, pane)
 	local overrides = window:get_config_overrides() or {}
 	fontOption = (fontOption % #fontSizes) + 1
 	overrides.font_size = fontSizes[fontOption]
-	if not overrides.window_padding then
-		overrides.window_padding = wezterm.window_padding
-	end
-	overrides.window_padding.left = 0
-	overrides.window_padding.right = 0
-	centerInWindow = false
 	window:set_config_overrides(overrides)
 end)
 
@@ -84,16 +56,14 @@ config.key_tables = {
 			key = "a",
 			action = act.Multiple({
 				wezterm.action_callback(function(window, pane)
-					local direction = centerInWindow and "Down" or "Left"
-					local cells = centerInWindow and 10 or 50
 					window:perform_action(
 						act.SplitPane({
-							direction = direction,
+							direction = "Down",
 							command = {
 								args = { "zsh", "-c", "sessionizer" },
 							},
 							size = {
-								Cells = cells,
+								Cells = 20,
 							},
 						}),
 						pane
@@ -106,16 +76,14 @@ config.key_tables = {
 			key = "c",
 			action = act.Multiple({
 				wezterm.action_callback(function(window, pane)
-					local direction = centerInWindow and "Down" or "Right"
-					local cells = centerInWindow and 20 or 50
 					window:perform_action(
 						act.SplitPane({
-							direction = direction,
+							direction = "Down",
 							command = {
 								args = { "zsh", "-c", "git-add-commit-push" },
 							},
 							size = {
-								Cells = cells,
+								Cells = 20,
 							},
 						}),
 						pane
@@ -163,10 +131,6 @@ config.key_tables = {
 		{
 			key = "f",
 			action = changeFontAction,
-		},
-		{
-			key = "k",
-			action = changePaddingAction,
 		},
 	},
 }

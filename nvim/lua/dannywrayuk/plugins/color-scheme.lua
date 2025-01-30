@@ -25,6 +25,7 @@ return {
 						["@punctuation"] = { fg = colors.red },
 						["@punctuation.bracket"] = { fg = colors.red },
 						["@parameter"] = { fg = colors.peach },
+						["@module"] = { fg = colors.peach },
 						["@variable"] = { fg = colors.yellow },
 						["@variable.member"] = { fg = colors.maroon },
 						["@property"] = { fg = colors.maroon },
