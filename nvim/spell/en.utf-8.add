@@ -26,3 +26,6 @@ jsonwebtoken
 tostring
 wezterm
 minifigure
+args
+apigatewayv2
+pnpm
