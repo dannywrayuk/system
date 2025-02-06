@@ -62,17 +62,15 @@ return function(wezterm)
 			(gui_window:get_dimensions().pixel_height - cellHeight * (paneDimensions.rows + 1) - 1) % cellHeight
 		) + 1
 		local overrides = gui_window:get_config_overrides() or {}
+		local config = gui_window:effective_config()
 		if not overrides.window_padding then
-			overrides.window_padding = wezterm.window_padding or {}
+			overrides.window_padding = config.window_padding or {}
 		end
 		overrides.window_padding.bottom = "0px"
 		overrides.window_padding.top = tostring(paddingNeeded) .. "px"
-		overrides.window_padding.left = overrides.window_padding.left or 0
-		overrides.window_padding.right = overrides.window_padding.right or 0
 		gui_window:set_config_overrides(overrides)
-
-		gui_window:set_left_status(lstatus)
-		gui_window:set_right_status(rstatus)
+		gui_window:set_left_status(" " .. lstatus)
+		gui_window:set_right_status(rstatus .. " ")
 	end)
 
 	wezterm.on("format-tab-title", function(tab, tabs, panes, local_config, hover, max_width)
