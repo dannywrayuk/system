@@ -54,6 +54,7 @@ return {
 		local idealWidth = 88
 		local width = math.min(idealWidth, math.floor(vim.o.columns))
 		local height = math.min(math.floor(idealWidth / 2.5), math.floor(vim.o.lines * 0.75)) -- 2.5 is the golden ratio to make it square
+		-- annoyingly vim has to be reopened for the size changes to take effect hmm
 
 		neotree.setup({
 			commands = {
