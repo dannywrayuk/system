@@ -30,3 +30,4 @@ args
 apigatewayv2
 pnpm
 esbuild
+vite

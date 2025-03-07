@@ -7,19 +7,15 @@ return {
 	},
 	config = function()
 		local neotree = require("neo-tree")
-		local screenSizeSwap = require("dannywrayuk.util.screenSizeSwap")
 		local renderer = require("neo-tree.ui.renderer")
 		local fsc = require("neo-tree.sources.filesystem.commands")
 		local cc = require("neo-tree.sources.common.commands")
 
-		local initialTreePosition = function()
-			return screenSizeSwap("bottom", "float")
-		end
-		vim.g.neoTreePosition = initialTreePosition()
-
 		-- disable netrw
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
+
+		vim.g.neoTreePosition = "float"
 
 		local goToParent = function(state)
 			local node = state.tree:get_node()
@@ -47,7 +43,7 @@ return {
 		local toggleWindowPosition = function(state)
 			cc.close_window(state)
 			if vim.g.neoTreePosition == "left" then
-				vim.g.neoTreePosition = initialTreePosition()
+				vim.g.neoTreePosition = "float"
 			else
 				vim.g.neoTreePosition = "left"
 			end
@@ -55,6 +51,9 @@ return {
 		end
 
 		vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { link = "NeoTreeGitAdded" })
+		local idealWidth = 88
+		local width = math.min(idealWidth, math.floor(vim.o.columns))
+		local height = math.min(math.floor(idealWidth / 2.5), math.floor(vim.o.lines * 0.75)) -- 2.5 is the golden ratio to make it square
 
 		neotree.setup({
 			commands = {
@@ -64,10 +63,13 @@ return {
 			},
 			window = {
 				auto_expand_width = true,
-				height = "50%",
 				popup = {
+					size = {
+						width = width,
+						height = height,
+					},
 					title = function()
-						return ""
+						return "File Explorer"
 					end,
 				},
 				mappings = {
@@ -126,9 +128,6 @@ return {
 
 		local keymap = require("dannywrayuk.util.keymap")
 		keymap.set("n", "<leader>t", function()
-			if vim.g.neoTreePosition ~= "left" then
-				vim.g.neoTreePosition = initialTreePosition()
-			end
 			require("neo-tree.command").execute({
 				position = vim.g.neoTreePosition,
 				reveal = true,

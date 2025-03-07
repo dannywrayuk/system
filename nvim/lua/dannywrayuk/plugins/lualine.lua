@@ -1,4 +1,3 @@
-local pathToBreadcrumb = require("dannywrayuk.util.pathToBreadcrumb")
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -6,6 +5,7 @@ return {
 		local lualine = require("lualine")
 		local colors = require("catppuccin.palettes").get_palette("mocha")
 		local hex = require("dannywrayuk.util.hex")
+		local pathToBreadcrumb = require("dannywrayuk.util.pathToBreadcrumb")
 
 		local separators = {
 			component = {
@@ -79,7 +79,7 @@ return {
 				theme = theme,
 				component_separators = separators.component.line,
 				section_separators = separators.section.round,
-				disabled_filetypes = { statusline = { "alpha", "NeogitStatus" } },
+				disabled_filetypes = { statusline = { "alpha" } },
 				globalstatus = true,
 			},
 			sections = {
@@ -144,6 +144,22 @@ return {
 						},
 					},
 					filetypes = { "neo-tree" },
+				},
+				{
+					sections = {
+						lualine_a = { mode },
+						lualine_c = {},
+						lualine_z = {
+							{
+								"filetype",
+								separator = {
+									right = "",
+									left = "",
+								},
+							},
+						},
+					},
+					filetypes = { "NeogitStatus", "TelescopePrompt", "snacks_input" },
 				},
 			},
 		})

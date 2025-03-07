@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
+		"nvim-telescope/telescope-ui-select.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
 	config = function()
@@ -15,11 +16,17 @@ return {
 		local layout = require("telescope.actions.layout")
 		local themes = require("telescope.themes")
 
+		local function add_to_quickfix(prompt_bufnr)
+			actions.smart_send_to_qflist(prompt_bufnr)
+			builtin.quickfix()
+		end
+
 		telescope.setup({
-			defaults = themes.get_ivy({
+			defaults = themes.get_dropdown({
 				results_title = false,
 				sorting_strategy = "ascending",
 				layout_config = {
+					height = 0.5,
 					prompt_position = "top",
 				},
 				mappings = {
@@ -27,11 +34,13 @@ return {
 						["<C-p>"] = layout.toggle_preview,
 						[option.a] = actions.select_all,
 						[option.t] = actions.toggle_all,
+						[option.q] = add_to_quickfix,
 					},
 					n = {
 						["<C-p>"] = layout.toggle_preview,
 						[option.a] = actions.select_all,
 						[option.t] = actions.toggle_all,
+						[option.q] = add_to_quickfix,
 					},
 				},
 				preview = {
@@ -46,6 +55,7 @@ return {
 		})
 
 		telescope.load_extension("fzf")
+		telescope.load_extension("ui-select")
 
 		keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Open list of all files in PWD" })
 		keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope: Search all files using grep string" })

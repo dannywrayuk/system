@@ -43,12 +43,14 @@ return {
 					["?"] = "",
 				},
 			},
+			mappings = {
+				status = { ["<Esc>"] = "Close" },
+			},
 		})
 
 		local keymap = require("dannywrayuk.util.keymap")
-		local screenSizeSwap = require("dannywrayuk.util.screenSizeSwap")
 		keymap.set("n", "<leader>z", function()
-			vim.cmd(":Neogit kind=" .. screenSizeSwap("split_below_all", "vsplit"))
+			vim.cmd(":Neogit kind=vsplit")
 		end)
 	end,
 }

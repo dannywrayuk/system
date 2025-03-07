@@ -30,11 +30,11 @@ return function(wezterm)
 		local pills = presentation.pill_builder(palette.base, palette.surface0, "", "", wezterm.format)
 
 		local date = wezterm.strftime("%A, %d %b  %H:%M")
-		local datePill = pills.pill_label("󰃭", date, palette.mauve)
+		local datePill = pills.pill_label("󰃭", date, palette.sky)
 
 		local cwd = paths.cwd(pane)
 		local gitToplevel = paths.basepath(git.toplevel(cwd))
-		local projectPill = pills.pill_label("", gitToplevel, palette.blue)
+		local projectPill = pills.pill_label("", gitToplevel, palette.mauve)
 
 		local gitBranch = git.branch(cwd)
 		local gitBranchPill = pills.pill(" " .. gitBranch, palette.teal)
