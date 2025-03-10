@@ -1,6 +1,6 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.5",
+	commit = "814f102cd1da3dc78c7d2f20f2ef3ed3cdf0e6e4",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
@@ -21,12 +21,37 @@ return {
 			builtin.quickfix()
 		end
 
+		require("telescope.pickers.layout_strategies").horizontal_merged = function(
+			picker,
+			max_columns,
+			max_lines,
+			layout_config
+		)
+			local l =
+				require("telescope.pickers.layout_strategies").horizontal(picker, max_columns, max_lines, layout_config)
+
+			l.prompt.borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }
+
+			l.results.title = ""
+			l.results.borderchars = { "─", "│", "─", "│", "├", "┤", "┘", "└" }
+			l.results.line = l.results.line - 1
+			l.results.height = l.results.height + 1
+
+			if l.preview == nil then
+				return l
+			end
+			l.preview.title = ""
+			l.preview.borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }
+
+			return l
+		end
+
 		telescope.setup({
 			defaults = themes.get_dropdown({
-				results_title = false,
 				sorting_strategy = "ascending",
+				layout_strategy = "horizontal_merged",
 				layout_config = {
-					height = 0.5,
+					height = math.min(80 / 2.5, math.floor(0.9 * vim.o.lines)),
 					prompt_position = "top",
 				},
 				mappings = {
