@@ -121,6 +121,9 @@ return {
 						ignored = "",
 					},
 				},
+				last_modified = {
+					format = "%Y-%m-%d %H:%M:%S",
+				},
 				modified = {
 					symbol = "",
 					highlight = "NeoTreeModified",

@@ -17,6 +17,7 @@ return {
 						SpelunkerComplexOrCompoundWord = { bg = hex.blend(colors.red, colors.base, 0.2) },
 						NeoTreeNormal = { bg = colors.base },
 						NeoTreeNormalNC = { bg = colors.base },
+						NeoTreeFloatNormal = { bg = colors.base },
 						NeoTreeFloatBorder = { bg = colors.base, fg = colors.blue },
 						NeoTreeFloatTitle = { bg = colors.base, fg = colors.blue },
 						WinSeparator = { fg = colors.blue },
