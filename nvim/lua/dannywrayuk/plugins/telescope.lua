@@ -37,7 +37,7 @@ return {
 			l.results.line = l.results.line - 1
 			l.results.height = l.results.height + 1
 
-			if l.preview == nil then
+			if type(l.preview) ~= "table" then
 				return l
 			end
 			l.preview.title = ""

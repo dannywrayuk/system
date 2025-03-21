@@ -79,7 +79,7 @@ return {
 				theme = theme,
 				component_separators = separators.component.line,
 				section_separators = separators.section.round,
-				disabled_filetypes = { statusline = { "alpha" } },
+				disabled_filetypes = { statusline = { "snacks_dashboard" } },
 				globalstatus = true,
 			},
 			sections = {
