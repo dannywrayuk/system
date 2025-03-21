@@ -9,6 +9,9 @@ return {
 			hl = "Comment",
 			scope = { hl = "Normal" },
 		},
+		gitbrowse = {
+			enabled = true,
+		},
 		input = {
 			enabled = true,
 		},

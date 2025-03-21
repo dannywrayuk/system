@@ -48,6 +48,9 @@ keymap.set({ "n" }, option.p, [["0p]])
 
 keymap.set("n", "zB", ":mkspell! " .. vim.fn.stdpath("config") .. "/spell/en.utf-8.add<CR>")
 
+-- open file in github
+keymap.set("n", "<leader>gb", ":lua Snacks.gitbrowse()<CR>")
+
 -- log
 local languageLogs = {
 	javascript = "console.log()",
