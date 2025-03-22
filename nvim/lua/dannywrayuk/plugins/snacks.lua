@@ -49,12 +49,6 @@ return {
 							vim.print(result)
 						end,
 					},
-					{
-						icon = "",
-						key = "X",
-						desc = "Clean branch",
-						action = ":lua require('neogit').action('branch', 'reset_branch', {})()",
-					},
 					{ icon = "", key = "q", desc = "Quit", action = ":qa" },
 				},
 			},
