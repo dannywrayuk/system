@@ -60,7 +60,8 @@ return {
 					},
 				},
 				component_separators = "|",
-				section_separators = separator,
+				-- for some reason they are reversed here
+				section_separators = { left = separator.right, right = separator.left },
 				disabled_filetypes = { statusline = { "snacks_dashboard" } },
 				globalstatus = true,
 			},

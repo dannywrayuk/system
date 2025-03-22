@@ -8,17 +8,25 @@ return {
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
 	},
 	opts = function()
-		local keymap = require("dannywrayuk.util.keymap")
-		local option = require("dannywrayuk.util.option-keys")
 		local telescope = require("telescope")
 		local builtin = require("telescope.builtin")
 		local actions = require("telescope.actions")
 		local layout = require("telescope.actions.layout")
 		local themes = require("telescope.themes")
 
-		local function add_to_quickfix(prompt_bufnr)
+		local addToQuickfix = function(prompt_bufnr)
 			actions.smart_send_to_qflist(prompt_bufnr)
 			builtin.quickfix()
+		end
+
+		local createOrCheckoutBranch = function(prompt_bufnr)
+			local current_picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+			if current_picker.manager:num_results() == 0 then
+				actions.git_create_branch(prompt_bufnr)
+				actions.close(prompt_bufnr)
+				return
+			end
+			actions.git_checkout(prompt_bufnr)
 		end
 
 		require("telescope.pickers.layout_strategies").horizontal_merged = function(
@@ -46,23 +54,28 @@ return {
 			return l
 		end
 
-		keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Open list of all files in CWD" })
-		keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope: Search all files using grep string" })
+		vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope: Open list of all files in CWD" })
+		vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope: Search all files using grep string" })
 
-		keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Telescope: Open list of all recently opened files" })
+		vim.keymap.set(
+			"n",
+			"<leader>fo",
+			builtin.oldfiles,
+			{ desc = "Telescope: Open list of all recently opened files" }
+		)
 
-		keymap.set("n", "<leader>ft", builtin.builtin, { desc = "Telescope: Open list of all builtin lists" })
-		keymap.set("n", "<leader>f;", builtin.resume, { desc = "Telescope: Open last telescope" })
-		keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope: Open list of all keymaps" })
+		vim.keymap.set("n", "<leader>ft", builtin.builtin, { desc = "Telescope: Open list of all builtin lists" })
+		vim.keymap.set("n", "<leader>f;", builtin.resume, { desc = "Telescope: Open last telescope" })
+		vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Telescope: Open list of all keymaps" })
 
-		keymap.set(
+		vim.keymap.set(
 			"n",
 			"<leader>fg",
 			builtin.git_branches,
 			{ desc = "Telescope: Open list of git branches in current repo" }
 		)
 
-		keymap.set("n", "<leader>fd", function()
+		vim.keymap.set("n", "<leader>fd", function()
 			builtin.diagnostics({ initial_mode = "normal" })
 		end, { desc = "Telescope: Open list of diagnostics in the current file" })
 
@@ -80,21 +93,30 @@ return {
 				mappings = {
 					i = {
 						["<C-p>"] = layout.toggle_preview,
-						[option.a] = actions.select_all,
-						[option.t] = actions.toggle_all,
-						[option.q] = add_to_quickfix,
+						["<A-a>"] = actions.select_all,
+						["<A-t>"] = actions.toggle_all,
+						["<A-q>"] = addToQuickfix,
 					},
 					n = {
 						["<C-p>"] = layout.toggle_preview,
-						[option.a] = actions.select_all,
-						[option.t] = actions.toggle_all,
-						[option.q] = add_to_quickfix,
+						["<A-a>"] = actions.select_all,
+						["<A-t>"] = actions.toggle_all,
+						["<A-q>"] = addToQuickfix,
 					},
 				},
 				preview = {
 					hide_on_startup = true,
 				},
 			}),
+			pickers = {
+				git_branches = {
+					mappings = {
+						i = {
+							["<CR>"] = createOrCheckoutBranch,
+						},
+					},
+				},
+			},
 		}
 	end,
 }

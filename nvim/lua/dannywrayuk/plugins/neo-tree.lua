@@ -11,9 +11,8 @@ return {
 		local renderer = require("neo-tree.ui.renderer")
 		local fsc = require("neo-tree.sources.filesystem.commands")
 		local cc = require("neo-tree.sources.common.commands")
-		local keymap = require("dannywrayuk.util.keymap")
 
-		keymap.set("n", "<leader>t", function()
+		vim.keymap.set("n", "<leader>t", function()
 			require("neo-tree.command").execute({
 				position = vim.g.neoTreePosition,
 				reveal = true,

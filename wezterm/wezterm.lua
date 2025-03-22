@@ -18,9 +18,6 @@ config.window_padding = {
 	bottom = 0,
 }
 
-config.send_composed_key_when_left_alt_is_pressed = true
-config.use_dead_keys = false
-
 -- Bug fix until issue is resolved
 -- https://github.com/wez/wezterm/issues/5990
 config.front_end = "WebGpu"

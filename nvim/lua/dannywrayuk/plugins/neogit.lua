@@ -8,8 +8,7 @@ return {
 		{ "<leader>z" },
 	},
 	opts = function()
-		local keymap = require("dannywrayuk.util.keymap")
-		keymap.set("n", "<leader>z", function()
+		vim.keymap.set("n", "<leader>z", function()
 			vim.cmd(":Neogit kind=vsplit")
 		end)
 

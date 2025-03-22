@@ -1,56 +1,54 @@
 return {
 	"neovim/nvim-lspconfig",
 	lazy = true,
-  event = { "BufReadPre", "BufNewFile" },
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		{ "williamboman/mason-lspconfig.nvim", lazy = true },
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
 		local mason_lspconfig = require("mason-lspconfig")
-		local keymap = require("dannywrayuk.util.keymap")
-		local capabilities = require("blink.cmp").get_lsp_capabilities()
 		local keymaps = function(buffer)
-			keymap.set(
+			vim.keymap.set(
 				{ "n", "v" },
 				"<leader>ca",
 				vim.lsp.buf.code_action,
 				{ buffer = buffer, desc = "See available code actions" }
 			)
 
-			keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {
+			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {
 				buffer = buffer,
 				desc = "Smart rename",
 			})
 
-			keymap.set("n", "<leader>d", vim.diagnostic.open_float, {
+			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {
 				buffer = buffer,
 				desc = "Show line diagnostics",
 			})
 
-			keymap.set("n", "[d", vim.diagnostic.goto_prev, {
+			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {
 				buffer = buffer,
 				desc = "Go to previous diagnostic",
 			})
 
-			keymap.set("n", "]d", vim.diagnostic.goto_next, {
+			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {
 				buffer = buffer,
 				desc = "Go to next diagnostic",
 			})
 
-			keymap.set(
+			vim.keymap.set(
 				"n",
 				"K",
 				vim.lsp.buf.hover,
 				{ buffer = buffer, desc = "Show documentation for symbol under cursor" }
 			)
 
-			keymap.set("n", "<leader>rs", ":LspRestart<CR>", {
+			vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", {
 				buffer = buffer,
 				desc = "Restart LSP",
 			})
 
-			keymap.set("n", "<leader>i", function()
+			vim.keymap.set("n", "<leader>i", function()
 				local clients = vim.lsp.get_clients({ name = "vtsls" })
 				clients[1].request("workspace/executeCommand", {
 					command = "typescript.organizeImports",
@@ -76,7 +74,7 @@ return {
 		local lspConfigBuilder = function(extend)
 			return function(server_name)
 				local config = {
-					capabilities = capabilities,
+					capabilities = require("blink.cmp").get_lsp_capabilities(),
 					on_attach = function(_, buffnr)
 						keymaps(buffnr)
 					end,
@@ -119,18 +117,5 @@ return {
 				},
 			}),
 		})
-
-		return {
-			diagnostics = {
-				underline = true,
-				update_in_insert = false,
-				virtual_text = {
-					spacing = 4,
-					source = "if_many",
-					prefix = "●",
-				},
-				severity_sort = true,
-			},
-		}
 	end,
 }
