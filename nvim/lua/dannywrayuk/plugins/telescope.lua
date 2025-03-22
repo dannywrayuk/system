@@ -110,6 +110,7 @@ return {
 			}),
 			pickers = {
 				git_branches = {
+					show_remote_tracking_branches = false,
 					mappings = {
 						i = {
 							["<CR>"] = createOrCheckoutBranch,
