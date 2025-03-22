@@ -4,9 +4,7 @@ return {
 		{ "sindrets/diffview.nvim", lazy = true },
 	},
 	lazy = true,
-	keys = {
-		{ "<leader>z" },
-	},
+	event = { "VeryLazy" },
 	opts = function()
 		vim.keymap.set("n", "<leader>z", function()
 			vim.cmd(":Neogit kind=vsplit")

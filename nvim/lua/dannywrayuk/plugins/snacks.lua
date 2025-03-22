@@ -36,13 +36,24 @@ return {
 						icon = "",
 						key = "p",
 						desc = "Pull",
-						action = ":lua require('neogit').action('pull','from_pushremote')",
+						action = ":lua require('neogit').action('pull', 'from_pushremote', {})()",
 					},
 					{
 						icon = "",
 						key = "m",
 						desc = "Checkout main",
-						action = ":!git checkout $(git rev-parse --abbrev-ref origin/HEAD | cut -c8-)",
+						action = function()
+							local mainBranch = vim.fn.trim(vim.fn.system("git main-branch"))
+							print("Checking out: " .. mainBranch)
+							local result = vim.fn.trim(vim.fn.system("git checkout " .. mainBranch))
+							vim.print(result)
+						end,
+					},
+					{
+						icon = "",
+						key = "X",
+						desc = "Clean branch",
+						action = ":lua require('neogit').action('branch', 'reset_branch', {})()",
 					},
 					{ icon = "", key = "q", desc = "Quit", action = ":qa" },
 				},
