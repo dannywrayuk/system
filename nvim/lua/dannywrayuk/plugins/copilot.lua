@@ -1,5 +1,7 @@
 return {
 	"github/copilot.vim",
+	lazy = true,
+	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local option = require("dannywrayuk.util.option-keys")
 

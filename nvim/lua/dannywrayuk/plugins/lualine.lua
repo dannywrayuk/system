@@ -1,33 +1,13 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
-	config = function()
-		local lualine = require("lualine")
+	lazy = true,
+	event = { "VeryLazy" },
+	opts = function()
 		local colors = require("catppuccin.palettes").get_palette("mocha")
 		local hex = require("dannywrayuk.util.hex")
 		local pathToBreadcrumb = require("dannywrayuk.util.pathToBreadcrumb")
+		local separator = { left = "", right = "" }
 
-		local separators = {
-			component = {
-				arrow = {
-					left = "",
-					right = "",
-				},
-				line = "|",
-			},
-			section = {
-				arrow = {
-					left = "",
-					right = "",
-				},
-				round = {
-					left = "",
-					right = "",
-				},
-			},
-		}
-
-		local none = "#00000000"
 		local modeBar = function(mode_col)
 			return {
 				a = { fg = colors.mantle, bg = mode_col },
@@ -36,17 +16,11 @@ return {
 				z = { fg = colors.text, bg = hex.blend(mode_col, colors.mantle, 0.3) },
 			}
 		end
-		local theme = {
-			normal = modeBar(colors.blue),
-			insert = modeBar(colors.green),
-			visual = modeBar(colors.yellow),
-			replace = modeBar(colors.red),
-			command = modeBar(colors.mauve),
-			terminal = modeBar(colors.mauve),
-			inactive = {
-				a = { fg = colors.text, bg = colors.surface0 },
-				b = { fg = colors.text, bg = none },
-			},
+
+		local cwd = {
+			function()
+				return pathToBreadcrumb(vim.fn.fnamemodify(vim.fn.getcwd(), ":~"))
+			end,
 		}
 
 		local mode = {
@@ -68,17 +42,25 @@ return {
 				end
 				return icon
 			end,
-			separator = {
-				right = "",
-				left = "",
-			},
+			separator = separator,
 		}
 
-		lualine.setup({
+		return {
 			options = {
-				theme = theme,
-				component_separators = separators.component.line,
-				section_separators = separators.section.round,
+				theme = {
+					normal = modeBar(colors.blue),
+					insert = modeBar(colors.green),
+					visual = modeBar(colors.yellow),
+					replace = modeBar(colors.red),
+					command = modeBar(colors.mauve),
+					terminal = modeBar(colors.mauve),
+					inactive = {
+						a = { fg = colors.text, bg = colors.surface0 },
+						b = { fg = colors.text, bg = "#00000000" },
+					},
+				},
+				component_separators = "|",
+				section_separators = separator,
 				disabled_filetypes = { statusline = { "snacks_dashboard" } },
 				globalstatus = true,
 			},
@@ -87,81 +69,31 @@ return {
 				lualine_b = {},
 				lualine_c = { { "filename", path = 1, fmt = pathToBreadcrumb } },
 				lualine_x = {},
-				lualine_y = {
-					"diagnostics",
-					"diff",
-				},
-				lualine_z = {
-					{
-						"filetype",
-						separator = {
-							right = "",
-							left = "",
-						},
-					},
-				},
+				lualine_y = { "diagnostics", "diff" },
+				lualine_z = { { "filetype", separator = separator } },
 			},
-			inactive_sections = {
-				lualine_a = {},
-				lualine_b = {},
-				lualine_c = {
-					{
-						"filename",
-						path = 1,
-						fmt = pathToBreadcrumb,
-						separator = {
-							right = "",
-							left = "",
-						},
-					},
-				},
-				lualine_x = {},
-				lualine_y = {},
-				lualine_z = {},
-			},
+			inactive_sections = {},
 			tabline = {},
 			winbar = {},
 			inactive_winbar = {},
 			extensions = {
 				{
+					filetypes = { "neo-tree" },
 					sections = {
 						lualine_a = { mode },
-						lualine_c = {
-							{
-								function()
-									return pathToBreadcrumb(vim.fn.fnamemodify(vim.fn.getcwd(), ":~"))
-								end,
-							},
-						},
-						lualine_z = {
-							{
-								"filetype",
-								separator = {
-									right = "",
-									left = "",
-								},
-							},
-						},
+						lualine_c = { cwd },
+						lualine_z = { { "filetype", separator = separator } },
 					},
-					filetypes = { "neo-tree" },
 				},
 				{
+					filetypes = { "NeogitStatus", "TelescopePrompt", "snacks_input" },
 					sections = {
 						lualine_a = { mode },
 						lualine_c = {},
-						lualine_z = {
-							{
-								"filetype",
-								separator = {
-									right = "",
-									left = "",
-								},
-							},
-						},
+						lualine_z = { { "filetype", separator = separator } },
 					},
-					filetypes = { "NeogitStatus", "TelescopePrompt", "snacks_input" },
 				},
 			},
-		})
+		}
 	end,
 }

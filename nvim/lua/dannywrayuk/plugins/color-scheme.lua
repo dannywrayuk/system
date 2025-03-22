@@ -3,11 +3,12 @@ return {
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
-		config = function()
+		lazy = true,
+		opts = function()
 			local readFile = require("dannywrayuk.util.readFile")
 			local hex = require("dannywrayuk.util.hex")
 			local palette = vim.json.decode(readFile(vim.fn.expand("$HOME/.config/system/colors/palette.json")))
-			require("catppuccin").setup({
+			return {
 				color_overrides = {
 					all = palette,
 				},
@@ -20,6 +21,7 @@ return {
 						NeoTreeFloatNormal = { bg = colors.base },
 						NeoTreeFloatBorder = { bg = colors.base, fg = colors.blue },
 						NeoTreeFloatTitle = { bg = colors.base, fg = colors.blue },
+						NeoTreeGitUntracked = { link = "NeoTreeGitAdded" },
 						WinSeparator = { fg = colors.blue },
 						NormalFloat = { bg = colors.surface0 },
 						CopilotSuggestion = { fg = colors.yellow, bg = hex.blend(colors.yellow, colors.base, 0.2) },
@@ -41,8 +43,7 @@ return {
 						["@string.documentation"] = { fg = colors.blue },
 					}
 				end,
-			})
-			vim.cmd([[colorscheme catppuccin]])
+			}
 		end,
 	},
 }

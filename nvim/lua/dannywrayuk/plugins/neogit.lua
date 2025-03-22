@@ -1,13 +1,19 @@
 return {
 	"NeogitOrg/neogit",
 	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"sindrets/diffview.nvim",
-		"nvim-telescope/telescope.nvim",
+		{ "sindrets/diffview.nvim", lazy = true },
 	},
-	config = function()
-		local neogit = require("neogit")
-		neogit.setup({
+	lazy = true,
+	keys = {
+		{ "<leader>z" },
+	},
+	opts = function()
+		local keymap = require("dannywrayuk.util.keymap")
+		keymap.set("n", "<leader>z", function()
+			vim.cmd(":Neogit kind=vsplit")
+		end)
+
+		return {
 			disable_hint = true,
 			kind = "auto",
 			signs = {
@@ -46,11 +52,6 @@ return {
 			mappings = {
 				status = { ["<Esc>"] = "Close" },
 			},
-		})
-
-		local keymap = require("dannywrayuk.util.keymap")
-		keymap.set("n", "<leader>z", function()
-			vim.cmd(":Neogit kind=vsplit")
-		end)
+		}
 	end,
 }

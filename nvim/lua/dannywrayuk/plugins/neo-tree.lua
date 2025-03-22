@@ -1,20 +1,29 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"nvim-tree/nvim-web-devicons",
 		"MunifTanjim/nui.nvim",
 	},
-	config = function()
-		local neotree = require("neo-tree")
+	lazy = true,
+	keys = {
+		"<leader>t",
+	},
+	opts = function()
 		local renderer = require("neo-tree.ui.renderer")
 		local fsc = require("neo-tree.sources.filesystem.commands")
 		local cc = require("neo-tree.sources.common.commands")
+		local keymap = require("dannywrayuk.util.keymap")
+
+		keymap.set("n", "<leader>t", function()
+			require("neo-tree.command").execute({
+				position = vim.g.neoTreePosition,
+				reveal = true,
+				reveal_force_cwd = true,
+			})
+		end, { desc = "Open Neotree" })
 
 		-- disable netrw
 		vim.g.loaded_netrw = 1
 		vim.g.loaded_netrwPlugin = 1
-
 		vim.g.neoTreePosition = "float"
 
 		local goToParent = function(state)
@@ -50,14 +59,13 @@ return {
 			require("neo-tree.command").execute({ position = vim.g.neoTreePosition })
 		end
 
-		vim.api.nvim_set_hl(0, "NeoTreeGitUntracked", { link = "NeoTreeGitAdded" })
-
 		local idealWidth = 88
 		local width = math.min(idealWidth, math.floor(vim.o.columns))
-		local height = math.min(math.floor(idealWidth / 2.5), math.floor(vim.o.lines * 0.7)) -- 2.5 is the golden ratio to make it square
+		local height = math.min(math.floor(idealWidth / 2.5), math.floor(vim.o.lines * 0.7))
+		-- 2.5 is the golden ratio to make it square
 		-- annoyingly vim has to be reopened for the size changes to take effect hmm
 
-		neotree.setup({
+		return {
 			commands = {
 				goToParentAndClose = goToParentAndClose,
 				openAndCloseTree = openAndCloseTree,
@@ -129,15 +137,6 @@ return {
 					highlight = "NeoTreeModified",
 				},
 			},
-		})
-
-		local keymap = require("dannywrayuk.util.keymap")
-		keymap.set("n", "<leader>t", function()
-			require("neo-tree.command").execute({
-				position = vim.g.neoTreePosition,
-				reveal = true,
-				reveal_force_cwd = true,
-			})
-		end, { desc = "Open Neotree" })
+		}
 	end,
 }

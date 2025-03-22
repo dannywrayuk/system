@@ -1,21 +1,9 @@
-local openMarkdownSplit = require("dannywrayuk.util.openMarkdownSplit")
 return {
 	"neovim/nvim-lspconfig",
-	event = { "BufReadPre", "BufNewFile" },
+	lazy = true,
+  event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
-	},
-	opts = {
-		diagnostics = {
-			underline = true,
-			update_in_insert = false,
-			virtual_text = {
-				spacing = 4,
-				source = "if_many",
-				prefix = "●",
-			},
-			severity_sort = true,
-		},
+		{ "williamboman/mason-lspconfig.nvim", lazy = true },
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -69,27 +57,8 @@ return {
 					arguments = { vim.api.nvim_buf_get_name(0) },
 				}, nil, 0)
 			end, { buffer = buffer, desc = "Organise imports" })
-
-			keymap.set("n", "<leader>sk", function()
-				vim.lsp.buf_request(0, "textDocument/hover", vim.lsp.util.make_position_params(), function(err, result)
-					if err or not (result and result.contents) then
-						vim.api.nvim_err_writeln("No information")
-						return
-					end
-					openMarkdownSplit(vim.lsp.util.convert_input_to_markdown_lines(result.contents))
-				end)
-			end, { buffer = buffer, desc = "Show hover information in tab" })
-
-			keymap.set("n", "<leader>sd", function()
-				local diagnostics =
-					vim.diagnostic.get(vim.api.nvim_get_current_buf(), { lnum = vim.api.nvim_win_get_cursor(0)[1] - 1 })
-				local messages = {}
-				for _, diagnostic in ipairs(diagnostics) do
-					table.insert(messages, diagnostic.message)
-				end
-				openMarkdownSplit(messages)
-			end, { buffer = buffer, desc = "Show diagnostics in tab" })
 		end
+
 		mason_lspconfig.setup({
 			ensure_installed = {
 				"html",
@@ -103,6 +72,7 @@ return {
 			},
 			automatic_installation = true,
 		})
+
 		local lspConfigBuilder = function(extend)
 			return function(server_name)
 				local config = {
@@ -149,5 +119,18 @@ return {
 				},
 			}),
 		})
+
+		return {
+			diagnostics = {
+				underline = true,
+				update_in_insert = false,
+				virtual_text = {
+					spacing = 4,
+					source = "if_many",
+					prefix = "●",
+				},
+				severity_sort = true,
+			},
+		}
 	end,
 }
