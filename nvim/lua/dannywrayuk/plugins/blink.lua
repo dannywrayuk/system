@@ -6,7 +6,6 @@ return {
 		-- },
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
-		version = "v0.8.0",
 		opts = {
 			appearance = {
 				use_nvim_cmp_as_default = true,
