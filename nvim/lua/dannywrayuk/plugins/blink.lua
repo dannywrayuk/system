@@ -5,6 +5,7 @@ return {
 		-- 	"rafamadriz/friendly-snippets",
 		-- },
 		lazy = true,
+		version = "v0.14.0",
 		event = { "BufReadPre", "BufNewFile" },
 		opts = {
 			appearance = {
@@ -12,12 +13,14 @@ return {
 				nerd_font_variant = "mono",
 			},
 			signature = { enabled = true },
+
 			completion = {
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 1500,
 				},
 			},
+
 			keymap = {
 				preset = "none",
 				["<Left>"] = { "hide", "fallback" },
