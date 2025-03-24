@@ -5,22 +5,21 @@ return {
 		-- 	"rafamadriz/friendly-snippets",
 		-- },
 		lazy = true,
+		event = { "VeryLazy" },
 		version = "v0.14.0",
-		event = { "BufReadPre", "BufNewFile" },
 		opts = {
+			cmdline = { enabled = true, completion = { menu = { auto_show = true } } },
+			signature = { enabled = true },
 			appearance = {
 				use_nvim_cmp_as_default = true,
 				nerd_font_variant = "mono",
 			},
-			signature = { enabled = true },
-
 			completion = {
 				documentation = {
 					auto_show = true,
 					auto_show_delay_ms = 1500,
 				},
 			},
-
 			keymap = {
 				preset = "none",
 				["<Left>"] = { "hide", "fallback" },
