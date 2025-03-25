@@ -22,10 +22,12 @@ in
       fd
       fnm
       git-credential-manager
+      go
       pam-reattach
       jq
       ripgrep
       rustup
+      tree-sitter
       wezterm
     ];
 

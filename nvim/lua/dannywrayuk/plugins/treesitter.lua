@@ -1,14 +1,16 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	lazy = true,
-	event = { "BufReadPre", "BufNewFile" },
+	event = { "VeryLazy" },
 	build = ":TSUpdate",
 	main = "nvim-treesitter.configs",
 	opts = {
 		highlight = {
 			enable = true,
 		},
-		indent = { enable = true },
+		indent = {
+			enable = true,
+		},
 		autotag = {
 			enable = true,
 		},
@@ -32,6 +34,8 @@ return {
 			"dockerfile",
 			"gitignore",
 			"query",
+			"swift",
+			"go",
 		},
 		incremental_selection = {
 			enable = true,

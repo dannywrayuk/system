@@ -67,6 +67,7 @@ return {
 				"vtsls",
 				"denols",
 				"rnix",
+				"gopls",
 			},
 			automatic_installation = true,
 		})
@@ -117,5 +118,7 @@ return {
 				},
 			}),
 		})
+
+		lspConfigBuilder()("sourcekit")
 	end,
 }
