@@ -118,7 +118,7 @@ config.key_tables = {
 			action = act.ActivateLastTab,
 		},
 		{
-			key = "t",
+			key = "w",
 			action = act.ActivatePaneDirection("Next"),
 		},
 		{
