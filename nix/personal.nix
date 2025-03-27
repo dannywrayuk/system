@@ -1,28 +1,6 @@
 let
   user = "danny";
   system = "aarch64-darwin";
-  packages = [
-    "awscli2"
-    "bkt"
-    "bottom"
-    "bun"
-    "fd"
-    "fnm"
-    "git-credential-manager"
-    "go"
-    "jq"
-    "pam-reattach"
-    "ripgrep"
-    "rustup"
-    "tree-sitter"
-    "wezterm"
-  ];
-  casks = [
-    "surfshark"
-    "firefox"
-    "hammerspoon"
-  ];
-  brews = [ ];
   configHome = ".config";
   configLinks = [
     "hammerspoon"
@@ -68,6 +46,28 @@ let
       remapCapsLockToControl = true;
     };
   };
+  packages = [
+    "awscli2"
+    "bkt"
+    "bottom"
+    "bun"
+    "fd"
+    "fnm"
+    "git-credential-manager"
+    "go"
+    "jq"
+    "pam-reattach"
+    "ripgrep"
+    "rustup"
+    "tree-sitter"
+    "wezterm"
+  ];
+  casks = [
+    "surfshark"
+    "firefox"
+    "hammerspoon"
+  ];
+  brews = [ ];
   programs = { pkgs, ... }: {
     neovim = {
       defaultEditor = true;
