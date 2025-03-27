@@ -37,9 +37,8 @@ config.keys = {
 		mods = "CTRL",
 		action = act.ActivateKeyTable({
 			name = "LEADER",
-			timeout_milliseconds = 1000,
-			one_shot = false,
-			until_unknown = true,
+			timeout_milliseconds = 2000,
+			one_shot = true,
 		}),
 	},
 }
