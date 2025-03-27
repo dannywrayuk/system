@@ -41,7 +41,6 @@ in
         programs.zsh.enable = true;
         environment = {
           shells = [ pkgs.zsh ];
-          loginShell = pkgs.zsh;
           etc.hushlogin.enable = true;
           etc."pam.d/sudo_local" = {
             text = ''
@@ -50,8 +49,7 @@ in
             '';
           };
         };
-        services.nix-daemon.enable = true;
-        fonts.packages = [ (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; }) ];
+        fonts.packages = [ pkgs.nerd-fonts.fira-code ];
         nix.extraOptions = "experimental-features = nix-command flakes";
         homebrew = {
           enable = true;
@@ -63,13 +61,14 @@ in
           brews = [ ];
         };
         system = {
+          stateVersion = 4;
           defaults = {
             dock = {
               autohide = true;
               show-recents = false;
               persistent-apps = [
                 "/Applications/Firefox.app"
-                "${pkgs.wezterm}/Applications/WezTerm.app"
+                "/Applications/WezTerm.app"
               ];
             };
             finder = {

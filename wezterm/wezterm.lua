@@ -18,10 +18,6 @@ config.window_padding = {
 	bottom = 0,
 }
 
--- Bug fix until issue is resolved
--- https://github.com/wez/wezterm/issues/5990
-config.front_end = "WebGpu"
-
 local act = wezterm.action
 local fontOption = 1
 local fontSizes = { 18, 28, 10 }
