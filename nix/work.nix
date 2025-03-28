@@ -12,14 +12,14 @@ let
     "/Users/${user}/.cargo/bin"
     "/Users/${user}/${configHome}/terminal/commands"
   ];
-  settings = {
+  settings = { pkgs, ... }: {
     defaults = {
       dock = {
         autohide = true;
         show-recents = false;
         persistent-apps = [
           "/Applications/Google Chrome.app"
-          "~/Applications/Home Manager Apps/WezTerm.app"
+          "${pkgs.wezterm}/Applications/WezTerm.app"
         ];
       };
       finder = {
@@ -142,7 +142,7 @@ in
         };
         system = {
           stateVersion = 6;
-        } // settings;
+        } // (settings pkgs);
         users.users.${user} = {
           name = "${user}";
           home = "/Users/${user}";

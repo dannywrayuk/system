@@ -13,14 +13,14 @@ let
     "/Users/${user}/.cargo/bin"
     "/Users/${user}/${configHome}/terminal/commands"
   ];
-  settings = {
+  settings = { pkgs, ... }: {
     defaults = {
       dock = {
         autohide = true;
         show-recents = false;
         persistent-apps = [
           "/Applications/Firefox.app"
-          "/Applications/WezTerm.app"
+          "${pkgs.wezterm}/Applications/WezTerm.app"
         ];
       };
       finder = {
@@ -157,7 +157,7 @@ in
         };
         system = {
           stateVersion = 4;
-        } // settings;
+        } // (settings pkgs);
         users.users.${user} = {
           name = "${user}";
           home = "/Users/${user}";
