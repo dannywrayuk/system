@@ -21,7 +21,11 @@ end
 
 M.basepath = function(str)
 	local pathSplit = split(str, "/")
-	return pathSplit[#pathSplit]
+	local base = pathSplit[#pathSplit]
+	if #base == 0 then
+		return "-"
+	end
+	return base
 end
 
 return M
