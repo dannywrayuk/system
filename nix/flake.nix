@@ -17,7 +17,6 @@
     {
       darwinConfigurations = {
         DannysMacbookAir = (import ./personal.nix) { inherit inputs; };
-        Dannys-MacBook-Pro = (import ./work.nix) { inherit inputs; };
       };
     };
 }
