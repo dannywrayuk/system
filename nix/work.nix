@@ -156,7 +156,7 @@ in
               packages = (map (name: pkgs.${name}) packages);
               sessionPath = path;
               enableNixpkgsReleaseCheck = false;
-              stateVersion = "24.11";
+              stateVersion = "24.05";
             };
             xdg.configFile = builtins.listToAttrs (map
               (key: {
