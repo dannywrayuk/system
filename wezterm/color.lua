@@ -4,7 +4,7 @@ return {
 	background = c.base,
 
 	cursor_fg = c.crust,
-	cursor_bg = c.rosewater,
+	cursor_bg = c.text,
 	cursor_border = c.rosewater,
 
 	selection_fg = c.text,
