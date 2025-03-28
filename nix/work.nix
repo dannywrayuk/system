@@ -1,5 +1,5 @@
 let
-  user = "danny";
+  user = "dannywray";
   system = "aarch64-darwin";
   configHome = ".config";
   configLinks = [
@@ -141,7 +141,7 @@ in
           brews = brews;
         };
         system = {
-          stateVersion = 4;
+          stateVersion = 6;
         } // settings;
         users.users.${user} = {
           name = "${user}";
@@ -156,7 +156,7 @@ in
               packages = (map (name: pkgs.${name}) packages);
               sessionPath = path;
               enableNixpkgsReleaseCheck = false;
-              stateVersion = "24.05";
+              stateVersion = "24.11";
             };
             xdg.configFile = builtins.listToAttrs (map
               (key: {
