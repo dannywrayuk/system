@@ -18,7 +18,7 @@ let
         autohide = true;
         show-recents = false;
         persistent-apps = [
-          "/Applications/Chrome.app"
+          "/Applications/Google Chrome.app"
           "/Applications/WezTerm.app"
         ];
       };
