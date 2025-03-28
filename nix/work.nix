@@ -19,7 +19,7 @@ let
         show-recents = false;
         persistent-apps = [
           "/Applications/Google Chrome.app"
-          "~/Applications/Home Manager Apps//WezTerm.app"
+          "~/Applications/Home Manager Apps/WezTerm.app"
         ];
       };
       finder = {
