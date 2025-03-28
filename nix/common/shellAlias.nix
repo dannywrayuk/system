@@ -9,7 +9,6 @@
   vim = "nvim";
   viml = "nvim -c \"'0\"";
   lofi = "open https://www.youtube.com/watch\?v\=jfKfPfyJRdk";
-  switch = "darwin-rebuild switch --flake path:$SYS_CONFIG_DIR/nix && source $CONFIG_DIR/zsh/.zshrc";
 
   g = "git"; # Git 
   gs = "git status"; # Status 

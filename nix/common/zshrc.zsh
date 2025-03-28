@@ -16,5 +16,7 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 # Load shell functions
 source "$CONFIG_DIR/terminal/functions/all.zsh"
 
+alias -- switch = "darwin-rebuild switch --flake path:$SYS_CONFIG_DIR/nix && source $CONFIG_DIR/zsh/.zshrc";
+
 # Source local device config
 [ -s "$CONFIG_DIR/zsh/.zshlocal" ] && source "$CONFIG_DIR/zsh/.zshlocal"
