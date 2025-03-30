@@ -9,31 +9,9 @@ return {
 		local lspconfig = require("lspconfig")
 		local mason_lspconfig = require("mason-lspconfig")
 		local keymaps = function(buffer)
-			vim.keymap.set(
-				{ "n", "v" },
-				"<leader>ca",
-				vim.lsp.buf.code_action,
-				{ buffer = buffer, desc = "See available code actions" }
-			)
-
-			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {
-				buffer = buffer,
-				desc = "Smart rename",
-			})
-
 			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {
 				buffer = buffer,
 				desc = "Show line diagnostics",
-			})
-
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {
-				buffer = buffer,
-				desc = "Go to previous diagnostic",
-			})
-
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {
-				buffer = buffer,
-				desc = "Go to next diagnostic",
 			})
 
 			vim.keymap.set(
@@ -42,11 +20,6 @@ return {
 				vim.lsp.buf.hover,
 				{ buffer = buffer, desc = "Show documentation for symbol under cursor" }
 			)
-
-			vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", {
-				buffer = buffer,
-				desc = "Restart LSP",
-			})
 
 			vim.keymap.set("n", "<leader>i", function()
 				local clients = vim.lsp.get_clients({ name = "vtsls" })

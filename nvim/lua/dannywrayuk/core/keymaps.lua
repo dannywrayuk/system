@@ -11,6 +11,8 @@ end
 
 -- remap for uk keyboard lol
 vim.keymap.set("i", "£", "#")
+-- why is this key even a thing
+vim.keymap.set({ "n", "v", "i", "t" }, "§", "<Esc>")
 
 -- moving lines
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
