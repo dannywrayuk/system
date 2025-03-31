@@ -22,7 +22,7 @@ return {
 					NeoTreeFloatTitle = { bg = colors.base, fg = colors.blue },
 					NeoTreeGitUntracked = { link = "NeoTreeGitAdded" },
 					WinSeparator = { fg = colors.blue },
-					NormalFloat = { bg = colors.surface0 },
+					NormalFloat = { bg = colors.base },
 					CopilotSuggestion = { fg = colors.yellow, bg = hex.blend(colors.yellow, colors.base, 0.2) },
 					Number = { fg = colors.mauve },
 					Delimiter = { fg = colors.blue },
