@@ -61,6 +61,31 @@ vim.keymap.set("n", "zB", ":mkspell! " .. vim.fn.stdpath("config") .. "/spell/en
 -- open file in github
 vim.keymap.set("n", "<leader>gb", ":lua Snacks.gitbrowse()<CR>")
 
+-- lsp
+
+vim.keymap.set("n", "<leader>d", function()
+	vim.diagnostic.open_float({ border = "rounded" })
+end, { desc = "Show line diagnostics" })
+
+vim.keymap.set("n", "<leader>D", function()
+	vim.diagnostic.open_float({ border = "rounded", scope = "buffer" })
+end, { desc = "Show line diagnostics" })
+
+vim.keymap.set("n", "K", function()
+	vim.lsp.buf.hover({ border = "rounded" })
+end, { desc = "Show documentation for symbol under cursor" })
+
+vim.keymap.set("n", "<leader>i", function()
+	vim.lsp
+		.get_clients({
+			name = "vtsls",
+		})
+		.request("workspace/executeCommand", {
+			command = "typescript.organizeImports",
+			arguments = { vim.api.nvim_buf_get_name(0) },
+		}, nil, 0)
+end, { desc = "Organise imports" })
+
 -- log
 local languageLogs = {
 	javascript = "console.log()",

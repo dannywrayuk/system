@@ -8,27 +8,6 @@ return {
 	config = function()
 		local lspconfig = require("lspconfig")
 		local mason_lspconfig = require("mason-lspconfig")
-		local keymaps = function(buffer)
-			vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, {
-				buffer = buffer,
-				desc = "Show line diagnostics",
-			})
-
-			vim.keymap.set(
-				"n",
-				"K",
-				vim.lsp.buf.hover,
-				{ buffer = buffer, desc = "Show documentation for symbol under cursor" }
-			)
-
-			vim.keymap.set("n", "<leader>i", function()
-				local clients = vim.lsp.get_clients({ name = "vtsls" })
-				clients[1].request("workspace/executeCommand", {
-					command = "typescript.organizeImports",
-					arguments = { vim.api.nvim_buf_get_name(0) },
-				}, nil, 0)
-			end, { buffer = buffer, desc = "Organise imports" })
-		end
 
 		mason_lspconfig.setup({
 			ensure_installed = {
@@ -38,7 +17,7 @@ return {
 				"graphql",
 				"eslint",
 				"vtsls",
-				"denols",
+				-- "denols",
 				"rnix",
 				"gopls",
 			},
@@ -49,32 +28,18 @@ return {
 			return function(server_name)
 				local config = {
 					capabilities = require("blink.cmp").get_lsp_capabilities(),
-					on_attach = function(_, buffnr)
-						keymaps(buffnr)
-					end,
 				}
-
-				if extend ~= nil then
-					for i, j in pairs(extend) do
-						config[i] = j
-					end
-				end
-				return lspconfig[server_name].setup(config)
+				return lspconfig[server_name].setup(vim.tbl_extend("force", config, extend or {}))
 			end
 		end
 
 		mason_lspconfig.setup_handlers({
 			lspConfigBuilder(),
 			["vtsls"] = lspConfigBuilder({
-				root_dir = lspconfig.util.root_pattern("tsconfig.json", "jsconfig.json", "package.json"),
 				single_file_support = false,
 			}),
-			["denols"] = lspConfigBuilder({
-				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-			}),
-			["graphql"] = lspConfigBuilder({
-				filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact" },
-			})("graphql"),
+			-- disables deno
+			["denols"] = function() end,
 			["lua_ls"] = lspConfigBuilder({
 				settings = {
 					Lua = {

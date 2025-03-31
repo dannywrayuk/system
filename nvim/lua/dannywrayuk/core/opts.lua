@@ -6,6 +6,9 @@ vim.g.mapleader = " "
 -- fat boi
 vim.opt.guicursor = ""
 
+-- window boarder
+-- vim.o.winborder = "rounded"
+
 -- line numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -74,6 +77,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 -- set diagnostic symbols
 vim.diagnostic.config({
+	virtual_text = true,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = "",
