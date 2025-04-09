@@ -11,12 +11,10 @@ export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 # Load FNM
-[ -z $FNM_MULTISHELL_PATH ] && eval "$(fnm env --use-on-cd)"
+[ -z $FNM_MULTISHELL_PATH ] && eval "$(fnm --log-level quiet env --use-on-cd)"
 
 # Load shell functions
 source "$CONFIG_DIR/terminal/functions/all.zsh"
-
-alias -- switch='darwin-rebuild switch --flake path:$SYS_CONFIG_DIR/nix && source $CONFIG_DIR/zsh/.zshrc';
 
 # Source local device config
 [ -s "$CONFIG_DIR/zsh/.zshlocal" ] && source "$CONFIG_DIR/zsh/.zshlocal"
