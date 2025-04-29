@@ -1,13 +1,38 @@
+local layout = {
+	preview = false,
+	layout = {
+		box = "horizontal",
+		width = 0.5,
+		height = 0.8,
+		backdrop = false,
+		{
+			box = "vertical",
+			border = "rounded",
+			title = "{title} {live} {flags}",
+			{ win = "input", height = 1, border = "bottom" },
+			{ win = "list", border = "none" },
+		},
+		{ win = "preview", title = "{preview}", border = "rounded", width = 0.5 },
+	},
+}
+
+local toggle_preview = function(picker)
+	if picker.layout.opts.preview then
+		picker:set_layout(layout)
+		Snacks.picker.actions.toggle_preview(picker)
+	else
+		picker:set_layout(vim.tbl_deep_extend("force", layout, { preview = true, layout = { width = 0.8 } }))
+	end
+end
+
 return {
 	"folke/snacks.nvim",
 	opts = {
 		picker = {
 			enable = true,
-			layout = {
-				preview = false,
-				layout = {
-					backdrop = false,
-				},
+			layout = layout,
+			actions = {
+				toggle_preview = toggle_preview,
 			},
 		},
 	},
@@ -16,9 +41,6 @@ return {
 			"<leader>t",
 			function()
 				Snacks.picker.explorer({
-					layout = {
-						preset = "default",
-					},
 					auto_close = true,
 					jump = { close = true },
 				})
@@ -28,17 +50,38 @@ return {
 		{
 			"<leader>ff",
 			function()
-				Snacks.picker.smart()
+				Snacks.picker.smart({
+					title = "Find Files",
+				})
 			end,
 			desc = "Smart Find Files",
 		},
-		-- {
-		-- 	"<leader>,",
-		-- 	function()
-		-- 		Snacks.picker.buffers()
-		-- 	end,
-		-- 	desc = "Buffers",
-		-- },
+		{
+			"<leader>fn",
+			function()
+				local gitroot = vim.fn.fnamemodify(vim.fn.finddir(".git", ".;"), ":h")
+				Snacks.picker({
+					title = "Find Directory",
+					finder = "proc",
+					cmd = "fd",
+					args = { "--type", "d", "--hidden", "--exclude", ".git", "--max-depth", "1" },
+					cwd = gitroot,
+					transform = function(item)
+						item.file = item.text
+						item.dir = true
+					end,
+					confirm = function(picker, item)
+						vim.cmd("cd " .. gitroot .. "/" .. item.text)
+						picker:close()
+						Snacks.picker.explorer({
+							auto_close = true,
+							jump = { close = true },
+						})
+					end,
+				})
+			end,
+			desc = "Find Directory",
+		},
 		{
 			"<leader>fr",
 			function()
@@ -50,6 +93,7 @@ return {
 			"<leader>fg",
 			function()
 				Snacks.picker.git_branches({
+					all = true,
 					win = {
 						input = {
 							keys = {
@@ -61,21 +105,13 @@ return {
 			end,
 			desc = "Git Branches",
 		},
-		-- Grep
-		-- {
-		-- 	"<leader>sb",
-		-- 	function()
-		-- 		Snacks.picker.lines()
-		-- 	end,
-		-- 	desc = "Buffer Lines",
-		-- },
-		-- {
-		-- 	"<leader>sB",
-		-- 	function()
-		-- 		Snacks.picker.grep_buffers()
-		-- 	end,
-		-- 	desc = "Grep Open Buffers",
-		-- },
+		{
+			"<leader>fl",
+			function()
+				Snacks.picker.lines()
+			end,
+			desc = "Buffer Lines",
+		},
 		{
 			"<leader>fs",
 			function()

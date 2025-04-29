@@ -15,7 +15,7 @@ return {
 						icon = "",
 						key = "b",
 						desc = "Branches",
-						action = ":lua Snacks.dashboard.pick('git_branches')",
+						action = [[:lua Snacks.picker.git_branches({all=true,win={input={keys={["<S-CR>"]={"git_branch_add",mode={"i"}}}}}})]],
 					},
 					{
 						icon = "",
