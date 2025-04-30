@@ -14,8 +14,8 @@ COMMIT=$PREFIX
 vared -M emacs COMMIT
 git add --all
 echo '\n'
-git commit -m $COMMIT
+git commit -m $COMMIT --no-verify
 echo '\n'
-git push
+git push --no-verify
 echo '\n Done.'
 read

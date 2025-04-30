@@ -37,6 +37,54 @@ return {
 			lspConfigBuilder(),
 			["vtsls"] = lspConfigBuilder({
 				single_file_support = false,
+				root_dir = function(startpath)
+					local root_markers = { "package.json" }
+					local matches = vim.fs.find(root_markers, {
+						path = startpath,
+						upward = true,
+						limit = 1,
+					})
+					if #matches == 0 then
+						return lspconfig.util.find_git_ancestor(startpath)
+					end
+					local root_dir = vim.fn.fnamemodify(matches[1], ":p:h")
+					return root_dir
+				end,
+			}),
+			["gopls"] = lspConfigBuilder({
+				cmd = { "env", "GO111MODULE=off", "gopls", "-remote=auto" },
+				settings = {
+					gopls = {
+						buildFlags = { "-tags=integration" },
+						staticcheck = true,
+						expandWorkspaceToModule = false,
+						["local"] = "github.com/monzo/wearedev",
+					},
+				},
+				root_dir = function(startpath)
+					local root_markers = { "README.md", "main.go", "go.mod", "LICENSE", ".git" }
+					local matches = vim.fs.find(root_markers, {
+						path = startpath,
+						upward = true,
+						limit = 1,
+					})
+					if #matches == 0 then
+						return lspconfig.util.find_git_ancestor(startpath)
+					end
+					local root_dir = vim.fn.fnamemodify(matches[1], ":p:h")
+					return root_dir
+				end,
+				flags = {
+					debounce_text_changes = 500,
+				},
+				init_options = {
+					codelenses = {
+						generate = true,
+						gc_details = true,
+						test = true,
+						tidy = true,
+					},
+				},
 			}),
 			-- disables deno
 			["denols"] = function() end,

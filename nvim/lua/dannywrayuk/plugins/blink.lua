@@ -9,9 +9,15 @@ return {
 	opts = {
 		cmdline = {
 			enabled = true,
-			keymap = { preset = "inherit" },
 			completion = {
 				menu = { auto_show = true },
+			},
+			keymap = {
+				["<CR>"] = { "select_accept_and_enter", "fallback" },
+				["<Left>"] = { "hide", "fallback" },
+				["<Right>"] = { "accept", "fallback" },
+				["<Up>"] = { "select_prev", "fallback" },
+				["<Down>"] = { "select_next", "fallback" },
 			},
 		},
 		signature = { enabled = true },
@@ -20,6 +26,10 @@ return {
 			nerd_font_variant = "mono",
 		},
 		completion = {
+			accept = { auto_brackets = { enabled = false } },
+			list = {
+				selection = { preselect = true, auto_insert = false },
+			},
 			documentation = {
 				auto_show = true,
 				auto_show_delay_ms = 1000,

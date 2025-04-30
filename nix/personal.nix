@@ -90,6 +90,9 @@ let
         pull = {
           rebase = true;
         };
+        rebase = {
+          autoStash = true;
+        };
         advice = {
           statusHints = false;
         };
