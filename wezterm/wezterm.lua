@@ -124,6 +124,15 @@ config.key_tables = {
 			key = "f",
 			action = changeFontAction,
 		},
+		{
+			key = ".",
+			action = act.SwitchToWorkspace({
+				name = "system",
+				spawn = {
+					cwd = wezterm.home_dir .. "/.config/system",
+				},
+			}),
+		},
 	},
 }
 for i = 1, 9 do

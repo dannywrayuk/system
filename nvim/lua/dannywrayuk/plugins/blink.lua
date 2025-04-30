@@ -13,7 +13,7 @@ return {
 				menu = { auto_show = true },
 			},
 			keymap = {
-				["<CR>"] = { "select_accept_and_enter", "fallback" },
+				["<S-CR>"] = { "select_accept_and_enter", "fallback" },
 				["<Left>"] = { "hide", "fallback" },
 				["<Right>"] = { "accept", "fallback" },
 				["<Up>"] = { "select_prev", "fallback" },

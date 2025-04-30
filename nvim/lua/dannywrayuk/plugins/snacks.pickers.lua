@@ -43,6 +43,8 @@ return {
 				Snacks.picker.explorer({
 					auto_close = true,
 					jump = { close = true },
+					exclude = { ".git", ".DS_Store" },
+					hidden = true,
 				})
 			end,
 			desc = "File Explorer",
@@ -106,7 +108,7 @@ return {
 			desc = "Git Branches",
 		},
 		{
-			"<leader>fl",
+			"<leader>/",
 			function()
 				Snacks.picker.lines()
 			end,

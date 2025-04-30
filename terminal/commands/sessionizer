@@ -1,10 +1,11 @@
-SESSIONIZER_PATHS+=("$HOME/project")
 selected=$(
     {
-        echo "$(
-        for dir in $SESSIONIZER_PATHS; do
-            find $dir -mindepth 1 -maxdepth 1 -type d;
-        done
+        echo "$(while IFS= read -r line || [ -n "$line" ]; do
+          if [ -z "$line" ]; then
+            continue
+          fi
+            find $HOME/$line -mindepth 1 -maxdepth 1 -type d;
+        done < "$HOME/.config/sessionizer_paths"
         )";
         echo ~/.config/system;
     } | sed "s|^$HOME/||g" | fzf --scrollbar='')
