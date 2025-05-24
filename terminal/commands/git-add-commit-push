@@ -1,21 +1,47 @@
 #!/usr/bin/env zsh
 source $HOME/.config/zsh/.zshrc
-BRANCH=$(git branch --show-current)
 
-if [[ $BRANCH =~ "^([a-z]+)/([A-Z]+-[0-9]+)" ]]; then
-    PREFIX="${match[1]}: ${match[2]} "
-else
-    PREFIX=""
-fi
+function commit(){
+  echo "Commiting..."
+  echo 'Commit Message:'
+  git add --all
+  vared -M emacs COMMIT
+  echo '\n'
+  git commit -m $COMMIT --no-verify
+  echo '\n'
+}
 
-echo 'Commit and Push all changes.\n'
-echo 'Commit Message:'
-COMMIT=$PREFIX
-vared -M emacs COMMIT
-git add --all
-echo '\n'
-git commit -m $COMMIT --no-verify
-echo '\n'
-git push --no-verify
-echo '\n Done.'
+function push(){
+  echo "Pushing..."
+  git push --no-verify
+  echo '\nDone.'
+}
+
+ function force_push(){
+  echo "Force Pushing..."
+  git push --force --no-verify
+  echo '\nDone.'
+}
+
+function dry_push(){
+  echo "Dry Pushing..."
+  git push --dry-run
+  echo '\nDone.'
+}
+
+OPTS="Commit and Push
+Commit
+Push
+Force Push
+Dry Push"
+
+case $(echo $OPTS | fzf) in
+    Commit) commit;;
+    Push) push;;
+    "Commit and Push") commit & push;;
+    "Force Push") force_push;;
+    "Dry Push") dry_push;;
+    *) echo "Invalid option";;
+esac
 read
+
