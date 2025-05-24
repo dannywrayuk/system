@@ -5,6 +5,7 @@ function commit(){
   echo "Commiting..."
   echo 'Commit Message:'
   git add --all
+  COMMIT=""
   vared -M emacs COMMIT
   echo '\n'
   git commit -m $COMMIT --no-verify
@@ -38,7 +39,7 @@ Dry Push"
 case $(echo $OPTS | fzf) in
     Commit) commit;;
     Push) push;;
-    "Commit and Push") commit & push;;
+    "Commit and Push") commit && push;;
     "Force Push") force_push;;
     "Dry Push") dry_push;;
     *) echo "Invalid option";;
