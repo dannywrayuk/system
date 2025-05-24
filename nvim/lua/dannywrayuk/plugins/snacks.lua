@@ -3,10 +3,6 @@ return {
 	priority = 1000,
 	lazy = false,
 	opts = {
-		explorer = {
-			enabled = true,
-			replace_netrw = true,
-		},
 		gitbrowse = { enabled = true },
 		indent = {
 			enabled = true,

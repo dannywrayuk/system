@@ -2,8 +2,9 @@ return {
 	"neovim/nvim-lspconfig",
 	lazy = true,
 	event = { "BufReadPre", "BufNewFile" },
+	commit = "8b0f47d851ee5343d38fe194a06ad16b9b9bd086",
 	dependencies = {
-		{ "williamboman/mason-lspconfig.nvim", lazy = true },
+		{ "williamboman/mason-lspconfig.nvim", lazy = true, commit = "1a31f824b9cd5bc6f342fc29e9a53b60d74af245" },
 	},
 	config = function()
 		local lspconfig = require("lspconfig")

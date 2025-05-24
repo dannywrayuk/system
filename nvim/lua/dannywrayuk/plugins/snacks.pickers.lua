@@ -30,10 +30,21 @@ return {
 	opts = {
 		picker = {
 			enable = true,
-			layout = layout,
+			layout = { preset = "dannywrayuk" },
+			sources = {
+				select = { layout = { preset = "select" } },
+				explorer = { layout = { preset = "dannywrayuk" } },
+			},
 			actions = {
 				toggle_preview = toggle_preview,
 			},
+			layouts = {
+				dannywrayuk = layout,
+			},
+		},
+		explorer = {
+			enabled = true,
+			replace_netrw = true,
 		},
 	},
 	keys = {
