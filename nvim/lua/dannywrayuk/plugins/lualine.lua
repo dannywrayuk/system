@@ -79,7 +79,7 @@ return {
 			inactive_winbar = {},
 			extensions = {
 				{
-					filetypes = { "neo-tree" },
+					filetypes = { "snacks_picker_list" },
 					sections = {
 						lualine_a = { mode },
 						lualine_c = { cwd },
