@@ -74,16 +74,7 @@ local recent = function()
 end
 
 local git_branches = function()
-	Snacks.picker.git_branches({
-		all = true,
-		win = {
-			input = {
-				keys = {
-					["<S-CR>"] = { "git_branch_add", mode = { "i" } },
-				},
-			},
-		},
-	})
+	Snacks.picker.git_branches()
 end
 
 local lines = function()
@@ -166,6 +157,17 @@ return {
 				select = { layout = { preset = "select" } },
 				explorer = { layout = { preset = "dannywrayuk" } },
 				spelling = { layout = { preset = "dannywrayuk" } },
+				git_branches = {
+					layout = { preset = "dannywrayuk" },
+					all = true,
+					win = {
+						input = {
+							keys = {
+								["<S-CR>"] = { "git_branch_add", mode = { "i" } },
+							},
+						},
+					},
+				},
 			},
 			actions = {
 				toggle_preview = toggle_preview,

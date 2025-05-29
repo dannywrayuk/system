@@ -186,21 +186,24 @@ end, { desc = "Add log statement at cursor" })
 
 -- LSP Configurations
 
-vim.lsp.config("vtsls", {
-	single_file_support = false,
-	root_dir = function(startpath)
-		local root_markers = { "package.json" }
-		local matches = vim.fs.find(root_markers, {
-			path = startpath,
+local getRootDir = function(markers)
+	return function(buf, on_dir)
+		local bufferPath = vim.fs.dirname(vim.api.nvim_buf_get_name(buf))
+		local matches = vim.fs.find(markers, {
+			path = bufferPath,
 			upward = true,
 			limit = 1,
 		})
-		if #matches == 0 then
-			return vim.fs.dirname(vim.fs.find(".git", { path = startpath, upward = true })[1])
+		if #matches == 1 then
+			return on_dir(vim.fn.fnamemodify(matches[1], ":p:h"))
 		end
-		local root_dir = vim.fn.fnamemodify(matches[1], ":p:h")
-		return root_dir
-	end,
+		on_dir(vim.fs.dirname(vim.fs.find(".git", { path = bufferPath, upward = true })[1]))
+	end
+end
+
+vim.lsp.config("vtsls", {
+	single_file_support = false,
+	root_dir = getRootDir({ "package.json" }),
 })
 
 vim.lsp.config("gopls", {
@@ -213,19 +216,7 @@ vim.lsp.config("gopls", {
 			["local"] = "github.com/monzo/wearedev",
 		},
 	},
-	root_dir = function(startpath)
-		local root_markers = { "README.md", "main.go", "go.mod", "LICENSE", ".git" }
-		local matches = vim.fs.find(root_markers, {
-			path = startpath,
-			upward = true,
-			limit = 1,
-		})
-		if #matches == 0 then
-			return vim.fs.dirname(vim.fs.find(".git", { path = startpath, upward = true })[1])
-		end
-		local root_dir = vim.fn.fnamemodify(matches[1], ":p:h")
-		return root_dir
-	end,
+	root_dir = getRootDir({ "README.md", "main.go", "go.mod", "LICENSE", ".git" }),
 	flags = {
 		debounce_text_changes = 500,
 	},
@@ -259,3 +250,5 @@ vim.lsp.enable("sourcekit")
 
 -- Load Plugins
 require("dannywrayuk.lazy")
+
+vim.cmd([[colorscheme catppuccin]])

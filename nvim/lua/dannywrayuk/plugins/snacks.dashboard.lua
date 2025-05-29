@@ -1,11 +1,27 @@
 return {
 	"folke/snacks.nvim",
-	opts = {
+	config = {
 		dashboard = {
 			enabled = true,
+			formats = {
+				file = function(item, ctx)
+					local fname = vim.fn.fnamemodify(item.file, ":.")
+					fname = ctx.width and #fname > ctx.width and vim.fn.pathshorten(fname) or fname
+					if #fname > ctx.width then
+						local dir = vim.fn.fnamemodify(fname, ":h")
+						local file = vim.fn.fnamemodify(fname, ":t")
+						if dir and file then
+							file = file:sub(-(ctx.width - #dir - 2))
+							fname = dir .. "/…" .. file
+						end
+					end
+					local dir, file = fname:match("^(.*)/(.+)$")
+					return dir and { { dir .. "/", hl = "dir" }, { file, hl = "file" } } or { { fname, hl = "file" } }
+				end,
+			},
 			sections = {
 				{ section = "header" },
-				{ section = "recent_files", cwd = true, padding = 2 },
+				{ section = "recent_files", padding = 2, cwd = true },
 				{ section = "keys", padding = 2, gap = 1 },
 				{ section = "startup" },
 			},
@@ -15,7 +31,7 @@ return {
 						icon = "",
 						key = "b",
 						desc = "Branches",
-						action = [[:lua Snacks.picker.git_branches({all=true,win={input={keys={["<S-CR>"]={"git_branch_add",mode={"i"}}}}}})]],
+						action = [[:lua Snacks.picker.git_branches()]],
 					},
 					{
 						icon = "",
