@@ -166,6 +166,9 @@ config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
 config.show_new_tab_button_in_tab_bar = false
 
+-- The css icon was crashing wezterm, this is the fix, but likely my fonts need updating to actually get the icons
+config.warn_about_missing_glyphs = false
+
 require("tabbar")(wezterm)
 
 return config

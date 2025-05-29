@@ -4,22 +4,21 @@ return {
 	event = { "VeryLazy" },
 	opts = function()
 		local colors = require("catppuccin.palettes").get_palette("mocha")
-		local hex = require("dannywrayuk.util.hex")
-		local pathToBreadcrumb = require("dannywrayuk.util.pathToBreadcrumb")
+		local utils = require("dannywrayuk.utils")
 		local separator = { left = "", right = "" }
 
 		local modeBar = function(mode_col)
 			return {
 				a = { fg = colors.mantle, bg = mode_col },
-				c = { fg = colors.subtext2, bg = hex.blend(mode_col, colors.base, 0.1) },
-				y = { fg = colors.text, bg = hex.blend(mode_col, colors.mantle, 0.2) },
-				z = { fg = colors.text, bg = hex.blend(mode_col, colors.mantle, 0.3) },
+				c = { fg = colors.subtext2, bg = utils.blend(mode_col, colors.base, 0.1) },
+				y = { fg = colors.text, bg = utils.blend(mode_col, colors.mantle, 0.2) },
+				z = { fg = colors.text, bg = utils.blend(mode_col, colors.mantle, 0.3) },
 			}
 		end
 
 		local cwd = {
 			function()
-				return pathToBreadcrumb(vim.fn.fnamemodify(vim.fn.getcwd(), ":~"))
+				return utils.breadcrumb(vim.fn.fnamemodify(vim.fn.getcwd(), ":~"))
 			end,
 		}
 
@@ -68,7 +67,7 @@ return {
 			sections = {
 				lualine_a = { mode },
 				lualine_b = {},
-				lualine_c = { { "filename", path = 1, fmt = pathToBreadcrumb } },
+				lualine_c = { { "filename", path = 1, fmt = utils.breadcrumb } },
 				lualine_x = {},
 				lualine_y = { "diagnostics", "diff" },
 				lualine_z = { { "filetype", separator = separator } },

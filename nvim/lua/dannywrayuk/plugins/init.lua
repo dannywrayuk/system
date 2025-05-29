@@ -1,4 +1,5 @@
 return {
+	{ "neovim/nvim-lspconfig", lazy = true, event = { "VeryLazy" } },
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "tpope/vim-commentary", lazy = true, event = { "BufReadPre", "BufNewFile" } },

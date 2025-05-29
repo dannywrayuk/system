@@ -4,17 +4,16 @@ return {
 	priority = 1000,
 	lazy = true,
 	opts = function()
-		local readFile = require("dannywrayuk.util.readFile")
-		local hex = require("dannywrayuk.util.hex")
-		local palette = vim.json.decode(readFile(vim.fn.expand("$HOME/.config/system/colors/palette.json")))
+		local utils = require("dannywrayuk.utils")
+		local palette = vim.json.decode(utils.readFile(vim.fn.expand("$HOME/.config/system/colors/palette.json")))
 		return {
 			color_overrides = {
 				all = palette,
 			},
 			custom_highlights = function(colors)
 				return {
-					SpelunkerSpellBad = { bg = hex.blend(colors.red, colors.base, 0.2) },
-					SpelunkerComplexOrCompoundWord = { bg = hex.blend(colors.red, colors.base, 0.2) },
+					SpelunkerSpellBad = { bg = utils.blend(colors.red, colors.base, 0.2) },
+					SpelunkerComplexOrCompoundWord = { bg = utils.blend(colors.red, colors.base, 0.2) },
 					NeoTreeNormal = { bg = colors.base },
 					NeoTreeNormalNC = { bg = colors.base },
 					NeoTreeFloatNormal = { bg = colors.base },
@@ -23,7 +22,7 @@ return {
 					NeoTreeGitUntracked = { link = "NeoTreeGitAdded" },
 					WinSeparator = { fg = colors.blue },
 					NormalFloat = { bg = colors.base },
-					CopilotSuggestion = { fg = colors.yellow, bg = hex.blend(colors.yellow, colors.base, 0.2) },
+					CopilotSuggestion = { fg = colors.yellow, bg = utils.blend(colors.yellow, colors.base, 0.2) },
 					Number = { fg = colors.mauve },
 					Delimiter = { fg = colors.blue },
 					Conditional = { link = "Keyword" },

@@ -18,4 +18,18 @@ M.blend = function(foreground, background, alpha)
 	return string.format("#%02x%02x%02x", blendChannel(1), blendChannel(2), blendChannel(3))
 end
 
+M.breadcrumb = function(path)
+	if path == nil or path == "" then
+		return ""
+	end
+	return path:gsub("/", "  ")
+end
+
+M.readFile = function(path)
+	local f = assert(io.open(path, "rb"))
+	local content = f:read("*all")
+	f:close()
+	return content
+end
+
 return M
