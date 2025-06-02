@@ -63,7 +63,10 @@ local directory = function()
 		confirm = function(picker, item)
 			picker:close()
 			vim.schedule(function()
-				explorer({ cwd = vim.fs.joinpath(gitroot, item.file) })
+				explorer({
+					cwd = vim.fs.joinpath(gitroot, item.file),
+					follow_file = false,
+				})
 			end)
 		end,
 	})
