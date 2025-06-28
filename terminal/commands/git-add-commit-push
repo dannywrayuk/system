@@ -9,25 +9,21 @@ function commit(){
   vared -M emacs COMMIT
   echo '\n'
   git commit -m $COMMIT --no-verify
-  echo '\n'
 }
 
 function push(){
   echo "Pushing..."
   git push --no-verify
-  echo '\nDone.'
 }
 
  function force_push(){
   echo "Force Pushing..."
   git push --force --no-verify
-  echo '\nDone.'
 }
 
 function dry_push(){
   echo "Dry Pushing..."
   git push --dry-run
-  echo '\nDone.'
 }
 
 OPTS="Commit and Push
@@ -44,5 +40,6 @@ case $(echo $OPTS | fzf) in
     "Dry Push") dry_push;;
     *) echo "Invalid option";;
 esac
+echo "\n✅ Done."
 read
 
