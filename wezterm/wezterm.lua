@@ -133,6 +133,15 @@ config.key_tables = {
 				},
 			}),
 		},
+		{
+			key = "N",
+			action = act.SwitchToWorkspace({
+				name = "Notes",
+				spawn = {
+					cwd = wezterm.home_dir .. "/Notes",
+				},
+			}),
+		},
 	},
 }
 for i = 1, 9 do

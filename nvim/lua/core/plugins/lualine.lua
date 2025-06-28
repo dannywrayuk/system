@@ -4,7 +4,7 @@ return {
 	event = { "VeryLazy" },
 	opts = function()
 		local colors = require("catppuccin.palettes").get_palette("mocha")
-		local utils = require("dannywrayuk.utils")
+		local utils = require("core.utils")
 		local separator = { left = "", right = "" }
 
 		local modeBar = function(mode_col)

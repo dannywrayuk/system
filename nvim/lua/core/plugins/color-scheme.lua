@@ -4,7 +4,7 @@ return {
 	priority = 1000,
 	lazy = true,
 	opts = function()
-		local utils = require("dannywrayuk.utils")
+		local utils = require("core.utils")
 		local palette = vim.json.decode(utils.readFile(vim.fn.expand("$HOME/.config/system/colors/palette.json")))
 		return {
 			color_overrides = {
