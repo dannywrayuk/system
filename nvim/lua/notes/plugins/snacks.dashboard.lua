@@ -27,32 +27,21 @@ return {
 			},
 			preset = {
 				keys = {
-					{
-						icon = "",
-						key = "b",
-						desc = "Branches",
-						action = [[:lua Snacks.picker.git_branches()]],
-					},
-					{
-						icon = "",
-						key = "p",
-						desc = "Pull",
-						action = ":lua require('neogit').action('pull', 'from_pushremote', {})()",
-					},
-					{
-						icon = "",
-						key = "m",
-						desc = "Checkout main",
-						action = function()
-							local mainBranch = vim.fn.trim(vim.fn.system("git main-branch"))
-							print("Checking out: " .. mainBranch)
-							local result = vim.fn.trim(vim.fn.system("git checkout " .. mainBranch))
-							vim.print(result)
-						end,
-					},
+					{ icon = "", key = "t", desc = "Today", action = ":Today" },
+					{ icon = "", key = "n", desc = "New", action = ":NewTemplate" },
+					{ icon = "", key = "g", desc = "Tags", action = ":SearchTags" },
 					{ icon = "", key = "q", desc = "Quit", action = ":qa" },
 				},
-				header = [[NOTES]],
+				header = [[
+ ▄▄    ▄   ▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄ 
+█  █  █ █ █       █ █       █ █       █ █       █
+█   █▄█ █ █   ▄   █ █▄     ▄█ █    ▄▄▄█ █  ▄▄▄▄▄█
+█       █ █  █ █  █   █   █   █   █▄▄▄▄ █ █▄▄▄▄▄ 
+█  ▄    █ █  █▄█  █   █   █   █    ▄▄▄█ █▄▄▄▄▄  █
+█ █ █   █ █       █   █   █   █   █▄▄▄▄ ▄▄▄▄▄▄█ █
+█▄█  █▄▄█ █▄▄▄▄▄▄▄█   █▄▄▄█   █▄▄▄▄▄▄▄█ █▄▄▄▄▄▄▄█
+
+        ]],
 			},
 		},
 	},

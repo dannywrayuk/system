@@ -1,0 +1,32 @@
+local utils = require("core.utils")
+return function(colors)
+	return {
+		SpelunkerSpellBad = { bg = utils.blend(colors.red, colors.base, 0.2) },
+		SpelunkerComplexOrCompoundWord = { bg = utils.blend(colors.red, colors.base, 0.2) },
+		NeoTreeNormal = { bg = colors.base },
+		NeoTreeNormalNC = { bg = colors.base },
+		NeoTreeFloatNormal = { bg = colors.base },
+		NeoTreeFloatBorder = { bg = colors.base, fg = colors.blue },
+		NeoTreeFloatTitle = { bg = colors.base, fg = colors.blue },
+		NeoTreeGitUntracked = { link = "NeoTreeGitAdded" },
+		WinSeparator = { fg = colors.blue },
+		NormalFloat = { bg = colors.base },
+		BlinkCmpDoc = { link = "Pmenu" },
+		Number = { fg = colors.mauve },
+		Delimiter = { fg = colors.blue },
+		Conditional = { link = "Keyword" },
+		["@punctuation"] = { fg = colors.red },
+		["@punctuation.bracket"] = { fg = colors.red },
+		["@parameter"] = { fg = colors.peach },
+		["@module"] = { fg = colors.peach },
+		["@variable"] = { fg = colors.yellow },
+		["@variable.member"] = { fg = colors.maroon },
+		["@property"] = { fg = colors.maroon },
+		["@function.builtin"] = { fg = colors.sapphire },
+		["Type"] = { fg = colors.teal },
+		["@type.builtin"] = { fg = colors.pink },
+		["@constant.builtin"] = { fg = colors.pink },
+		["Operator"] = { fg = colors.blue },
+		["@string.documentation"] = { fg = colors.blue },
+	}
+end

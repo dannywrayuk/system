@@ -8,7 +8,9 @@
   "....." = "cd ../../../..";
   vim = "nvim";
   viml = "nvim -c \"'0\"";
+  notes = "nvim -u $CONFIG_DIR/nvim/notes.lua";
   lofi = "open https://www.youtube.com/watch\?v\=jfKfPfyJRdk";
+  switch = "darwin-rebuild switch --flake path:$NIX_FLAKE && source $CONFIG_DIR/zsh/.zshrc";
 
   g = "git"; # Git 
   gs = "git status"; # Status 

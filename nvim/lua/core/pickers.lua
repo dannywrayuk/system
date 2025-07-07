@@ -1,4 +1,6 @@
-local layout = {
+local M = {}
+
+M.layout = {
 	preview = false,
 	layout = {
 		box = "horizontal",
@@ -16,24 +18,24 @@ local layout = {
 	},
 }
 
-local toggle_preview = function(picker)
+M.toggle_preview = function(picker)
 	if picker.layout.opts.preview then
-		picker:set_layout(layout)
+		picker:set_layout(M.layout)
 		Snacks.picker.actions.toggle_preview(picker)
 	else
 		picker:set_layout("sidebar")
 	end
 end
 
-local explorer_up = function()
+M.explorer_up = function()
 	vim.cmd("cd ..")
 end
 
-local explorer_focus = function(picker)
+M.explorer_focus = function(picker)
 	vim.cmd("cd" .. picker:dir())
 end
 
-local explorer = function(opts)
+M.explorer = function(opts)
 	Snacks.picker.explorer(vim.tbl_deep_extend("force", {
 		auto_close = true,
 		jump = { close = true },
@@ -42,13 +44,13 @@ local explorer = function(opts)
 	}, opts or {}))
 end
 
-local smart = function()
+M.smart = function()
 	Snacks.picker.smart({
 		title = "Find Files",
 	})
 end
 
-local directory = function()
+M.directory = function()
 	local gitroot = vim.fn.fnamemodify(vim.fn.finddir(".git", ".;"), ":h")
 	Snacks.picker({
 		title = "Find Directory",
@@ -63,7 +65,7 @@ local directory = function()
 		confirm = function(picker, item)
 			picker:close()
 			vim.schedule(function()
-				explorer({
+				M.explorer({
 					cwd = vim.fs.joinpath(gitroot, item.file),
 					follow_file = false,
 				})
@@ -72,15 +74,24 @@ local directory = function()
 	})
 end
 
-local recent = function()
+M.recent = function()
 	Snacks.picker.recent({ focus = "list" })
 end
 
-local git_branches = function()
-	Snacks.picker.git_branches()
+M.git_branches = function()
+	Snacks.picker.git_branches({
+		all = true,
+		win = {
+			input = {
+				keys = {
+					["<S-CR>"] = { "git_branch_add", mode = { "i" } },
+				},
+			},
+		},
+	})
 end
 
-local lines = function()
+M.lines = function()
 	Snacks.picker.lines({
 		layout = {
 			preview = "main",
@@ -89,7 +100,7 @@ local lines = function()
 	})
 end
 
-local lines_word = function()
+M.lines_word = function()
 	Snacks.picker.lines({
 		layout = {
 			preview = "main",
@@ -115,92 +126,39 @@ local lines_word = function()
 	})
 end
 
-local grep = function()
+M.grep = function()
 	Snacks.picker.grep()
 end
 
-local grep_word = function()
+M.grep_word = function()
 	Snacks.picker.grep_word({ focus = "list" })
 end
 
-local diagnostics = function()
+M.diagnostics = function()
 	Snacks.picker.diagnostics({ focus = "list" })
 end
 
-local diagnostics_buffer = function()
+M.diagnostics_buffer = function()
 	Snacks.picker.diagnostics_buffer({
 		focus = "list",
 		layout = { preset = "sidebar" },
 	})
 end
 
-local help = function()
+M.help = function()
 	Snacks.picker.help()
 end
 
-local resume = function()
+M.resume = function()
 	Snacks.picker.resume()
 end
 
-local spelling = function()
+M.spelling = function()
 	Snacks.picker.spelling()
 end
 
-local pickers = function()
+M.pickers = function()
 	Snacks.picker.pickers()
 end
 
-return {
-	"folke/snacks.nvim",
-	opts = {
-		picker = {
-			enable = true,
-			layout = { preset = "dannywrayuk" },
-			sources = {
-				select = { layout = { preset = "select" } },
-				explorer = { layout = { preset = "dannywrayuk" } },
-				spelling = { layout = { preset = "dannywrayuk" } },
-				git_branches = {
-					layout = { preset = "dannywrayuk" },
-					all = true,
-					win = {
-						input = {
-							keys = {
-								["<S-CR>"] = { "git_branch_add", mode = { "i" } },
-							},
-						},
-					},
-				},
-			},
-			actions = {
-				toggle_preview = toggle_preview,
-				explorer_up = explorer_up,
-				explorer_focus = explorer_focus,
-			},
-			layouts = {
-				dannywrayuk = layout,
-			},
-		},
-		explorer = {
-			enabled = true,
-			replace_netrw = true,
-		},
-	},
-	keys = {
-		{ "<leader>t", explorer, desc = "File Explorer" },
-		{ "<leader>ff", smart, desc = "Smart Find Files" },
-		{ "<leader>fn", directory, desc = "Find Directory" },
-		{ "<leader>fr", recent, desc = "Recent" },
-		{ "<leader>fg", git_branches, desc = "Git Branches" },
-		{ "<leader>fl", lines, desc = "Buffer Lines" },
-		{ "<leader>fo", lines_word, desc = "Buffer Word Occurrences" },
-		{ "<leader>fs", grep, desc = "Grep" },
-		{ "<leader>fw", grep_word, desc = "Visual selection or word", mode = { "n", "x" } },
-		{ "<leader>fD", diagnostics, desc = "Diagnostics" },
-		{ "<leader>fd", diagnostics_buffer, desc = "Buffer Diagnostics" },
-		{ "<leader>fh", help, desc = "Help Pages" },
-		{ "<leader>f;", resume, desc = "Resume" },
-		{ "zs", spelling, desc = "Spell Suggestions" },
-		{ "<leader>f.", pickers, desc = "All Pickers" },
-	},
-}
+return M

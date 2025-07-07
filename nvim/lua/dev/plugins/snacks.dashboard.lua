@@ -31,7 +31,7 @@ return {
 						icon = "",
 						key = "b",
 						desc = "Branches",
-						action = [[:lua Snacks.picker.git_branches()]],
+						action = require("core.pickers").git_branches,
 					},
 					{
 						icon = "",
