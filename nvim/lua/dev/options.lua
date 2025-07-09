@@ -4,8 +4,13 @@ vim.keymap.set("n", "<leader>d", function()
 end, { desc = "Show line diagnostics" })
 
 vim.keymap.set("n", "K", function()
+	-- only needed to add border
 	vim.lsp.buf.hover({ border = "rounded" })
 end, { desc = "Show documentation for symbol under cursor" })
+
+vim.keymap.set("n", "<leader><leader>", function()
+	vim.lsp.buf.definition()
+end, { desc = "Go to definiton of current word" })
 
 vim.keymap.set("n", "<leader>i", function()
 	vim.lsp

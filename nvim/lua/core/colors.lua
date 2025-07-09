@@ -1,6 +1,7 @@
 local utils = require("core.utils")
 return function(colors)
 	return {
+		CursorLineNr = { fg = colors.peach },
 		SpelunkerSpellBad = { bg = utils.blend(colors.red, colors.base, 0.2) },
 		SpelunkerComplexOrCompoundWord = { bg = utils.blend(colors.red, colors.base, 0.2) },
 		NeoTreeNormal = { bg = colors.base },

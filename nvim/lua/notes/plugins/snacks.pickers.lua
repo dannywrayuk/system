@@ -39,7 +39,26 @@ local newTemplate = function()
 	})
 end
 
-local tags = function() end
+local tags = function()
+	Snacks.picker({
+		title = "Tags",
+		finder = "proc",
+		cmd = "zsh",
+		args = { "-c", [[rg -oI '#\w+' | sort | uniq]] },
+		format = function(item, picker)
+			return { { " " .. item.text } }
+		end,
+		transform = function(item)
+			item.file = item.text
+		end,
+		confirm = function(picker, item)
+			Snacks.picker.grep_word({
+				title = "Tag: " .. item.file,
+				search = item.file,
+			})
+		end,
+	})
+end
 
 local links = function() end
 
@@ -76,6 +95,7 @@ return {
 		{ "<leader>ff", p.smart, desc = "Smart Find Files" },
 		{ "<leader>fn", daily, desc = "List Daily Notes" },
 		{ "<leader>ft", newTemplate, desc = "New note from template" },
+		{ "<leader>fg", tags, desc = "Find Tags" },
 		{ "<leader>fr", p.recent, desc = "Recent" },
 		{ "<leader>fl", p.lines, desc = "Buffer Lines" },
 		{ "<leader>fo", p.lines_word, desc = "Buffer Word Occurrences" },
