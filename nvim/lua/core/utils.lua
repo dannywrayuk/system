@@ -32,4 +32,14 @@ M.readFile = function(path)
 	return content
 end
 
+M.writeFile = function(path, content)
+	local f = assert(io.open(path, "wb"))
+	f:write(content)
+	f:close()
+end
+
+M.today = function()
+	return os.date("%Y-%m-%d")
+end
+
 return M

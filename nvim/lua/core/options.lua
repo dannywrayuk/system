@@ -148,4 +148,7 @@ vim.keymap.set("n", "zB", ":mkspell! " .. vim.fn.stdpath("config") .. "/spell/en
 -- Open file in github
 vim.keymap.set("n", "<leader>gb", ":lua Snacks.gitbrowse()<CR>")
 
-
+-- go to definition
+vim.keymap.set("n", "<leader><leader>", function()
+	vim.lsp.buf.definition()
+end, { desc = "Go to definiton of current word" })

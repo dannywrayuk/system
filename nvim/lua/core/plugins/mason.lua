@@ -32,6 +32,7 @@ return {
 				-- "denols",
 				"rnix",
 				"gopls",
+				"marksman",
 			},
 			automatic_installation = true,
 		})

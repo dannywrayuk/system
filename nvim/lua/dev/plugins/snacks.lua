@@ -5,7 +5,6 @@ return {
 	opts = {
 		gitbrowse = {
 			enabled = true,
-			branch = vim.fn.trim(vim.fn.system("git main-branch")),
 		},
 		indent = {
 			enabled = true,
