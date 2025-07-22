@@ -39,3 +39,8 @@ vim.api.nvim_create_user_command("Today", function()
 end, {})
 
 vim.api.nvim_create_user_command("NewTemplate", require("notes.pickers").newTemplate, {})
+
+vim.keymap.set("n", "<leader>d", function()
+	local today = utils.today()
+	vim.api.nvim_put({ today }, "c", true, true)
+end, { noremap = true, silent = true })
