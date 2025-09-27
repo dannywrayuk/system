@@ -63,6 +63,7 @@ M.directory = function()
 			item.dir = true
 		end,
 		confirm = function(picker, item)
+			picker:close()
 			M.explorer({
 				cwd = vim.fs.joinpath(gitroot, item.file),
 				follow_file = false,
@@ -72,7 +73,10 @@ M.directory = function()
 end
 
 M.recent = function()
-	Snacks.picker.recent({ focus = "list" })
+	Snacks.picker.recent({
+		focus = "list",
+		layout = { preset = "sidebar" },
+	})
 end
 
 M.git_branches = function()
@@ -124,15 +128,23 @@ M.lines_word = function()
 end
 
 M.grep = function()
-	Snacks.picker.grep()
+	Snacks.picker.grep({
+		layout = { preset = "sidebar" },
+	})
 end
 
 M.grep_word = function()
-	Snacks.picker.grep_word({ focus = "list" })
+	Snacks.picker.grep_word({
+		focus = "list",
+		layout = { preset = "sidebar" },
+	})
 end
 
 M.diagnostics = function()
-	Snacks.picker.diagnostics({ focus = "list" })
+	Snacks.picker.diagnostics({
+		focus = "list",
+		layout = { preset = "sidebar" },
+	})
 end
 
 M.diagnostics_buffer = function()
