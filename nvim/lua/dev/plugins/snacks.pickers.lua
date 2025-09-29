@@ -19,6 +19,13 @@ return {
 			layouts = {
 				dannywrayuk = p.layout,
 			},
+			win = {
+				list = {
+					keys = {
+						["s"] = { "edit_vsplit", desc = "Open in split", mode = { "n" } },
+					},
+				},
+			},
 		},
 		explorer = {
 			enabled = true,
