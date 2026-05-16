@@ -60,13 +60,12 @@ vim.lsp.config("vtsls", {
 })
 
 vim.lsp.config("gopls", {
-	cmd = { "env", "GO111MODULE=off", "gopls", "-remote=auto" },
+	cmd = { "gopls", "-remote=auto" },
 	settings = {
 		gopls = {
 			buildFlags = { "-tags=integration" },
 			staticcheck = true,
 			expandWorkspaceToModule = false,
-			["local"] = "github.com/monzo/wearedev",
 		},
 	},
 	root_dir = getRootDir({ "README.md", "main.go", "go.mod", "LICENSE", ".git" }),

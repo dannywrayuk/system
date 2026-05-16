@@ -59,9 +59,9 @@ let
     "pam-reattach"
     "ripgrep"
     "rustup"
-    "tree-sitter"
     "wezterm"
   ];
+
   casks = [
     "surfshark"
     "firefox"
@@ -69,9 +69,6 @@ let
   ];
   brews = [ ];
   programs = { pkgs, ... }: {
-    neovim = {
-      defaultEditor = true;
-    };
     fzf = {
       enableZshIntegration = true;
       defaultOptions = [ "--color 16" ];
