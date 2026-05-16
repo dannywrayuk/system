@@ -377,7 +377,6 @@ Snacks.setup({
 		sources = {
 			explorer = {
 				layout = {
-					preset = "select",
 					hidden = { "input" },
 				},
 				auto_close = true,
@@ -439,6 +438,20 @@ Snacks.setup({
 				focus = "list",
 				layout = {
 					fullscreen = true,
+				},
+				win = {
+					list = {
+						keys = {
+							["s"] = "git_stage",
+							["x"] = "git_restore",
+						},
+					},
+					input = {
+						keys = {
+							["s"] = "git_stage",
+							["x"] = "git_restore",
+						},
+					},
 				},
 			},
 			lines = {
