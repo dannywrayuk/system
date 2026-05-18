@@ -3,8 +3,6 @@
 
 -- manual lazy loading of plugins? like only load lualine when a buffer is opened or something
 
--- git seems to be a bit broken
-
 -- Options
 
 -- Leader
