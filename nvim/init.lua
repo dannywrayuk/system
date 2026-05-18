@@ -1,3 +1,10 @@
+-- Maybe I could do somehting baout clipboard pasting?
+-- swap registers or something?
+
+-- manual lazy loading of plugins? like only load lualine when a buffer is opened or something
+
+-- git seems to be a bit broken
+
 -- Options
 
 -- Leader
@@ -13,7 +20,7 @@ vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
--- Floating window  borders
+-- Floating window borders
 vim.o.winborder = "single"
 
 -- Tabs
@@ -158,6 +165,7 @@ local readFile = function(path)
 	f:close()
 	return content
 end
+
 local toRGB = function(col)
 	col = string.lower(col)
 	return { tonumber(col:sub(2, 3), 16), tonumber(col:sub(4, 5), 16), tonumber(col:sub(6, 7), 16) }
@@ -224,7 +232,7 @@ end, { desc = "Sync plugins with lockfile" })
 
 -- Treesitter
 vim.pack.add({ { src = gh("nvim-treesitter/nvim-treesitter"), branch = "main" } })
-local ensure_installed = {
+require("nvim-treesitter").install({
 	"json",
 	"javascript",
 	"typescript",
@@ -243,8 +251,7 @@ local ensure_installed = {
 	"query",
 	"swift",
 	"go",
-}
-require("nvim-treesitter").install(ensure_installed)
+})
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "*",
@@ -252,12 +259,10 @@ vim.api.nvim_create_autocmd("FileType", {
 		local buf = args.buf
 		local ft = vim.bo[buf].filetype
 		local lang = vim.treesitter.language.get_lang(ft)
-
 		if not lang then
 			return
 		end
 
-		-- load parser and start treesitter safely
 		pcall(vim.treesitter.language.add, lang)
 		pcall(vim.treesitter.start, buf, lang)
 	end,
@@ -279,43 +284,44 @@ require("catppuccin").setup({
 	},
 	custom_highlights = function(colors)
 		return {
+			BlinkCmpDoc = { link = "Pmenu" },
+			BlinkCmpDocBorder = { link = "Pmenu" },
+			BlinkCmpDocSeparator = { link = "Pmenu" },
+			CopilotSuggestion = { fg = colors.yellow, bg = blend(colors.yellow, colors.base, 0.2) },
+			Conditional = { link = "Keyword" },
 			CursorLineNr = { fg = colors.peach },
-			SpelunkerSpellBad = { underdouble = true },
-			SpelunkerComplexOrCompoundWord = { link = "SpelunkerSpellBad" },
-			NeoTreeGitUntracked = { link = "NeoTreeGitAdded" },
-			WinSeparator = { fg = colors.blue },
-			NormalFloat = { bg = colors.base },
+			Delimiter = { fg = colors.blue },
+			EndOfBuffer = { fg = colors.base },
 			FloatBorder = { bg = colors.base, fg = colors.blue },
 			FloatTitle = { bg = colors.base, fg = colors.peach },
-			Pmenu = { bg = colors.base },
-			BlinkCmpDocBorder = { link = "Pmenu" },
-			BlinkCmpDoc = { link = "Pmenu" },
-			BlinkCmpDocSeparator = { link = "Pmenu" },
+			NeoTreeGitUntracked = { link = "NeoTreeGitAdded" },
+			NormalFloat = { bg = colors.base },
 			Number = { fg = colors.mauve },
-			Delimiter = { fg = colors.blue },
-			Conditional = { link = "Keyword" },
+			Operator = { fg = colors.blue },
+			Pmenu = { bg = colors.base },
+			SpelunkerComplexOrCompoundWord = { link = "SpelunkerSpellBad" },
+			SpelunkerSpellBad = { underdouble = true },
+			Type = { fg = colors.teal },
+			WinSeparator = { fg = colors.blue },
+			["@constant.builtin"] = { fg = colors.pink },
+			["@function.builtin"] = { fg = colors.sapphire },
+			["@module"] = { fg = colors.peach },
+			["@parameter"] = { fg = colors.peach },
+			["@property"] = { fg = colors.maroon },
 			["@punctuation"] = { fg = colors.red },
 			["@punctuation.bracket"] = { fg = colors.red },
-			["@parameter"] = { fg = colors.peach },
-			["@module"] = { fg = colors.peach },
+			["@string.documentation"] = { fg = colors.blue },
+			["@type.builtin"] = { fg = colors.pink },
 			["@variable"] = { fg = colors.yellow },
 			["@variable.member"] = { fg = colors.maroon },
-			["@property"] = { fg = colors.maroon },
-			["@function.builtin"] = { fg = colors.sapphire },
-			["Type"] = { fg = colors.teal },
-			["@type.builtin"] = { fg = colors.pink },
-			["@constant.builtin"] = { fg = colors.pink },
-			["Operator"] = { fg = colors.blue },
-			["@string.documentation"] = { fg = colors.blue },
-			CopilotSuggestion = { fg = colors.yellow, bg = blend(colors.yellow, colors.base, 0.2) },
-			SnacksDashboardHeader = { fg = "#ffca1e" },
-			SnacksDashboardFooter = { fg = "#ffca1e" },
 			SnacksDashboardDesc = { fg = "#ffca1e" },
-			SnacksDashboardSpecial = { fg = colors.red },
 			SnacksDashboardFile = { fg = "#ffca1e" },
+			SnacksDashboardFooter = { fg = "#ffca1e" },
+			SnacksDashboardHeader = { fg = "#ffca1e" },
 			SnacksDashboardIcon = { fg = colors.peach },
-			SnacksDashboardTitle = { fg = "#ffca1e" },
 			SnacksDashboardKey = { fg = colors.red },
+			SnacksDashboardSpecial = { fg = colors.red },
+			SnacksDashboardTitle = { fg = "#ffca1e" },
 		}
 	end,
 })
@@ -325,7 +331,7 @@ vim.cmd([[colorscheme catppuccin]])
 
 -- Snacks
 vim.pack.add({ gh("folke/snacks.nvim") })
-Snacks = require("snacks")
+local Snacks = require("snacks")
 Snacks.setup({
 	dashboard = {
 		enabled = true,
@@ -348,21 +354,9 @@ Snacks.setup({
 		sections = {
 			{ section = "header" },
 			{ section = "recent_files", padding = 2, cwd = true },
-			{ section = "keys", padding = 2, gap = 1 },
 		},
 		preset = {
-			keys = {
-				{ icon = "", key = "q", desc = "Quit", action = ":qa" },
-			},
-			header = [[
- ▄▄    ▄   ▄▄▄▄▄▄▄   ▄▄▄▄▄▄▄   ▄▄   ▄▄   ▄▄▄   ▄▄   ▄▄ 
-█  █  █ █ █       █ █       █ █  █ █  █ █   █ █  █▄█  █
-█   █▄█ █ █    ▄▄▄█ █   ▄   █ █  █▄█  █ █   █ █       █
-█       █ █   █▄▄▄▄ █  █ █  █ █       █ █   █ █       █
-█  ▄    █ █    ▄▄▄█ █  █▄█  █ █       █ █   █ █       █
-█ █ █   █ █   █▄▄▄▄ █       █ ██     ██ █   █ █ ██▄██ █
-█▄█  █▄▄█ █▄▄▄▄▄▄▄█ █▄▄▄▄▄▄▄█   █▄▄▄█   █▄▄▄█ █▄█   █▄█
-                                                    btw]],
+			header = "neovim",
 		},
 	},
 	gitbrowse = { enabled = true },
@@ -569,7 +563,7 @@ end, { desc = "Find directory" })
 
 -- Formatting
 vim.pack.add({ gh("stevearc/conform.nvim") })
-Conform = require("conform")
+local Conform = require("conform")
 vim.api.nvim_create_autocmd("BufWritePre", {
 	callback = function()
 		Conform.format({
@@ -783,8 +777,7 @@ vim.pack.add({ {
 	src = gh("saghen/blink.cmp"),
 	version = "v1.10.2",
 } })
-Blink = require("blink.cmp")
-Blink.setup({
+require("blink.cmp").setup({
 	cmdline = {
 		enabled = true,
 		completion = {
