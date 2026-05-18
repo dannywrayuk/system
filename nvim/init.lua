@@ -1,8 +1,3 @@
--- Maybe I could do somehting baout clipboard pasting?
--- swap registers or something?
-
--- manual lazy loading of plugins? like only load lualine when a buffer is opened or something
-
 -- Options
 
 -- Leader
