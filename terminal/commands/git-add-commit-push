@@ -5,8 +5,7 @@ function commit(){
   echo "Committing..."
   echo 'Commit Message:'
   git add --all
-  COMMIT=""
-  vared -M emacs COMMIT
+  read COMMIT
   echo '\n'
   git commit -m $COMMIT --no-verify
 }
