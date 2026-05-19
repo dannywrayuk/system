@@ -14,7 +14,7 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 
 -- Floating window borders
-vim.o.winborder = "single"
+vim.opt.winborder = "single"
 
 -- Tabs
 vim.opt.tabstop = 2
@@ -277,9 +277,9 @@ require("catppuccin").setup({
 	},
 	custom_highlights = function(colors)
 		return {
-			BlinkCmpDoc = { link = "Pmenu" },
-			BlinkCmpDocBorder = { link = "Pmenu" },
-			BlinkCmpDocSeparator = { link = "Pmenu" },
+			BlinkCmpMenuBorder = { bg = colors.base, fg = colors.blue },
+			BlinkCmpDocBorder = { bg = colors.base, fg = colors.peach },
+			BlinkCmpDocSeparator = { fg = colors.surface0 },
 			CopilotSuggestion = { fg = colors.yellow, bg = blend(colors.yellow, colors.base, 0.2) },
 			Conditional = { link = "Keyword" },
 			CursorLineNr = { fg = colors.peach },
@@ -728,7 +728,7 @@ vim.lsp.config("vtsls", {
 })
 
 vim.lsp.config("gopls", {
-	cmd = { "gopls", "-remote=auto" },
+	cmd = { "env", "GO111MODULE=off", "gopls", "-remote=auto" },
 	settings = {
 		gopls = {
 			buildFlags = { "-tags=integration" },
@@ -748,6 +748,8 @@ vim.lsp.config("gopls", {
 			tidy = true,
 		},
 	},
+	ignoredRootPaths = { "$HOME/src/github.com/monzo/wearedev/" },
+	memoryMode = "DegradeClosed",
 })
 
 vim.lsp.config("lua_ls", {
