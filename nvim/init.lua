@@ -434,12 +434,16 @@ Snacks.setup({
 						keys = {
 							["s"] = "git_stage",
 							["x"] = "git_restore",
+							["c"] = "git_commit",
+							["r"] = "refresh",
 						},
 					},
 					input = {
 						keys = {
 							["s"] = "git_stage",
 							["x"] = "git_restore",
+							["c"] = "git_commit",
+							["r"] = "refresh",
 						},
 					},
 				},
@@ -474,11 +478,45 @@ Snacks.setup({
 				vim.cmd("cd" .. picker:dir())
 			end,
 			copy_loc = function(_, item)
-				---@diagnostic disable-next-line: param-type-mismatch
 				local cwd = vim.fn.getcwd()
 				local relative_path = vim.fs.relpath(cwd, item.file)
 				vim.fn.setreg("+", relative_path)
 				print("Copied path: " .. relative_path)
+			end,
+			refresh = function(picker)
+				picker:refresh()
+			end,
+			git_commit = function(picker)
+				Snacks.input.input({
+					prompt = "Commit message",
+				}, function(message)
+					Snacks.picker.util.cmd({ "git", "commit", "-m", message }, function()
+						picker:refresh()
+					end)
+				end)
+			end,
+			git_restore = function(picker)
+				local items = picker:selected({ fallback = true })
+				if #items == 0 then
+					return
+				end
+				Snacks.picker.util.confirm("Discard changes?", function()
+					local done = 0
+					for _, item in ipairs(items) do
+						if not item.status or string.sub(item.status, 2, 2) == " " then
+							Snacks.notify.error("Can't restore this change", { title = "Snacks Picker" })
+						end
+						Snacks.picker.util.cmd({ "git", "restore", item.file }, function()
+							done = done + 1
+							if done == #items then
+								vim.schedule(function()
+									picker:refresh()
+									vim.cmd.checktime()
+								end)
+							end
+						end, { cwd = item.cwd })
+					end
+				end)
 			end,
 		},
 	},
@@ -672,7 +710,7 @@ require("lualine").setup({
 			},
 		},
 		{
-			filetypes = { "NeogitStatus", "TelescopePrompt", "snacks_input" },
+			filetypes = { "TelescopePrompt", "snacks_input" },
 			sections = {
 				lualine_a = { mode },
 				lualine_c = {},
@@ -728,7 +766,7 @@ vim.lsp.config("vtsls", {
 })
 
 vim.lsp.config("gopls", {
-	cmd = { "env", "GO111MODULE=off", "gopls", "-remote=auto" },
+	cmd = { "gopls", "-remote=auto" },
 	settings = {
 		gopls = {
 			buildFlags = { "-tags=integration" },
@@ -748,8 +786,6 @@ vim.lsp.config("gopls", {
 			tidy = true,
 		},
 	},
-	ignoredRootPaths = { "$HOME/src/github.com/monzo/wearedev/" },
-	memoryMode = "DegradeClosed",
 })
 
 vim.lsp.config("lua_ls", {
@@ -815,3 +851,5 @@ require("blink.cmp").setup({
 		["<S-Right>"] = { "show", "show_documentation", "hide_documentation", "fallback" },
 	},
 })
+
+require("local")
