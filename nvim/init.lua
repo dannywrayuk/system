@@ -435,7 +435,6 @@ Snacks.setup({
 							["s"] = "git_stage",
 							["x"] = "git_restore",
 							["c"] = "git_commit",
-							["p"] = "git_push",
 							["r"] = "refresh",
 						},
 					},
@@ -444,7 +443,6 @@ Snacks.setup({
 							["s"] = "git_stage",
 							["x"] = "git_restore",
 							["c"] = "git_commit",
-							["p"] = "git_push",
 							["r"] = "refresh",
 						},
 					},
@@ -496,12 +494,6 @@ Snacks.setup({
 						picker:refresh()
 						print(table.concat(out, "\n"))
 					end)
-				end)
-			end,
-			git_push = function(picker)
-				Snacks.picker.util.cmd({ "git", "push", "--no-verify" }, function(out)
-					picker:refresh()
-					print(table.concat(out, "\n"))
 				end)
 			end,
 			git_restore = function(picker)
