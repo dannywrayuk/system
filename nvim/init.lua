@@ -490,9 +490,16 @@ Snacks.setup({
 				Snacks.input.input({
 					prompt = "Commit message",
 				}, function(message)
-					Snacks.picker.util.cmd({ "git", "commit", "-m", message }, function()
+					Snacks.picker.util.cmd({ "git", "commit", "-m", message }, function(out)
 						picker:refresh()
+						print(out)
 					end)
+				end)
+			end,
+			git_push = function(picker)
+				Snacks.picker.util.cmd({ "git", "push", "--no-verify" }, function(out)
+					picker:refresh()
+					print(out)
 				end)
 			end,
 			git_restore = function(picker)
