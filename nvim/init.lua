@@ -271,9 +271,15 @@ vim.pack.add({
 	gh("catgoose/nvim-colorizer.lua"),
 })
 require("colorizer").setup()
+
+-- load custom palette colors from file, if it fails just use the default catppuccin colors
+local _, palette = pcall(function()
+	return vim.json.decode(readFile(vim.fn.expand("$HOME/.config/system/colors/palette.json")))
+end)
+
 require("catppuccin").setup({
 	color_overrides = {
-		all = vim.json.decode(readFile(vim.fn.expand("$HOME/.config/system/colors/palette.json"))),
+		all = palette,
 	},
 	custom_highlights = function(colors)
 		return {
