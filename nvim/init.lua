@@ -310,6 +310,7 @@ require("catppuccin").setup({
 			["@type.builtin"] = { fg = colors.pink },
 			["@variable"] = { fg = colors.yellow },
 			["@variable.member"] = { fg = colors.maroon },
+			["@variable.parameter"] = { fg = colors.peach },
 			SnacksDashboardDesc = { fg = "#ffca1e" },
 			SnacksDashboardFile = { fg = "#ffca1e" },
 			SnacksDashboardFooter = { fg = "#ffca1e" },
@@ -853,4 +854,4 @@ require("blink.cmp").setup({
 	},
 })
 
-require("local")
+pcall(require, "local")
