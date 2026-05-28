@@ -1,0 +1,17 @@
+[user]
+    name = Danny Wray
+    email = 48837241+dannywrayuk@users.noreply.github.com
+[core]
+    editor = nvim
+    autocrlf = input
+[push]
+    autoSetupRemote = true
+[pull]
+    rebase = true
+[rebase]
+    autoStash = true
+[advice]
+    statusHints = false
+[credential]
+	  helper = 
+	  helper = /usr/local/share/gcm-core/git-credential-manager

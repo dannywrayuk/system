@@ -1,6 +1,6 @@
 return function(wezterm)
 	local M = {}
-	local gitPath = "/etc/profiles/per-user/" .. os.getenv("USER") .. "/bin/git"
+	local gitPath = "usr/bin/git"
 
 	M.branch = function(cwd)
 		if cwd == nil or cwd == "-" then

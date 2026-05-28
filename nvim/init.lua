@@ -373,6 +373,8 @@ Snacks.setup({
 		enable = true,
 		sources = {
 			explorer = {
+				exclude = { ".git", ".DS_Store" },
+				hidden = true,
 				layout = {
 					hidden = { "input" },
 				},
@@ -441,16 +443,12 @@ Snacks.setup({
 						keys = {
 							["s"] = "git_stage",
 							["x"] = "git_restore",
-							["c"] = "git_commit",
-							["r"] = "refresh",
 						},
 					},
 					input = {
 						keys = {
 							["s"] = "git_stage",
 							["x"] = "git_restore",
-							["c"] = "git_commit",
-							["r"] = "refresh",
 						},
 					},
 				},
@@ -490,19 +488,6 @@ Snacks.setup({
 				vim.fn.setreg("+", relative_path)
 				print("Copied path: " .. relative_path)
 			end,
-			refresh = function(picker)
-				picker:refresh()
-			end,
-			git_commit = function(picker)
-				Snacks.input.input({
-					prompt = "Commit message",
-				}, function(message)
-					Snacks.picker.util.cmd({ "git", "commit", "-m", message }, function(out)
-						picker:refresh()
-						print(table.concat(out, "\n"))
-					end)
-				end)
-			end,
 			git_restore = function(picker)
 				local items = picker:selected({ fallback = true })
 				if #items == 0 then
@@ -531,8 +516,6 @@ Snacks.setup({
 	explorer = {
 		enabled = true,
 		replace_netrw = true,
-		exclude = { ".git", ".DS_Store" },
-		hidden = true,
 	},
 	quickfile = { enabled = true },
 })
