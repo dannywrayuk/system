@@ -24,6 +24,7 @@ alias -- ....='cd ../../..'
 alias -- .....='cd ../../../..'
 alias -- '~'='cd ~'
 alias -- :q=exit
+alias -- :qa="osascript -e 'quit app \"Wezterm\"'"
 alias -- g=git
 alias -- ga='git add'
 alias -- gaa='git add --all'
