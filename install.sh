@@ -55,7 +55,7 @@ killall Dock
 killall Finder
 killall SystemUIServer
 
-#Hammerspoon config location
+# Hammer spoon config location
 defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"
 
 # Setup symlinks
@@ -77,5 +77,5 @@ if [ ! -e "~/.config/sessionizer_paths" ]; then
   printf '%s\n' "project" > ~/.config/sessionizer_paths
 fi
 
+# Install Homebrew packages
 brew bundle --global --no-upgrade
-
