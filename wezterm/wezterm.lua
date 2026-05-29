@@ -9,9 +9,6 @@ config.inactive_pane_hsb = {
 }
 config.font = wezterm.font("FiraCode Nerd Font Mono")
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
-config.set_environment_variables = {
-	TERMINFO_DIRS = "/home/user/.nix-profile/share/terminfo",
-}
 config.term = "wezterm"
 
 config.window_decorations = "RESIZE"

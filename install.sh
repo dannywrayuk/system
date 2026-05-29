@@ -62,7 +62,7 @@ defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/i
 ln -s ~/.config/system/zsh/.zshenv ~/.zshenv
 mkdir -p ~/.config/zsh
 ln -s ~/.config/system/zsh/.zshrc ~/.config/zsh/.zshrc
-ln -s ~/.config/system/Brewfile ~/Brewfile
+ln -s ~/.config/system/Brewfile ~/.Brewfile
 ln -s ~/.config/system/gitconfig ~/.gitconfig
 ln -s ~/.config/system/nvim ~/.config
 ln -s ~/.config/system/wezterm ~/.config
@@ -71,10 +71,18 @@ ln -s ~/.config/system/hammerspoon ~/.config
 
 touch ~/.hushlogin
 
+if [ -d "$HOME/.terminfo" ]; then
+  echo "~/.terminfo already exists; skipping install."
+else
+  tempfile=$(mktemp) \
+    && curl -o "$tempfile" https://raw.githubusercontent.com/wezterm/wezterm/main/termwiz/data/wezterm.terminfo \
+    && tic -x -o "$HOME/.terminfo" "$tempfile" \
+    && rm "$tempfile"
+fi
+
 mkdir -p ~/project
-if [ ! -e "~/.config/sessionizer_paths" ]; then
-  touch ~/.config/sessionizer_paths
-  printf '%s\n' "project" > ~/.config/sessionizer_paths
+if [ ! -e "$HOME/.config/sessionizer_paths" ]; then
+  printf '%s\n' "project" > "$HOME/.config/sessionizer_paths"
 fi
 
 # Install Homebrew packages
