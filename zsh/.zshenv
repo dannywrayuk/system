@@ -11,6 +11,7 @@ path+=(
 )
 
 export SHELL_SESSIONS_DISABLE=1
+export HOMEBREW_NO_AUTO_UPDATE=1
 export HISTSIZE="10000"
 export SAVEHIST="10000"
 export HISTFILE="$ZDOTDIR/zsh_history"
