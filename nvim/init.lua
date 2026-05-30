@@ -380,6 +380,7 @@ Snacks.setup({
         hidden = true,
         layout = {
           hidden = { "input" },
+          layout = { position = "right" },
         },
         auto_close = true,
         jump = {
